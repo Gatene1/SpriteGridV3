@@ -1,33 +1,33 @@
 body { font-family: "Trebuchet MS"; margin: 0px; }
-.divTitle   { position: absolute;  background-color: darkgreen; width: 49%; height: 100%; top: 0px; left: 2.60%;
+.divTitle   { position: absolute;  background-color: darkgreen; width: 54%; height: 100%; top: 0px; left: 2.60%;
               padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
               border: 2px solid #000000; user-select: none; -webkit-user-select: none;
               -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-              flex-wrap: nowrap; }
+              flex-wrap: nowrap; overflow: scroll; }
 
-.divTitle2   { position: absolute;  background-color: darkgreen; width: 300px; height: 300px; bottom: 0px; left: 51.75%;
+.divTitle2   { position: absolute;  background-color: darkgreen; width: 300px; height: 300px; bottom: 0px; left: 57.00%;
     padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; }
+    flex-wrap: nowrap; overflow: clip; }
 
-.divTitle3   { position: absolute;  background-color: darkgreen; width: 30%; height: 60%; top: 0px; left: 51.75%;
+.divTitle3   { position: absolute;  background-color: darkgreen; width: 25%; height: 60%; top: 0px; left: 57.00%;
     padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; }
+    flex-wrap: nowrap; overflow: clip; }
 
 .divTitle4   { position: absolute;  background-color: darkgreen; width: 300px; height: 50%; top: 0px; right: 0px;
     padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; }
+    flex-wrap: nowrap; overflow: clip; }
 
 .divTitle5   { position: absolute;  background-color: darkgreen; width: 300px; height: 49%; bottom: 0px; right: 0px;
     padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; }
+    flex-wrap: nowrap; overflow: clip; }
 
 .divSide1 {position: relative; background-color: darkgreen; width: 2.3%; height: 20%; top: 0px; left: 0px;
         border: solid black 2px; visibility: hidden; font-weight: bold; color: #ffffff; text-align: center;
@@ -51,9 +51,16 @@ body { font-family: "Trebuchet MS"; margin: 0px; }
 
 .divTitleBreakDown { display: flex; flex-direction: row; justify-content: space-between; flex-wrap: nowrap; }
 
-.divInnerBottomFlex { background-color: #ffffff; height: 100%; color: #000000; padding: 3px; }
+.divInnerBottomFlexGrid { background-color: #ffffff; width: 200%; height: 100%; color: #000000; padding: 3px;
+                          display: flex; flex-direction: row; justify-content: flex-start; }
+
+.divInnerBottomFlex { background-color: #ffffff; height: 100%; color: #000000; padding: 3px; display: flex;
+    flex-direction: row; justify-content: flex-start; }
 
 .seven { width: 7%; cursor: pointer; }
 .ten { width: 10%; cursor: pointer; }
 .eightyThree { width: 83%;  text-align: center; cursor: grab; }
+
+#gridSizeRangeText { width: 150px; font-weight: bold; }
+#cellSizeRangeText { width: 150px; font-weight: bold; }
 

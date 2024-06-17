@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <!-- Minimized Window Section Elements //-->
     <div id="divSide1" class="divSide1">
         G<br>R<br>I<br>D<br>
     </div>
@@ -28,6 +29,7 @@
     <div id="divSide5" class="divSide5">
         F<br>I<br>L<br>E<br>
     </div>
+    <!-- End Minimized Window Section Elements //-->
 
     <!-- First Window (Grid) //-->
     <div id="littleWindowHW" class="divTitle">
@@ -36,8 +38,21 @@
             <div id="titleBarHW" class="eightyThree">Working Grid</div>
             <div id="closeHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
-        <div class="divInnerBottomFlex">
-            GoodBye World!
+        <div class="divInnerBottomFlexGrid">
+            <div>
+                <canvas id = "canvasGrid" width="775" height="775"> </canvas>
+            </div>
+            <div class="input-group-sm">
+                <label for="gridSizeRange" class="form-label">Choose Grid Size:</label><br>
+                <input type="range" min="4" max="32" step="4" id="gridSizeRange"><br>
+                <input type="text" disabled="true" class="form-control" id="gridSizeRangeText" value="Disabled input">
+                <br><br>
+
+                <label for="cellSizeRange" class="form-label">Choose Cell Size:</label><br>
+                <input type="range" min="2" max="24" step="2" id="cellSizeRange"><br>
+                <input type="text" disabled="true" id="cellSizeRangeText" class="form-control"><br>
+                <button type="button" class="btn btn-primary" data-bs-toggle="button">Reset Grid</button>
+            </div>
         </div>
     </div>
     <!-- End First Window (Grid) //-->
@@ -95,6 +110,8 @@
     <!-- End Fifth Window (File Saving) //-->
 
     <script type="text/javascript" src="sg3.js"></script>
+    <script type="text/javascript" src="sg3_Grid.js"></script>
+    <script type="text/javascript" src="sg3_Draw.js"></script>
     <script type="text/javascript" src="sg3_Window.js"></script>
     <script type="text/javascript" src="sg3_Mouse.js"></script>
 </body>

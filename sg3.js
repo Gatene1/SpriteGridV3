@@ -1,3 +1,19 @@
+// Vars for Web App
+        const FRAMES_PER_SECOND = 30;
+        const CANVAS_GRID_WIDTH = 775;
+        const CANVAS_GRID_HEIGHT = 775;
+        const GRID_BORDER_COLOR = "#a0a0a0";
+        const GRID_FILL_COLOR = "whitesmoke";
+
+        var canvasGrid, canvasGridCTX;
+        var pixelsPerUnit = 2;
+        var gridSize = 16;
+        var cellSize = 24;
+        var gridSizeRange = document.getElementById("gridSizeRange");
+        var gridSizeRangeText = document.getElementById("gridSizeRangeText");
+        var cellSizeRange = document.getElementById("cellSizeRange");
+        var cSizeRangeText = document.getElementById("cellSizeRangeText");
+
 // Vars for every window
         var windowZ = [0, 1, 2, 3, 4];
 
@@ -57,30 +73,16 @@
         var divSide5 = document.getElementById("divSide5");
 
 window.onload = function() {
-    divTitleLeft = littleWindow.style.left;
-    divTitleTop = littleWindow.style.top;
-    divTitleWidth = littleWindow.style.width;
-    divTitleHeight = littleWindow.style.height;
+    // Web App Code
+    gridSizeRange.value = gridSize;
+    gridSizeRangeText.value = gridSize + " X " + gridSize;
+    cellSizeRange.value = cellSize;
+    cSizeRangeText.value = cellSize + " Pixels";
 
-    divTitle2Left = prevLittleWindow.style.left;
-    divTitle2Top = prevLittleWindow.style.top;
-    divTitle2Width = prevLittleWindow.style.width;
-    divTitle2Height = prevLittleWindow.style.height;
+    canvasGrid = document.getElementById("canvasGrid");
+    canvasGridCTX = canvasGrid.getContext('2d');
 
-    divTitle3Left = colorLittleWindow.style.left;
-    divTitle3Top = colorLittleWindow.style.top;
-    divTitle3Width = colorLittleWindow.style.width;
-    divTitle3Height = colorLittleWindow.style.height;
-
-    divTitle4Left = outLittleWindow.style.left;
-    divTitle4Top = outLittleWindow.style.top;
-    divTitle4Width = outLittleWindow.style.width;
-    divTitle4Height = outLittleWindow.style.height;
-
-    divTitle5Left = fileLittleWindow.style.left;
-    divTitle5Top = fileLittleWindow.style.top;
-    divTitle5Width = fileLittleWindow.style.width;
-    divTitle5Height = fileLittleWindow.style.height;
+    setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
     // Listeners for whole app.
     divSide1.addEventListener('mousedown', function()
@@ -93,6 +95,8 @@ window.onload = function() {
     { openWindow(3); windowZRearrange(3); windowZRefresh(); }, true);
     divSide5.addEventListener('mousedown', function()
     { openWindow(4); windowZRearrange(4); windowZRefresh(); }, true);
+    cellSizeRange.addEventListener('change', changeCellSize, false);
+    gridSizeRange.addEventListener('change', changeGridSize, false);
 
     // Listeners for First Window (Grid)
     document.addEventListener('mousemove', updateMousePos, true);
@@ -133,4 +137,5 @@ window.onload = function() {
     fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);
     fileGearHW.addEventListener('mousedown', fileGearClick, true);
     fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
+
 }
