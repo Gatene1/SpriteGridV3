@@ -6,13 +6,19 @@
         const GRID_FILL_COLOR = "whitesmoke";
 
         var canvasGrid, canvasGridCTX;
+        var mouseXGrid, mouseYGrid;
         var pixelsPerUnit = 2;
         var gridSize = 16;
         var cellSize = 24;
-        var gridSizeRange = document.getElementById("gridSizeRange");
+        var gridSizeRange = document.getElementById("gridSizeRangeSlider");
+        var cellSizeRange = document.getElementById("cellSizeRangeSlider");
         var gridSizeRangeText = document.getElementById("gridSizeRangeText");
-        var cellSizeRange = document.getElementById("cellSizeRange");
         var cSizeRangeText = document.getElementById("cellSizeRangeText");
+        var gridOutput = document.getElementById("gridOutput");
+
+        var grid = [0];
+        var mouseToGrid;
+        var currColor = "#000000";
 
 // Vars for every window
         var windowZ = [0, 1, 2, 3, 4];
@@ -27,6 +33,7 @@
         var closeHW = document.getElementById("closeHW");
         var window1Color = "Green";
         var divSide1 = document.getElementById("divSide1");
+        var resetGridButton = document.getElementById("resetGridButton");
 
 // Vars for Second Window (Preview)
         var prevLmbDown = false;
@@ -73,11 +80,14 @@
         var divSide5 = document.getElementById("divSide5");
 
 window.onload = function() {
-    // Web App Code
+    //Web App Code
     gridSizeRange.value = gridSize;
-    gridSizeRangeText.value = gridSize + " X " + gridSize;
     cellSizeRange.value = cellSize;
+    gridSizeRangeText.value = gridSize + " X " + gridSize;
     cSizeRangeText.value = cellSize + " Pixels";
+
+    fillArrayWithZeroes();
+    refreshGridOutput();
 
     canvasGrid = document.getElementById("canvasGrid");
     canvasGridCTX = canvasGrid.getContext('2d');
@@ -98,40 +108,40 @@ window.onload = function() {
     cellSizeRange.addEventListener('change', changeCellSize, false);
     gridSizeRange.addEventListener('change', changeGridSize, false);
 
+    // Listeners for the Grid Canvas
+    canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
+    canvasGrid.addEventListener('mousedown', changeCellColor, false);
+
     // Listeners for First Window (Grid)
-    document.addEventListener('mousemove', updateMousePos, true);
     littleWindow.addEventListener('mousedown', littleWindowClick, false);
     titleBar.addEventListener('mousedown', divTitleClick, false);
     titleBar.addEventListener('mouseup', divTitleUnClick, true);
     gearHW.addEventListener('mousedown', gearClick, true);
     closeHW.addEventListener('mousedown', function() { closeWindow(0); }, true);
+    resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
 
     // Listeners for Second Window (Preview)
-    document.addEventListener('mousemove', prevUpdateMousePos, true);
     prevLittleWindow.addEventListener('mousedown', prevLittleWindowClick, false);
     prevTitleBar.addEventListener('mousedown', prevDivTitleClick, false);
     prevTitleBar.addEventListener('mouseup', prevDivTitleUnClick, true);
     prevGearHW.addEventListener('mousedown', prevGearClick, true);
     prevCloseHW.addEventListener('mousedown', function() { closeWindow(1); }, true);
 
-    // Listeners for Third Window (Preview)
-    document.addEventListener('mousemove', colorUpdateMousePos, true);
+    // Listeners for Third Window (Color Iro.js)
     colorLittleWindow.addEventListener('mousedown', colorLittleWindowClick, false);
     colorTitleBar.addEventListener('mousedown', colorDivTitleClick, false);
     colorTitleBar.addEventListener('mouseup', colorDivTitleUnClick, true);
     colorGearHW.addEventListener('mousedown', colorGearClick, true);
     colorCloseHW.addEventListener('mousedown', function() { closeWindow(2); }, true);
 
-    // Listeners for Fourth Window (Preview)
-    document.addEventListener('mousemove', outUpdateMousePos, true);
+    // Listeners for Fourth Window (Output)
     outLittleWindow.addEventListener('mousedown', outLittleWindowClick, false);
     outTitleBar.addEventListener('mousedown', outDivTitleClick, false);
     outTitleBar.addEventListener('mouseup', outDivTitleUnClick, true);
     outGearHW.addEventListener('mousedown', outGearClick, true);
     outCloseHW.addEventListener('mousedown', function() { closeWindow(3); }, true);
 
-    // Listeners for Fifth Window (Preview)
-    document.addEventListener('mousemove', fileUpdateMousePos, true);
+    // Listeners for Fifth Window (File Saving)
     fileLittleWindow.addEventListener('mousedown', fileLittleWindowClick, false);
     fileTitleBar.addEventListener('mousedown', fileDivTitleClick, false);
     fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);

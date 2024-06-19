@@ -43,15 +43,18 @@
                 <canvas id = "canvasGrid" width="775" height="775"> </canvas>
             </div>
             <div class="input-group-sm">
-                <label for="gridSizeRange" class="form-label">Choose Grid Size:</label><br>
-                <input type="range" min="4" max="32" step="4" id="gridSizeRange"><br>
-                <input type="text" disabled="true" class="form-control" id="gridSizeRangeText" value="Disabled input">
+
+                <label for="gridSizeRangeSlider" class="form-label">Choose Grid Size:</label><br>
+                <input type="range" min="4" max="32" step="4" id="gridSizeRangeSlider"><br>
+                <input type="text" disabled class="form-control" id="gridSizeRangeText" value="# X #">
                 <br><br>
 
-                <label for="cellSizeRange" class="form-label">Choose Cell Size:</label><br>
-                <input type="range" min="2" max="24" step="2" id="cellSizeRange"><br>
-                <input type="text" disabled="true" id="cellSizeRangeText" class="form-control"><br>
-                <button type="button" class="btn btn-primary" data-bs-toggle="button">Reset Grid</button>
+
+                <label for="cellSizeRangeSlider" class="form-label">Choose Cell Size:</label><br>
+                <input type="range" min="2" max="24" step="2" id="cellSizeRangeSlider"><br>
+                <input type="text" disabled id="cellSizeRangeText" class="form-control" value="# Pixels"><br>
+                <button type="button" class="btn btn-primary" data-bs-toggle="button" id="resetGridButton">Reset Grid
+                </button>
             </div>
         </div>
     </div>
@@ -91,7 +94,7 @@
             <div id="outCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
         <div class="divInnerBottomFlex">
-            GoodBye World!
+            <textarea id="gridOutput" cols="100%">grid = [ </textarea>
         </div>
     </div>
     <!-- End Fourth Window (Grid Output) //-->

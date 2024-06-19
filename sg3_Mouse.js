@@ -6,6 +6,7 @@
         }
         function divTitleClick(e) {
             e.stopPropagation();
+            document.addEventListener('mousemove', updateMousePos, true);
             lmbDown = true;
             titleBar.style.cursor = "grabbing";
             mousePositionOffset = [
@@ -17,6 +18,7 @@
         function divTitleUnClick() {
             lmbDown = false;
             titleBar.style.cursor = "grab";
+            document.removeEventListener('mousemove', updateMousePos, true);
         }
         function updateMousePos(e) {
             e.preventDefault();
@@ -81,6 +83,7 @@
         }
         function prevDivTitleClick(e) {
             e.stopPropagation();
+            document.addEventListener('mousemove', prevUpdateMousePos, true);
             prevLmbDown = true;
             prevTitleBar.style.cursor = "grabbing";
             prevMousePositionOffset = [
@@ -92,6 +95,7 @@
         function prevDivTitleUnClick() {
             prevLmbDown = false;
             prevTitleBar.style.cursor = "grab";
+            document.removeEventListener('mousemove', prevUpdateMousePos, true);
         }
         function prevUpdateMousePos(e) {
             e.preventDefault();
@@ -155,6 +159,7 @@ function colorLittleWindowClick() {
 }
 function colorDivTitleClick(e) {
     e.stopPropagation();
+    document.addEventListener('mousemove', colorUpdateMousePos, true);
     colorLmbDown = true;
     colorTitleBar.style.cursor = "grabbing";
     colorMousePositionOffset = [
@@ -166,6 +171,8 @@ function colorDivTitleClick(e) {
 function colorDivTitleUnClick() {
     colorLmbDown = false;
     colorTitleBar.style.cursor = "grab";
+
+    document.removeEventListener('mousemove', colorUpdateMousePos, true);
 }
 function colorUpdateMousePos(e) {
     e.preventDefault();
@@ -230,6 +237,7 @@ function outLittleWindowClick() {
 }
 function outDivTitleClick(e) {
     e.stopPropagation();
+    document.addEventListener('mousemove', outUpdateMousePos, true);
     outLmbDown = true;
     outTitleBar.style.cursor = "grabbing";
     outMousePositionOffset = [
@@ -241,6 +249,7 @@ function outDivTitleClick(e) {
 function outDivTitleUnClick() {
     outLmbDown = false;
     outTitleBar.style.cursor = "grab";
+    document.removeEventListener('mousemove', outUpdateMousePos, true);
 }
 function outUpdateMousePos(e) {
     e.preventDefault();
@@ -305,6 +314,7 @@ function fileLittleWindowClick() {
 }
 function fileDivTitleClick(e) {
     e.stopPropagation();
+    document.addEventListener('mousemove', fileUpdateMousePos, true);
     fileLmbDown = true;
     fileTitleBar.style.cursor = "grabbing";
     fileMousePositionOffset = [
@@ -316,6 +326,7 @@ function fileDivTitleClick(e) {
 function fileDivTitleUnClick() {
     fileLmbDown = false;
     fileTitleBar.style.cursor = "grab";
+    document.removeEventListener('mousemove', fileUpdateMousePos, true);
 }
 function fileUpdateMousePos(e) {
     e.preventDefault();
@@ -370,4 +381,23 @@ function fileGearClick() {
             divSide5.style.color = "#ffffff";
             break;
     }
+}
+
+function gridUpdateMousePos(e) {
+// Position of mouse on page.
+    let rect = canvasGrid.getBoundingClientRect();
+    let root = document.documentElement;
+
+    mouseXGrid = e.clientX - rect.left - root.scrollLeft;
+    mouseYGrid = e.clientY - rect.top - root.scrollTop;
+
+    mouseToGrid = (Math.floor(mouseYGrid / cellSize) * gridSize) + Math.floor(mouseXGrid / cellSize);
+
+    gridSizeRangeText.value = gridSizeRange.value + " X " + gridSizeRange.value;
+    cSizeRangeText.value = cellSizeRange.value + " Pixels";
+
+    // If the LMB is pressed down for drag painting.
+    // if (LMBDown) {
+    //     colorChange();
+    // }
 }

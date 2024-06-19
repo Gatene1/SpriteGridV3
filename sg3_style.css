@@ -1,4 +1,4 @@
-body { font-family: "Trebuchet MS"; margin: 0px; }
+body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 .divTitle   { position: absolute;  background-color: darkgreen; width: 54%; height: 100%; top: 0px; left: 2.60%;
               padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
               border: 2px solid #000000; user-select: none; -webkit-user-select: none;
