@@ -1,6 +1,34 @@
 function drawAll() {
+    drawGrid();
+    drawPreviewSquare(100);
+
+}
+
+function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0) {
+    let canvasChoice = canvasGridCTX;
+    let strokeColor = GRID_BORDER_COLOR;
+
+    switch (whichCanvas) {
+        case 0:
+            canvasChoice = canvasGridCTX;
+            strokeColor = GRID_BORDER_COLOR;
+            break;
+        case 1:
+            canvasChoice = colorCanvasCTX;
+            strokeColor = "#000000";
+            break;
+    }
+    canvasChoice.strokeStyle = strokeColor;
+    canvasChoice.lineWidth = 1;
+    if (stroke) canvasChoice.strokeRect(x, y, width, height);
+    canvasChoice.fillStyle = fillColor;
+    canvasChoice.fillRect(x, y, width, height);
+}
+
+function drawGrid() {
     let i, j;
     let currCell, currCellColor;
+
     canvasGridCTX.clearRect(0, 0, 775, 775);
 
     for (i = 0; i < gridSize; i++) {
@@ -16,17 +44,10 @@ function drawAll() {
             drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, true, currCellColor);
         }
     }
-
-
-    // drawSquare(0,0,775, 775, false, "midnightblue");
-
 }
 
-function drawSquare (x, y, width, height, stroke, fillColor) {
-    canvasGridCTX.fillStyle = fillColor;
-    canvasGridCTX.strokeStyle = GRID_BORDER_COLOR;
-    if (stroke) canvasGridCTX.strokeRect(x, y, width, height);
-    canvasGridCTX.fillRect(x, y, width, height);
+function drawPreviewSquare(dimensions) {
+    drawSquare(2, 2, dimensions, dimensions, true, currColor, 1);
 }
 
 function drawText (whatToSay, x, y, fontSize, fontColor) {
@@ -34,3 +55,4 @@ function drawText (whatToSay, x, y, fontSize, fontColor) {
     canvasGridCTX.fillStyle = fontColor;
     canvasGridCTX.fillText(whatToSay, x, y);
 }
+

@@ -10,23 +10,23 @@
 <body>
 
     <!-- Minimized Window Section Elements //-->
-    <div id="divSide1" class="divSide1">
+    <div id="divSide1" class="divSide1"> <!-- Working Grid //-->
         G<br>R<br>I<br>D<br>
     </div>
 
-    <div id="divSide2" class="divSide2">
+    <div id="divSide2" class="divSide2"> <!-- Preview //-->
         S<br>C<br>A<br>L<br>E<br>
     </div>
 
-    <div id="divSide3" class="divSide3">
+    <div id="divSide3" class="divSide3"> <!-- Color Iro.js //-->
         C<br>O<br>L<br>O<br>R<br>
     </div>
 
-    <div id="divSide4" class="divSide4">
+    <div id="divSide4" class="divSide4"> <!-- Grid Output //-->
         O<br>U<br>T<br>P<br>U<br>T<br>
     </div>
 
-    <div id="divSide5" class="divSide5">
+    <div id="divSide5" class="divSide5"> <!-- File Saving //-->
         F<br>I<br>L<br>E<br>
     </div>
     <!-- End Minimized Window Section Elements //-->
@@ -80,8 +80,20 @@
             <div id="colorTitleBarHW" class="eightyThree">Color Selection</div>
             <div id="colorCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
-        <div class="divInnerBottomFlex">
-            GoodBye World!
+        <div class="divInnerBottomFlex4">
+            <div class="divInnerBottomFlex41">
+                <div id="picker"></div>
+                <br>
+                <div id="colorPreviewSquare">
+                    <canvas id="colorPrev" width="110px" height="110px"></canvas>
+                </div>
+                <div id="colorTextbox" class="input-group-sm">
+                    <input type="text" id="colorTextElement" value = "#00ff00">
+                </div>
+            </div>
+            <div id="colorChoose">
+
+            </div>
         </div>
     </div>
     <!-- End Third Window (Color Iro) //-->

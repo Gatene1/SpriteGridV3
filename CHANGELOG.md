@@ -21,3 +21,10 @@
 - Started on and finished the math for figuring out which element of grid[] the mouse hovered over on the "Working Grid".
 - Added the clicking functionality on the Working grid, making the squares filled with the default color, and updated the grid output field when doing so.
 
+# 6/19/24
+- Changed event listener type from 'mousedown' to 'click', so the cell isn't colored when only the mouse is pressed down. _This may have an effect on coloring multiple cells with one click, but I'll figure that out when the time comes._
+- Added boundaries to the click event over the Working Grid canvas, so you can't click past the size of the grid to color a cell.
+- Added the color wheel with Iro.js API.
+- Added the color preview square under the color wheel, and got the functionality working where you change the color in the wheel, it updates.
+- Added the color text box to show the hex value of the color chosen, and added its functionality when changing colors in the color wheel.
+- Changed the font in the Grid Output to Courier New.

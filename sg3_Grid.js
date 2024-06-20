@@ -25,10 +25,10 @@ function refreshGridOutput() {
     // This begins with 0, and ends in - 1, because I want the last element of the grid[] array to not have a ","
     // after it.
     for (i = 0; i < gridSize * gridSize - 1; i++) {
-        gridOutput.value = gridOutput.value + grid[i] + ", ";
+        gridOutput.value = gridOutput.value + "\"" + grid[i] + "\", ";
     }
     // This will show the last value of the grid[] array, and end the output with a "];".
-    gridOutput.value = gridOutput.value + grid[gridSize * gridSize - 1] + "  ];";
+    gridOutput.value = gridOutput.value + "\"" + grid[gridSize * gridSize - 1] + "\"  ];";
 }
 
 function zeroOutRefresh() {
@@ -37,8 +37,10 @@ function zeroOutRefresh() {
 }
 
 function changeCellColor() {
-    grid[mouseToGrid] = currColor;
-    refreshGridOutput();
+    if (Math.floor(mouseXGrid / cellSize) <= gridSize - 1) {
+        grid[mouseToGrid] = currColor;
+        refreshGridOutput();
+    }
 }
 
 function refreshWorkingGrid() {

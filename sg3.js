@@ -5,7 +5,7 @@
         const GRID_BORDER_COLOR = "#a0a0a0";
         const GRID_FILL_COLOR = "whitesmoke";
 
-        var canvasGrid, canvasGridCTX;
+        var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX;
         var mouseXGrid, mouseYGrid;
         var pixelsPerUnit = 2;
         var gridSize = 16;
@@ -18,7 +18,11 @@
 
         var grid = [0];
         var mouseToGrid;
-        var currColor = "#000000";
+
+// Vars for the color picker.
+        var colorPicker = new iro.ColorPicker('#picker', {width: 175, color: "#0f0"});
+        var currColor = colorPicker.color.hexString;
+        var colorTextElement = document.getElementById("colorTextElement");
 
 // Vars for every window
         var windowZ = [0, 1, 2, 3, 4];
@@ -92,6 +96,9 @@ window.onload = function() {
     canvasGrid = document.getElementById("canvasGrid");
     canvasGridCTX = canvasGrid.getContext('2d');
 
+    colorCanvas = document.getElementById("colorPrev");
+    colorCanvasCTX = colorCanvas.getContext('2d');
+
     setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
     // Listeners for whole app.
@@ -108,9 +115,12 @@ window.onload = function() {
     cellSizeRange.addEventListener('change', changeCellSize, false);
     gridSizeRange.addEventListener('change', changeGridSize, false);
 
+    // Listeners for the Color Iro.js
+    colorPicker.on('color:change', function(color) { currColor = colorPicker.color.hexString; colorTextElement.value = currColor; });
+
     // Listeners for the Grid Canvas
     canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
-    canvasGrid.addEventListener('mousedown', changeCellColor, false);
+    canvasGrid.addEventListener('click', changeCellColor, false);
 
     // Listeners for First Window (Grid)
     littleWindow.addEventListener('mousedown', littleWindowClick, false);
