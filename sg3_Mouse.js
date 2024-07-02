@@ -393,6 +393,28 @@ function gridUpdateMousePos(e) {
 
     mouseToGrid = (Math.floor(mouseYGrid / cellSize) * gridSize) + Math.floor(mouseXGrid / cellSize);
 
+
+
+    // If the LMB is pressed down for drag painting.
+     if (lmbDown) {
+         changeCellColor();
+     }
+
+     if (rmbDown) {
+         RMB();
+     }
+}
+
+function gridUpdateMousePosColorChoose(e) {
+// Position of mouse on page.
+    let rect = colorChooseRow1.getBoundingClientRect();
+    let root = document.documentElement;
+
+    mouseXGrid = e.clientX - rect.left - root.scrollLeft;
+    mouseYGrid = e.clientY - rect.top - root.scrollTop;
+
+    mouseToGrid = (Math.floor(mouseYGrid / cellSize) * gridSize) + Math.floor(mouseXGrid / cellSize);
+
     gridSizeRangeText.value = gridSizeRange.value + " X " + gridSizeRange.value;
     cSizeRangeText.value = cellSizeRange.value + " Pixels";
 

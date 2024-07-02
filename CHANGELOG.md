@@ -28,3 +28,19 @@
 - Added the color preview square under the color wheel, and got the functionality working where you change the color in the wheel, it updates.
 - Added the color text box to show the hex value of the color chosen, and added its functionality when changing colors in the color wheel.
 - Changed the font in the Grid Output to Courier New.
+
+# 6/20/24
+- Added the "saved colors" section to the Color Selection window.
+
+# 6/22/24
+- Added functionality for clicking the savedColor squares to change the currColor.
+- In doing so, the border of the savedColor square would change, the Iro.js widget would update, the preview square would update, and the textbox below would update as well.
+- Completed the Save Color button functionality for the project.
+- Added 5 more save color squares.
+
+# 7/1/24
+- Completed the scale window with the SELECT element to change the magnification of the preview.
+- Completed drag n paint for LMB
+- Completed RMB remove color for a cell on the grid
+- Each click of the mouse, whether RMB or LMB is registered as a mouse click, and not differentiated with regular scripting. I haven't figured it out yet.
+- Added functionality to the text box in the Color Selection Window, so when it is changed, the color wheel and color preview square change to the value entered.

@@ -36,13 +36,23 @@ function zeroOutRefresh() {
     refreshGridOutput();
 }
 
-function changeCellColor() {
-    if (Math.floor(mouseXGrid / cellSize) <= gridSize - 1) {
-        grid[mouseToGrid] = currColor;
+function changeCellColor(e) {
+    lmbDown = true;
+    if (Math.floor(mouseXGrid / cellSize) <= gridSize - 1 && !rmbDown) {
+        grid[mouseToGrid] = currColor == "#f5f5f5" ? "0" : currColor;
         refreshGridOutput();
     }
 }
 
-function refreshWorkingGrid() {
+function RMB(e) {
+    e.preventDefault();
 
+    if (Math.floor(mouseXGrid / cellSize) <= gridSize - 1) {
+        grid[mouseToGrid] = "0";
+        refreshGridOutput();
+    }
+}
+
+function LMBRelease() {
+    lmbDown = false;
 }

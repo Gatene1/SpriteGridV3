@@ -67,8 +67,18 @@
             <div id="prevTitleBarHW" class="eightyThree">Preview on a Scale</div>
             <div id="prevCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
-        <div class="divInnerBottomFlex">
-            GoodBye World!
+        <div class="divInnerBottomFlexCol">
+            <div class="divInnerBottomFlexColChild">
+                <canvas id="previewWindow" width="130" height="130"></canvas>
+            </div>
+            <div>
+                <select class="form-select" id="previewSelect">
+                    <option value="1">1X</option>
+                    <option value="2">2X</option>
+                    <option value="4" selected>4X</option>
+                    <option value="8">8X</option>
+                </select>
+            </div>
         </div>
     </div>
     <!-- End Second Window (Preview) //-->
@@ -83,16 +93,17 @@
         <div class="divInnerBottomFlex4">
             <div class="divInnerBottomFlex41">
                 <div id="picker"></div>
-                <br>
                 <div id="colorPreviewSquare">
                     <canvas id="colorPrev" width="110px" height="110px"></canvas>
                 </div>
                 <div id="colorTextbox" class="input-group-sm">
                     <input type="text" id="colorTextElement" value = "#00ff00">
                 </div>
+                <br>
+                <div> <button type="button" id = "saveButton" class="btn btn-success">Save Color to the Right!</button></div>
             </div>
             <div id="colorChoose">
-
+                <canvas id = "colorChooseRow1" width = "28px" height="420px"></canvas>
             </div>
         </div>
     </div>
@@ -120,14 +131,18 @@
         </div>
         <div class="divInnerBottomFlex">
             GoodBye World!
+
         </div>
     </div>
     <!-- End Fifth Window (File Saving) //-->
 
+    <script type="text/javascript" src="sg3_Classes.js"></script>
     <script type="text/javascript" src="sg3.js"></script>
     <script type="text/javascript" src="sg3_Grid.js"></script>
     <script type="text/javascript" src="sg3_Draw.js"></script>
     <script type="text/javascript" src="sg3_Window.js"></script>
     <script type="text/javascript" src="sg3_Mouse.js"></script>
+    <script type="text/javascript" src="sg3_Inputs.js"></script>
+    <script type="text/javascript" src="sg3_Colors.js"></script>
 </body>
 </html>

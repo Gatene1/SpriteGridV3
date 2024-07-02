@@ -3,9 +3,10 @@
         const CANVAS_GRID_WIDTH = 775;
         const CANVAS_GRID_HEIGHT = 775;
         const GRID_BORDER_COLOR = "#a0a0a0";
-        const GRID_FILL_COLOR = "whitesmoke";
+        const GRID_FILL_COLOR = "#f5f5f5";
 
-        var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX;
+        var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
+            previewWindowCTX;
         var mouseXGrid, mouseYGrid;
         var pixelsPerUnit = 2;
         var gridSize = 16;
@@ -19,16 +20,42 @@
         var grid = [0];
         var mouseToGrid;
 
+// Vars for classes
+var savedColorSquares = [
+    new savedColorSquare(0, 0, 0, 0, GRID_BORDER_COLOR, "#00ff00"),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR)
+];
+
 // Vars for the color picker.
         var colorPicker = new iro.ColorPicker('#picker', {width: 175, color: "#0f0"});
         var currColor = colorPicker.color.hexString;
         var colorTextElement = document.getElementById("colorTextElement");
+        var colorStores = ["#00ff00", "#ff0000", GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR];
+        var colorStoresSelected = 0;
+        var colorStoresSquareSize = 24;
+        var colorStoresBorderSize = 2;
+        var colorStoresSquareGap = 15.55;
+        var alreadyDeclaredSavedColorClasses = false;
+        var colorStoresClicked = 0;
+
+// Vars for preview window
+        var prevCellSize = 4;
+        var previewSelect = document.getElementById("previewSelect");
 
 // Vars for every window
         var windowZ = [0, 1, 2, 3, 4];
 
 // Vars for First Window (Grid)
         var lmbDown = false;
+        var rmbDown = false;
         var mousePosition;
         var mousePositionOffset = [0, 0];
         var titleBar = document.getElementById("titleBarHW");
@@ -60,6 +87,7 @@
         var colorCloseHW = document.getElementById("colorCloseHW");
         var window3Color = "Green";
         var divSide3 = document.getElementById("divSide3");
+        var saveButton = document.getElementById("saveButton");
 
         // Vars for Fourth Window (Grid Output)
         var outLmbDown = false;
@@ -99,6 +127,12 @@ window.onload = function() {
     colorCanvas = document.getElementById("colorPrev");
     colorCanvasCTX = colorCanvas.getContext('2d');
 
+    colorChooseRow1 = document.getElementById("colorChooseRow1");
+    colorChooseRow1CTX = colorChooseRow1.getContext('2d');
+
+    previewWindow = document.getElementById("previewWindow");
+    previewWindowCTX = previewWindow.getContext('2d');
+
     setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
     // Listeners for whole app.
@@ -120,7 +154,9 @@ window.onload = function() {
 
     // Listeners for the Grid Canvas
     canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
-    canvasGrid.addEventListener('click', changeCellColor, false);
+    canvasGrid.addEventListener('mousedown', changeCellColor, false);
+    canvasGrid.addEventListener('mouseup', LMBRelease, false);
+    canvasGrid.addEventListener('contextmenu', RMB, true);
 
     // Listeners for First Window (Grid)
     littleWindow.addEventListener('mousedown', littleWindowClick, false);
@@ -136,6 +172,7 @@ window.onload = function() {
     prevTitleBar.addEventListener('mouseup', prevDivTitleUnClick, true);
     prevGearHW.addEventListener('mousedown', prevGearClick, true);
     prevCloseHW.addEventListener('mousedown', function() { closeWindow(1); }, true);
+    previewSelect.addEventListener('change', previewScale, true);
 
     // Listeners for Third Window (Color Iro.js)
     colorLittleWindow.addEventListener('mousedown', colorLittleWindowClick, false);
@@ -143,6 +180,10 @@ window.onload = function() {
     colorTitleBar.addEventListener('mouseup', colorDivTitleUnClick, true);
     colorGearHW.addEventListener('mousedown', colorGearClick, true);
     colorCloseHW.addEventListener('mousedown', function() { closeWindow(2); }, true);
+    colorChooseRow1.addEventListener('click', activateColor, true);
+    colorChooseRow1.addEventListener('mousemove', gridUpdateMousePosColorChoose, true);
+    saveButton.addEventListener('click', saveToStore, true);
+    colorTextElement.addEventListener('change', colorText, true);
 
     // Listeners for Fourth Window (Output)
     outLittleWindow.addEventListener('mousedown', outLittleWindowClick, false);
