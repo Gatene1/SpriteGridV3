@@ -44,3 +44,9 @@
 - Completed RMB remove color for a cell on the grid
 - Each click of the mouse, whether RMB or LMB is registered as a mouse click, and not differentiated with regular scripting. I haven't figured it out yet.
 - Added functionality to the text box in the Color Selection Window, so when it is changed, the color wheel and color preview square change to the value entered.
+
+# 7/4/24
+- Changed the starting preview scale size to 2, and change the SELECTED value of the dropdown to 2X, so the Webpage starts with 2X selected.
+
+# 7/7/24
+- Finished the Open Single Drawing button functionality.

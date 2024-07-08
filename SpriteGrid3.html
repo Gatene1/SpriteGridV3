@@ -72,10 +72,10 @@
                 <canvas id="previewWindow" width="130" height="130"></canvas>
             </div>
             <div>
-                <select class="form-select" id="previewSelect">
+                <select class="form-select form-select-sm" id="previewSelect">
                     <option value="1">1X</option>
-                    <option value="2">2X</option>
-                    <option value="4" selected>4X</option>
+                    <option value="2" selected>2X</option>
+                    <option value="4">4X</option>
                     <option value="8">8X</option>
                 </select>
             </div>
@@ -129,9 +129,9 @@
             <div id="fileTitleBarHW" class="eightyThree">File Saving</div>
             <div id="fileCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
-        <div class="divInnerBottomFlex">
-            GoodBye World!
-
+        <div class="divInnerBottomFlexColChildFile">
+                <button class="btn btn-success" id="fileSavingOpenButton">Open Single Drawing</button> <br>
+                <button class="btn btn-success" id="fileSavingSaveButton">Save Single Drawing</button>
         </div>
     </div>
     <!-- End Fifth Window (File Saving) //-->
@@ -144,5 +144,6 @@
     <script type="text/javascript" src="sg3_Mouse.js"></script>
     <script type="text/javascript" src="sg3_Inputs.js"></script>
     <script type="text/javascript" src="sg3_Colors.js"></script>
+    <script type="text/javascript" src="sg3_Files.js"></script>
 </body>
 </html>

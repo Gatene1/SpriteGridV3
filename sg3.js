@@ -17,7 +17,7 @@
         var cSizeRangeText = document.getElementById("cellSizeRangeText");
         var gridOutput = document.getElementById("gridOutput");
 
-        var grid = [0];
+        var grid = ["0"];
         var mouseToGrid;
 
 // Vars for classes
@@ -47,7 +47,7 @@ var savedColorSquares = [
         var colorStoresClicked = 0;
 
 // Vars for preview window
-        var prevCellSize = 4;
+        var prevCellSize = 2;
         var previewSelect = document.getElementById("previewSelect");
 
 // Vars for every window
@@ -110,6 +110,12 @@ var savedColorSquares = [
         var fileCloseHW = document.getElementById("fileCloseHW");
         var window5Color = "Green";
         var divSide5 = document.getElementById("divSide5");
+        var fileSavingOpenButton = document.getElementById("fileSavingOpenButton");
+        var fileSavingSaveButton = document.getElementById("fileSavingSaveButton");
+        var openFileContents;
+
+// Vars for file handling.
+
 
 window.onload = function() {
     //Web App Code
@@ -120,6 +126,8 @@ window.onload = function() {
 
     fillArrayWithZeroes();
     refreshGridOutput();
+
+
 
     canvasGrid = document.getElementById("canvasGrid");
     canvasGridCTX = canvasGrid.getContext('2d');
@@ -198,5 +206,7 @@ window.onload = function() {
     fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);
     fileGearHW.addEventListener('mousedown', fileGearClick, true);
     fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
+    fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
+    fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
 
 }

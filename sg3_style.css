@@ -59,6 +59,9 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 .divInnerBottomFlexColChild { width: 100%; height: 100%; text-align: center; }
 
+.divInnerBottomFlexColChildFile { background-color: #ffffff; width: 100%; height: 100%; color: #000000; padding: 3px; display: flex;
+    flex-direction: column; justify-content: flex-start; align-content: flex-start; }
+
 .divInnerBottomFlexGrid { background-color: #ffffff; width: 100%; height: 100%; color: #000000; padding: 3px;
     display: flex; flex-direction: row; justify-content: flex-start; }
 
