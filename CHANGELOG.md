@@ -55,3 +55,6 @@
 - Added the Load and Save Pallete buttons.
 - Fixed the padding attribute of the save color button, so it fits on the line, and doesn't wrap.
 - Started making the functionality of the Load and Save Pallete Buttons.
+
+# 7/9/24
+- Finished functionality for the Load and Save Pallete buttons.

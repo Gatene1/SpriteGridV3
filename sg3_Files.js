@@ -43,7 +43,7 @@ function parsePalletteFile() {
     let openFilePointer;
     let colorStoresLoc = 0;
     for (openFilePointer = 0; openFilePointer < openPalletteContents.length; openFilePointer += 7) {
-        savedColorSquares[colorStoresLoc] = openPalletteContents.substring(openFilePointer, openFilePointer + 7);
+        savedColorSquares[colorStoresLoc].colorHeld = openPalletteContents.substring(openFilePointer, openFilePointer + 7);
         colorStores[colorStoresLoc] = openPalletteContents.substring(openFilePointer, openFilePointer + 7);
         colorStoresLoc++;
     }
