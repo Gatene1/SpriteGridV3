@@ -50,3 +50,8 @@
 
 # 7/7/24
 - Finished the Open Single Drawing button functionality.
+
+# 7/8/24
+- Added the Load and Save Pallete buttons.
+- Fixed the padding attribute of the save color button, so it fits on the line, and doesn't wrap.
+- Started making the functionality of the Load and Save Pallete Buttons.

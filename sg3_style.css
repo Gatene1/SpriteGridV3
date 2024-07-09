@@ -81,5 +81,5 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 #colorChoose { width: 30%; text-align: center; }
 
-
+#saveButton { padding: 3px; width: fit-content; }
 

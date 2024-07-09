@@ -88,6 +88,8 @@ var savedColorSquares = [
         var window3Color = "Green";
         var divSide3 = document.getElementById("divSide3");
         var saveButton = document.getElementById("saveButton");
+        var loadPalletteButton = document.getElementById('loadPalletteButton');
+        var savePalletteButton = document.getElementById('savePalletteButton');
 
         // Vars for Fourth Window (Grid Output)
         var outLmbDown = false;
@@ -113,6 +115,7 @@ var savedColorSquares = [
         var fileSavingOpenButton = document.getElementById("fileSavingOpenButton");
         var fileSavingSaveButton = document.getElementById("fileSavingSaveButton");
         var openFileContents;
+        var openPalletteContents;
 
 // Vars for file handling.
 
@@ -192,6 +195,8 @@ window.onload = function() {
     colorChooseRow1.addEventListener('mousemove', gridUpdateMousePosColorChoose, true);
     saveButton.addEventListener('click', saveToStore, true);
     colorTextElement.addEventListener('change', colorText, true);
+    loadPalletteButton.addEventListener('click', loadPalletteFile, true);
+    savePalletteButton.addEventListener('click', savePalletteFile, true);
 
     // Listeners for Fourth Window (Output)
     outLittleWindow.addEventListener('mousedown', outLittleWindowClick, false);
