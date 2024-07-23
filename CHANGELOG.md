@@ -58,3 +58,12 @@
 
 # 7/9/24
 - Finished functionality for the Load and Save Pallete buttons.
+
+# 7/10/24
+- Added the rest of the buttons I wanted to make functionality for eventually.
+
+# 7/22/24
+- Added the Sprite Sheet DIV to the page.
+- Added placeholder file names to the titlebars of various windows
+- Added folder icons to titlebars that show file names
+- Made gear Icon work for Spritesheet Window.

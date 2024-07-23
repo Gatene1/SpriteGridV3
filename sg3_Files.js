@@ -32,7 +32,7 @@ function parseOpenFile() {
             grid[charAtGrid] = openFileContents.substring(openFilePointer, openFilePointer + 7);
             openFilePointer += 6;
         } else {
-            grid[openFilePointer] = "0";
+            grid[charAtGrid] = "0";
         }
         charAtGrid++;
 
@@ -47,7 +47,6 @@ function parsePalletteFile() {
         colorStores[colorStoresLoc] = openPalletteContents.substring(openFilePointer, openFilePointer + 7);
         colorStoresLoc++;
     }
-    alert(savedColorSquares + colorStores);
 }
 
 async function openSingleDrawing() {

@@ -383,6 +383,85 @@ function fileGearClick() {
     }
 }
 
+
+// functions for Fifth Window (File Saving)
+// =====================================
+function fileLittleWindowClick() {
+    windowZRearrange(4);
+    windowZRefresh();
+}
+function fileDivTitleClick(e) {
+    e.stopPropagation();
+    document.addEventListener('mousemove', fileUpdateMousePos, true);
+    fileLmbDown = true;
+    fileTitleBar.style.cursor = "grabbing";
+    fileMousePositionOffset = [
+        fileLittleWindow.offsetLeft - e.clientX,
+        fileLittleWindow.offsetTop - e.clientY
+    ];
+    fileLittleWindowClick();
+}
+function fileDivTitleUnClick() {
+    fileLmbDown = false;
+    fileTitleBar.style.cursor = "grab";
+    document.removeEventListener('mousemove', fileUpdateMousePos, true);
+}
+function fileUpdateMousePos(e) {
+    e.preventDefault();
+    if (fileLmbDown) {
+        fileMousePosition = {
+            x : e.clientX,
+            y : e.clientY
+        };
+        fileLittleWindow.style.left = (fileMousePosition.x + fileMousePositionOffset[0]) + 'px';
+        fileLittleWindow.style.top = (fileMousePosition.y + fileMousePositionOffset[1]) + 'px';
+    }
+}
+function spriteGearClick() {
+    switch (window6Color) {
+        case "Green" :
+            window6Color = "Red";
+            spriteLittleWindow.style.backgroundColor = "darkred";
+            divSide6.style.backgroundColor = "darkred";
+            break;
+
+        case "Red" :
+            window6Color = "Blue";
+            spriteLittleWindow.style.backgroundColor = "midnightblue";
+            divSide6.style.backgroundColor = "midnightblue";
+            break;
+
+        case "Blue" :
+            window6Color = "Black";
+            spriteLittleWindow.style.backgroundColor = "#000000";
+            divSide6.style.backgroundColor = "#000000";
+            break;
+
+        case "Black" :
+            window6Color = "White";
+            spriteLittleWindow.style.backgroundColor = "#ffffff";
+            spriteLittleWindow.style.color = "#000000";
+            divSide6.style.backgroundColor = "#ffffff";
+            divSide6.style.color = "#000000";
+            break;
+
+        case "White" :
+            window6Color = "Yellow";
+            spriteLittleWindow.style.backgroundColor = "khaki";
+            divSide6.style.backgroundColor = "khaki";
+            break;
+
+        case "Yellow" :
+            window5Color = "Green";
+            spriteLittleWindow.style.backgroundColor = "darkgreen";
+            spriteLittleWindow.style.color = "#ffffff";
+            divSide6.style.backgroundColor = "darkgreen";
+            divSide6.style.color = "#ffffff";
+            break;
+    }
+}
+
+
 function gridUpdateMousePos(e) {
 // Position of mouse on page.
     let rect = canvasGrid.getBoundingClientRect();

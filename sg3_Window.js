@@ -5,25 +5,33 @@ function windowZRearrange(elementToLookAt) {
             windowZ[windowZ.indexOf(2)]--;
             windowZ[windowZ.indexOf(3)]--;
             windowZ[windowZ.indexOf(4)]--;
+            windowZ[windowZ.indexOf(5)]--;
         break;
 
         case 1 :
             windowZ[windowZ.indexOf(2)]--;
             windowZ[windowZ.indexOf(3)]--;
             windowZ[windowZ.indexOf(4)]--;
+            windowZ[windowZ.indexOf(5)]--;
         break;
 
         case 2 :
             windowZ[windowZ.indexOf(3)]--;
             windowZ[windowZ.indexOf(4)]--;
+            windowZ[windowZ.indexOf(5)]--;
         break;
 
         case 3 :
             windowZ[windowZ.indexOf(4)]--;
+            windowZ[windowZ.indexOf(5)]--;
         break;
+
+        case 4 :
+            windowZ[windowZ.indexOf(5)]--;
+            break;
     }
 
-    windowZ[elementToLookAt] = 4;
+    windowZ[elementToLookAt] = 5;
 }
 
 function windowZRefresh() {
@@ -56,6 +64,10 @@ function closeWindow(whichWindow) {
             fileLittleWindow.style.visibility = "collapse";
             divSide5.style.visibility = "visible";
             break;
+        case 5 :
+            spriteLittleWindow.style.visibility = "collapse";
+            divSide6.style.visibility = "visible";
+            break;
     }
 }
 function openWindow(whichWindow) {
@@ -79,6 +91,10 @@ function openWindow(whichWindow) {
         case 4 :
             fileLittleWindow.style.visibility = "visible";
             divSide5.style.visibility = "hidden";
+            break;
+        case 5 :
+            spriteLittleWindow.style.visibility = "visible";
+            divSide6.style.visibility = "hidden";
             break;
     }
 }

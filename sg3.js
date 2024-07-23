@@ -117,7 +117,19 @@ var savedColorSquares = [
         var openFileContents;
         var openPalletteContents;
 
+        // Vars for Sixth Window (Sprite Sheet)
+        var spriteLmbDown = false;
+        var spriteMousePosition;
+        var spriteMousePositionOffset = [0, 0];
+        var spriteTitleBar = document.getElementById("spriteTitleBarHW");
+        var spriteLittleWindow = document.getElementById("spriteLittleWindowHW");
+        var spriteGearHW = document.getElementById("spriteGearHW");
+        var spriteCloseHW = document.getElementById("spriteCloseHW");
+        var window6Color = "Green";
+        var divSide6 = document.getElementById("divSide6");
+
 // Vars for file handling.
+        var howManySpritesInSpriteSheet = 0;
 
 
 window.onload = function() {
@@ -157,6 +169,8 @@ window.onload = function() {
     { openWindow(3); windowZRearrange(3); windowZRefresh(); }, true);
     divSide5.addEventListener('mousedown', function()
     { openWindow(4); windowZRearrange(4); windowZRefresh(); }, true);
+    divSide6.addEventListener('mousedown', function()
+    { openWindow(5); windowZRearrange(5); windowZRefresh(); }, true);
     cellSizeRange.addEventListener('change', changeCellSize, false);
     gridSizeRange.addEventListener('change', changeGridSize, false);
 
@@ -213,5 +227,12 @@ window.onload = function() {
     fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
     fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
     fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
+
+    // Listeners for Sixth Window (File Saving)
+    spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);
+    spriteTitleBar.addEventListener('mousedown', spriteDivTitleClick, false);
+    spriteTitleBar.addEventListener('mouseup', spriteDivTitleUnClick, true);
+    spriteGearHW.addEventListener('click', spriteGearClick, true);
+    spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
 
 }

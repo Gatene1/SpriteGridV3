@@ -29,6 +29,12 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
     flex-wrap: nowrap; overflow: clip; }
 
+.divTitle6   { position: absolute;  background-color: darkgreen; width: 50%; height: 49%; top: 200px; left: 57%;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    border: 2px solid #000000; user-select: none; -webkit-user-select: none;
+    -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
+    flex-wrap: nowrap; overflow: clip; }
+
 .divSide1 {position: relative; background-color: darkgreen; width: 2.3%; height: 20%; top: 0px; left: 0px;
         border: solid black 2px; visibility: hidden; font-weight: bold; color: #ffffff; text-align: center;
         cursor: pointer; }
@@ -49,6 +55,12 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
     border: solid black 2px; visibility: hidden; font-weight: bold; color: #ffffff; text-align: center;
     cursor: pointer; }
 
+.divSide6 {position: relative; background-color: darkgreen; width: 2.3%; height: 20%; top: 115%; left: 0px;
+    border: solid black 2px; visibility: hidden; font-weight: bold; color: #ffffff; text-align: center;
+    cursor: pointer; }
+
+.divSide7 { }
+
 .divTitleBreakDown { display: flex; flex-direction: row; justify-content: space-between; flex-wrap: nowrap; }
 
 .divInnerBottomFlex { background-color: #ffffff; height: 100%; color: #000000; padding: 3px; display: flex;
@@ -60,7 +72,7 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 .divInnerBottomFlexColChild { width: 100%; height: 100%; text-align: center; }
 
 .divInnerBottomFlexColChildFile { background-color: #ffffff; width: 100%; height: 100%; color: #000000; padding: 3px; display: flex;
-    flex-direction: column; justify-content: flex-start; align-content: flex-start; }
+    flex-direction: column; justify-content: center; align-items: center; }
 
 .divInnerBottomFlexGrid { background-color: #ffffff; width: 100%; height: 100%; color: #000000; padding: 3px;
     display: flex; flex-direction: row; justify-content: flex-start; }
@@ -83,3 +95,11 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 #saveButton { padding: 3px; width: fit-content; }
 
+#fileSavingOpenButton { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#fileSavingSaveButton { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#newCharMap { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#openCharMap { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#saveCharMap { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#newLevel { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#openLevel { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#saveLevel { border: solid 2px black; width: fit-content; }
