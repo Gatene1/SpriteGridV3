@@ -51,7 +51,7 @@ var savedColorSquares = [
         var previewSelect = document.getElementById("previewSelect");
 
 // Vars for every window
-        var windowZ = [0, 1, 2, 3, 4];
+        var windowZ = [0, 1, 2, 3, 4, 5];
 
 // Vars for First Window (Grid)
         var lmbDown = false;
@@ -232,7 +232,7 @@ window.onload = function() {
     spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);
     spriteTitleBar.addEventListener('mousedown', spriteDivTitleClick, false);
     spriteTitleBar.addEventListener('mouseup', spriteDivTitleUnClick, true);
-    spriteGearHW.addEventListener('click', spriteGearClick, true);
+    spriteGearHW.addEventListener('mousedown', spriteGearClick, true);
     spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
 
 }

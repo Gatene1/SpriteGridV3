@@ -67,3 +67,8 @@
 - Added placeholder file names to the titlebars of various windows
 - Added folder icons to titlebars that show file names
 - Made gear Icon work for Spritesheet Window.
+
+# 7/23/24
+- Fixed Z-index issue with the SpriteSheet window.
+- Made the SpriteSheet Window moveable like the others.
+- Made the SpriteSheet Window start collapsed, and the side tab visible.

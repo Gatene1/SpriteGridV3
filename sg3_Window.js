@@ -40,6 +40,7 @@ function windowZRefresh() {
     colorLittleWindow.style.zIndex = windowZ[2].toString();
     outLittleWindow.style.zIndex = windowZ[3].toString();
     fileLittleWindow.style.zIndex = windowZ[4].toString();
+    spriteLittleWindow.style.zIndex = windowZ[5].toString();
 }
 
 function closeWindow(whichWindow) {

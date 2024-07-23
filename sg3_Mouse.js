@@ -386,35 +386,35 @@ function fileGearClick() {
 
 // functions for Fifth Window (File Saving)
 // =====================================
-function fileLittleWindowClick() {
-    windowZRearrange(4);
+function spriteLittleWindowClick() {
+    windowZRearrange(5);
     windowZRefresh();
 }
-function fileDivTitleClick(e) {
+function spriteDivTitleClick(e) {
     e.stopPropagation();
-    document.addEventListener('mousemove', fileUpdateMousePos, true);
-    fileLmbDown = true;
-    fileTitleBar.style.cursor = "grabbing";
-    fileMousePositionOffset = [
-        fileLittleWindow.offsetLeft - e.clientX,
-        fileLittleWindow.offsetTop - e.clientY
+    document.addEventListener('mousemove', spriteUpdateMousePos, true);
+    spriteLmbDown = true;
+    spriteTitleBar.style.cursor = "grabbing";
+    spriteMousePositionOffset = [
+        spriteLittleWindow.offsetLeft - e.clientX,
+        spriteLittleWindow.offsetTop - e.clientY
     ];
-    fileLittleWindowClick();
+    spriteLittleWindowClick();
 }
-function fileDivTitleUnClick() {
-    fileLmbDown = false;
-    fileTitleBar.style.cursor = "grab";
-    document.removeEventListener('mousemove', fileUpdateMousePos, true);
+function spriteDivTitleUnClick() {
+    spriteLmbDown = false;
+    spriteTitleBar.style.cursor = "grab";
+    document.removeEventListener('mousemove', spriteUpdateMousePos, true);
 }
-function fileUpdateMousePos(e) {
+function spriteUpdateMousePos(e) {
     e.preventDefault();
-    if (fileLmbDown) {
-        fileMousePosition = {
+    if (spriteLmbDown) {
+        spriteMousePosition = {
             x : e.clientX,
             y : e.clientY
         };
-        fileLittleWindow.style.left = (fileMousePosition.x + fileMousePositionOffset[0]) + 'px';
-        fileLittleWindow.style.top = (fileMousePosition.y + fileMousePositionOffset[1]) + 'px';
+        spriteLittleWindow.style.left = (spriteMousePosition.x + spriteMousePositionOffset[0]) + 'px';
+        spriteLittleWindow.style.top = (spriteMousePosition.y + spriteMousePositionOffset[1]) + 'px';
     }
 }
 function spriteGearClick() {
@@ -452,7 +452,7 @@ function spriteGearClick() {
             break;
 
         case "Yellow" :
-            window5Color = "Green";
+            window6Color = "Green";
             spriteLittleWindow.style.backgroundColor = "darkgreen";
             spriteLittleWindow.style.color = "#ffffff";
             divSide6.style.backgroundColor = "darkgreen";
