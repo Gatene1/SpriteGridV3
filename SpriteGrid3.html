@@ -140,12 +140,10 @@
         <div class="divInnerBottomFlexColChildFile">
                 <button class="btn btn-success" id="fileSavingOpenButton">Open Single Character</button>
                 <button class="btn btn-success" id="fileSavingSaveButton">Save Single Character</button>
-                <button class="btn btn-success" id="newCharMap">New Character Map</button>
-                <button class="btn btn-success" id="openCharMap">Open Character Map</button>
-                <button class="btn btn-success" id="saveCharMap">Save Character Map</button>
+                <button class="btn btn-success" id="newSSheet">New Sprite Sheet</button>
+                <button class="btn btn-success" id="openSSheet">Open Sprite Sheet</button>
                 <button class="btn btn-success" id="newLevel">New Level</button>
                 <button class="btn btn-success" id="openLevel">Open Level</button>
-                <button class="btn btn-success" id="saveLevel">Save Level</button>
         </div>
     </div>
     <!-- End Fifth Window (File Saving) //-->
@@ -157,8 +155,15 @@
             <div id="spriteTitleBarHW" class="eightyThree">Sprite Sheet - Unknown.gss &#x1F4C2;</div>
             <div id="spriteCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
-        <div class="divInnerBottomFlexColChild">
-            &nbsp;
+        <div class="divInnerBottomFlexColChildSprite">
+            <div class="divForSpriteGrid">
+                <canvas id="spriteCanvas" width = "700" height = "3750"></canvas>
+            </div>
+            <div class="spriteRightButtonDiv">
+                <button type="button" class="btn btn-success" id="spriteSaveButton">Save</button>
+                <button type="button" class="btn btn-success" id="spriteImportWorkingGrid">Use Working Grid</button>
+                <button type="button" class="btn btn-success" id="spriteImportSingleSprite">Use Single Sprite</button>
+            </div>
         </div>
     </div>
     <!-- End Sixth Window (Sprite Sheet) //-->

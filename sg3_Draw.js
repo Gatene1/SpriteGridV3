@@ -3,10 +3,13 @@ function drawAll() {
     drawPreviewSquare(100);
     drawColorSquares();
     drawPreviewUpdate();
+    drawSpriteUpdate();
+    if (spriteHeld) drawMouseSpriteUpdate();
 
 }
 
-function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0, strokeColor = GRID_BORDER_COLOR) {
+function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0,
+                     strokeColor = GRID_BORDER_COLOR) {
     let canvasChoice = canvasGridCTX;
 
     switch (whichCanvas) {
@@ -23,6 +26,9 @@ function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0, st
             break;
         case 3:
             canvasChoice = previewWindowCTX;
+            break;
+        case 4:
+            canvasChoice = spriteCanvasCTX;
             break;
     }
     canvasChoice.strokeStyle = strokeColor;
@@ -57,10 +63,10 @@ function drawPreviewSquare(dimensions) {
     drawSquare(2, 2, dimensions, dimensions, true, currColor, 1);
 }
 
-function drawText (whatToSay, x, y, fontSize, fontColor) {
-    canvasGridCTX.font = fontSize + "px Trebuchet MS";
-    canvasGridCTX.fillStyle = fontColor;
-    canvasGridCTX.fillText(whatToSay, x, y);
+function drawText (whatToSay, x, y, fontSize, fontColor, whichCanvas = canvasGridCTX) {
+    whichCanvas.font = fontSize + "px Trebuchet MS";
+    whichCanvas.fillStyle = fontColor;
+    whichCanvas.fillText(whatToSay, x, y);
 }
 
 function drawColorSquares() {
@@ -75,9 +81,9 @@ function drawColorSquares() {
                 savedColorSquares[i].borderColor = "#000000";
 
             savedColorSquares[i].x1 = colorStoresBorderSize;
-            savedColorSquares[i].x2 = colorStoresBorderSize * 2 + colorStoresSquareSize; // *2 on the border for clearance of both left and right border + the size of the actual square.
-            savedColorSquares[i].y1 = colorStoresSquareSize * i + colorStoresBorderSize + (i * colorStoresSquareGap); // 0 = 10  1 = 34
-            savedColorSquares[i].y2 = savedColorSquares[i].y1 + colorStoresSquareSize + colorStoresBorderSize;  // 0 = 36
+            savedColorSquares[i].x2 = colorStoresBorderSize * 2 + colorStoresSquareSize;
+            savedColorSquares[i].y1 = colorStoresSquareSize * i + colorStoresBorderSize + (i * colorStoresSquareGap);
+            savedColorSquares[i].y2 = savedColorSquares[i].y1 + colorStoresSquareSize + colorStoresBorderSize;
             savedColorSquares[i].colorHeld = colorStores[i];
             drawSquare(
                 savedColorSquares[i].x1,
@@ -119,7 +125,58 @@ function drawPreviewUpdate() {
                 currCellColor = grid[currCell];
             }
 
-            drawSquare(j * prevCellSize + 2, i * prevCellSize + 2, prevCellSize, prevCellSize, false, currCellColor, 3);
+            drawSquare(j * prevCellSize + 2, i * prevCellSize + 2, prevCellSize, prevCellSize, false,
+                currCellColor, 3);
         }
     }
+}
+
+function drawSpriteUpdate() {
+    let colCount = 0;
+    let i;
+    let x = 0;
+    let y = 0;
+    spriteCanvasCTX.clearRect(0, 0, spriteWindowWidth, spriteWindowHeight);
+    for (i = 0; i < spriteGridSize; i++) {
+        if (colCount >= numberOfSpritesPerRow - 1) {
+            x = 0;
+            y += spriteCellSize;
+            colCount = 0;
+        }
+        // Need to replace the if-statement to be equal where the cell where the mouse pointer is.
+        if (spriteGrid[i] != null)
+            drawSquare(x, y, spriteCellSize, spriteCellSize, true, spriteTitleBar.style.backgroundColor,
+                4);
+        else
+            drawSquare(x, y, spriteCellSize, spriteCellSize, true, GRID_FILL_COLOR, 4);
+        drawText(i, x + (spriteCellSize - 20), y + (spriteCellSize - 5), 12, "black",
+            spriteCanvasCTX);
+        colCount++;
+        x += spriteCellSize;
+    }
+}
+
+function drawMouseSpriteUpdate() {
+    let i, j;
+    let currCell, currCellColor;
+    let prevGridSize = spriteMouseGridSize * spriteMouseGridSize;
+
+    //spriteCanvasCTX.clearRect(0, 0, spriteWindowWidth, spriteWindowHeight);
+    //alert ("GridSize = " + gridSize);
+
+    drawText(spriteRowOn + ", " + spriteColOn, mouseXGrid, mouseYGrid, "12pt", "black", spriteCanvasCTX);
+
+/*
+    for (i = 0; i < spriteMouseGridSize; i++) {
+        for (j = 0; j < spriteMouseGridSize; j++) {
+            currCell = (i * spriteMouseGridSize) + j;
+
+            if (spritePrint[currCell] != "0") {
+                currCellColor = spritePrint[currCell];
+                drawSquare(mouseXGrid + (j * mouseSpriteCellSize + 2), mouseYGrid + (i * mouseSpriteCellSize + 2),
+                    mouseSpriteCellSize, mouseSpriteCellSize, false, currCellColor, 4);
+            }
+
+        }
+    }*/
 }

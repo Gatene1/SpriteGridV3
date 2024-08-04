@@ -16,6 +16,15 @@ function fillArrayWithZeroes() {
     for (i = 0; i < gridSize * gridSize; i++) {
         grid.push("0");
     }
+    titleBar.innerHTML = "Working Grid - Unknown.gat &#x1F4C2;";
+}
+
+function fillSpriteArrayWithZeroes() {
+    let i;
+    spriteGrid = [];
+    for (i = 0; i < spriteGridSize; i++) {
+        grid.push(null);
+    }
 }
 
 function refreshGridOutput() {
@@ -55,4 +64,13 @@ function RMB(e) {
 
 function LMBRelease() {
     lmbDown = false;
+}
+
+function spriteCellLocation() {
+    let x = Math.floor(mouseXGrid);
+    let y = Math.floor(mouseYGrid);
+    //576
+    spriteRowOn = 64/y;
+    spriteColOn = 64/x;
+    let rowEndingColumnPixel = numberOfSpritesPerRow * spriteCellSize;
 }

@@ -56,6 +56,7 @@ async function openSingleDrawing() {
     parseOpenFile();
     refreshGridOutput();
     openFileContents = "";
+    titleBar.innerHTML = "Working Grid - " + file.name + " &#x1F4C2;";
 }
 
 async function saveSingleDrawing() {
@@ -63,6 +64,7 @@ async function saveSingleDrawing() {
     const saveFileWritableStream = await saveFileHandle.createWritable();
     const saveFileBlob = new Blob(grid, { type: "text/plain" });
     await saveFileWritableStream.write(saveFileBlob);
+    titleBar.innerHTML = "Working Grid - " + saveFileHandle.name + " &#x1F4C2;";
     await saveFileWritableStream.close();
 }
 
@@ -72,6 +74,7 @@ async function loadPalletteFile() {
     openPalletteContents = await file.text();
     parsePalletteFile();
     openPalletteContents = "";
+    colorTitleBar.innerHTML = "Color Selection - " + file.name + " &#x1F4C2;";
 }
 
 async function savePalletteFile() {
@@ -79,5 +82,6 @@ async function savePalletteFile() {
     const saveFileWritableStream = await saveFileHandle.createWritable();
     const saveFileBlob = new Blob(colorStores, { type: "text/plain" });
     await saveFileWritableStream.write(saveFileBlob);
+    colorTitleBar.innerHTML = "Color Selection - " + saveFileHandle.name + " &#x1F4C2;";
     await saveFileWritableStream.close();
 }

@@ -12,3 +12,8 @@ function colorText() {
     currColor = colorTextElement.value;
     colorPicker.color.hexString = currColor;
 }
+
+function grabFromMainGrid() {
+    spriteHeld = true;
+    spritePrint = grid;
+}

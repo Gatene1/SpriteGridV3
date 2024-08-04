@@ -6,11 +6,12 @@
         const GRID_FILL_COLOR = "#f5f5f5";
 
         var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
-            previewWindowCTX;
+            previewWindowCTX, spriteCanvas, spriteCanvasCTX;
         var mouseXGrid, mouseYGrid;
         var pixelsPerUnit = 2;
         var gridSize = 16;
         var cellSize = 24;
+        var spriteMouseGridSize = 16;
         var gridSizeRange = document.getElementById("gridSizeRangeSlider");
         var cellSizeRange = document.getElementById("cellSizeRangeSlider");
         var gridSizeRangeText = document.getElementById("gridSizeRangeText");
@@ -127,9 +128,20 @@ var savedColorSquares = [
         var spriteCloseHW = document.getElementById("spriteCloseHW");
         var window6Color = "Green";
         var divSide6 = document.getElementById("divSide6");
+        var spriteWindowWidth, spriteWindowHeight;
+        var spriteRowOn, spriteColOn;
 
-// Vars for file handling.
+// Vars for SpriteSheet.
         var howManySpritesInSpriteSheet = 0;
+        var maxNumberOfSprites = 160;
+        var numberOfSpritesPerRow;
+        var spriteCellSize = 64;
+        var spriteGridSize = 504;
+        var spriteGrid = [];
+        var spriteHeld = false;
+        var spritePrint = [];
+        var spriteImportWorkingGrid = document.getElementById("spriteImportWorkingGrid");
+        var mouseSpriteCellSize = 2
 
 
 window.onload = function() {
@@ -140,6 +152,7 @@ window.onload = function() {
     cSizeRangeText.value = cellSize + " Pixels";
 
     fillArrayWithZeroes();
+    fillSpriteArrayWithZeroes();
     refreshGridOutput();
 
 
@@ -155,6 +168,12 @@ window.onload = function() {
 
     previewWindow = document.getElementById("previewWindow");
     previewWindowCTX = previewWindow.getContext('2d');
+
+    spriteCanvas = document.getElementById("spriteCanvas");
+    spriteCanvasCTX = spriteCanvas.getContext('2d');
+    spriteWindowWidth = spriteCanvas.width;
+    spriteWindowHeight = spriteCanvas.height;
+    numberOfSpritesPerRow = Math.floor(spriteWindowWidth / spriteCellSize);
 
     setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
@@ -228,11 +247,14 @@ window.onload = function() {
     fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
     fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
 
-    // Listeners for Sixth Window (File Saving)
+    // Listeners for Sixth Window (Sprite Sheet)
     spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);
     spriteTitleBar.addEventListener('mousedown', spriteDivTitleClick, false);
     spriteTitleBar.addEventListener('mouseup', spriteDivTitleUnClick, true);
     spriteGearHW.addEventListener('mousedown', spriteGearClick, true);
     spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
+    spriteCanvas.addEventListener('mousemove', gridUpdateMousePosSpriteSheet, true);
+    spriteCanvas.addEventListener('mouseleave', spriteCanvasLeave, true);
+    spriteImportWorkingGrid.addEventListener('click', grabFromMainGrid, true);
 
 }

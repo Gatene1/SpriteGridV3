@@ -502,3 +502,13 @@ function gridUpdateMousePosColorChoose(e) {
     //     colorChange();
     // }
 }
+
+function gridUpdateMousePosSpriteSheet(e) {
+    if (spriteHeld) {
+        let rect = spriteCanvas.getBoundingClientRect();
+        let root = document.documentElement;
+        mouseXGrid = e.clientX - rect.left - root.scrollLeft;
+        mouseYGrid = e.clientY - rect.top - root.scrollTop;
+        drawMouseSpriteUpdate();
+    }
+}

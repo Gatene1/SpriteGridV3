@@ -72,3 +72,8 @@
 - Fixed Z-index issue with the SpriteSheet window.
 - Made the SpriteSheet Window moveable like the others.
 - Made the SpriteSheet Window start collapsed, and the side tab visible.
+
+# 8/3/24
+- Implemented functionaility of the "Use Working Grid" button.
+- After clicking the "Use Working Grid" button, the mouse cursor would have the contents of the "Working Grid" at its tail.
+- Made the spritePrint array & the "Working Grid" representation next to the mouse empty.
