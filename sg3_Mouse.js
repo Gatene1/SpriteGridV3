@@ -489,10 +489,10 @@ function gridUpdateMousePosColorChoose(e) {
     let rect = colorChooseRow1.getBoundingClientRect();
     let root = document.documentElement;
 
-    mouseXGrid = e.clientX - rect.left - root.scrollLeft;
-    mouseYGrid = e.clientY - rect.top - root.scrollTop;
+    mouseXSpriteGrid = e.clientX - rect.left - root.scrollLeft;
+    mouseYSpriteGrid = e.clientY - rect.top - root.scrollTop;
 
-    mouseToGrid = (Math.floor(mouseYGrid / cellSize) * gridSize) + Math.floor(mouseXGrid / cellSize);
+    mouseToGrid = (Math.floor(mouseYSpriteGrid / cellSize) * gridSize) + Math.floor(mouseXSpriteGrid / cellSize);
 
     gridSizeRangeText.value = gridSizeRange.value + " X " + gridSizeRange.value;
     cSizeRangeText.value = cellSizeRange.value + " Pixels";
@@ -507,8 +507,8 @@ function gridUpdateMousePosSpriteSheet(e) {
     if (spriteHeld) {
         let rect = spriteCanvas.getBoundingClientRect();
         let root = document.documentElement;
-        mouseXGrid = e.clientX - rect.left - root.scrollLeft;
-        mouseYGrid = e.clientY - rect.top - root.scrollTop;
+        mouseXSpriteGrid = e.clientX - rect.left - root.scrollLeft;
+        mouseYSpriteGrid = e.clientY - rect.top - root.scrollTop;
         drawMouseSpriteUpdate();
     }
 }

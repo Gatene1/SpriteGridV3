@@ -77,3 +77,6 @@
 - Implemented functionaility of the "Use Working Grid" button.
 - After clicking the "Use Working Grid" button, the mouse cursor would have the contents of the "Working Grid" at its tail.
 - Made the spritePrint array & the "Working Grid" representation next to the mouse empty.
+
+# 8/4/24
+- Tried many things to solve the problem where opening another SingleCharacter file overwrites what's in the spriteGrid array with the contents of the file, but to no avail.

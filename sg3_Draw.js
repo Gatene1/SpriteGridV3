@@ -3,8 +3,13 @@ function drawAll() {
     drawPreviewSquare(100);
     drawColorSquares();
     drawPreviewUpdate();
-    drawSpriteUpdate();
-    if (spriteHeld) drawMouseSpriteUpdate();
+    if (spriteLittleWindow.style.visibility == "visible") {
+        drawSpriteUpdate();
+        if (spriteHeld) {
+            spriteCellLocation();
+            drawMouseSpriteUpdate();
+        }
+    }
 
 }
 
@@ -109,7 +114,7 @@ function drawColorSquares() {
 
 function drawPreviewUpdate() {
     let i, j;
-    let currCell, currCellColor;
+    let localCurrCell, currCellColor;
     let prevGridSize = gridSize * gridSize;
 
     previewWindowCTX.clearRect(0, 0, 300, 300);
@@ -117,12 +122,12 @@ function drawPreviewUpdate() {
 
     for (i = 0; i < gridSize; i++) {
         for (j = 0; j < gridSize; j++) {
-            currCell = (i * gridSize) + j;
+            localCurrCell = (i * gridSize) + j;
 
-            if (grid[currCell] == "0") {
+            if (grid[localCurrCell] == "0") {
                 currCellColor = "#ffffff";
             } else {
-                currCellColor = grid[currCell];
+                currCellColor = grid[localCurrCell];
             }
 
             drawSquare(j * prevCellSize + 2, i * prevCellSize + 2, prevCellSize, prevCellSize, false,
@@ -136,6 +141,9 @@ function drawSpriteUpdate() {
     let i;
     let x = 0;
     let y = 0;
+    let cellFillColor = GRID_FILL_COLOR;
+    let j, k;
+    let localCurrCell, currCellColor;
     spriteCanvasCTX.clearRect(0, 0, spriteWindowWidth, spriteWindowHeight);
     for (i = 0; i < spriteGridSize; i++) {
         if (colCount >= numberOfSpritesPerRow - 1) {
@@ -143,40 +151,60 @@ function drawSpriteUpdate() {
             y += spriteCellSize;
             colCount = 0;
         }
-        // Need to replace the if-statement to be equal where the cell where the mouse pointer is.
-        if (spriteGrid[i] != null)
-            drawSquare(x, y, spriteCellSize, spriteCellSize, true, spriteTitleBar.style.backgroundColor,
-                4);
+
+        if (i == spriteCellOn)
+            cellFillColor = "#dee5ff";
         else
-            drawSquare(x, y, spriteCellSize, spriteCellSize, true, GRID_FILL_COLOR, 4);
+            cellFillColor = GRID_FILL_COLOR;
+
+        if (spriteGrid[i] != null) {
+            drawSquare(x, y, spriteCellSize, spriteCellSize, true, cellFillColor,
+                4);
+            for (j = 0; j < spriteGrid[i].mySize; j++) {
+                for (k = 0; k < spriteGrid[i].mySize; k++) {
+                    localCurrCell = (j * spriteGrid[i].mySize) + k;
+
+                    if (spriteGrid[i] != null && spriteGrid[i].chart[localCurrCell] != "0") {
+                        currCellColor = spriteGrid[i].chart[localCurrCell];
+                        drawSquare(x + (k * spriteInCellSize + 2), y + (j * spriteInCellSize + 2),
+                            spriteInCellSize, spriteInCellSize, false, currCellColor, 4);
+                    }
+
+                }
+            }
+        } else {
+            drawSquare(x, y, spriteCellSize, spriteCellSize, true, cellFillColor, 4);
+        }
+
         drawText(i, x + (spriteCellSize - 20), y + (spriteCellSize - 5), 12, "black",
             spriteCanvasCTX);
         colCount++;
         x += spriteCellSize;
     }
+
 }
 
 function drawMouseSpriteUpdate() {
     let i, j;
-    let currCell, currCellColor;
+    let localCurrCell, currCellColor;
     let prevGridSize = spriteMouseGridSize * spriteMouseGridSize;
 
     //spriteCanvasCTX.clearRect(0, 0, spriteWindowWidth, spriteWindowHeight);
     //alert ("GridSize = " + gridSize);
 
-    drawText(spriteRowOn + ", " + spriteColOn, mouseXGrid, mouseYGrid, "12pt", "black", spriteCanvasCTX);
+    // drawText(spriteRowOn + ", " + spriteColOn, mouseXGrid, mouseYGrid, "12pt", "black", spriteCanvasCTX);
+    // drawText(spriteCellOn, mouseXGrid, mouseYGrid, "12pt", "black", spriteCanvasCTX);
 
-/*
     for (i = 0; i < spriteMouseGridSize; i++) {
         for (j = 0; j < spriteMouseGridSize; j++) {
-            currCell = (i * spriteMouseGridSize) + j;
+            localCurrCell = (i * spriteMouseGridSize) + j;
 
-            if (spritePrint[currCell] != "0") {
-                currCellColor = spritePrint[currCell];
-                drawSquare(mouseXGrid + (j * mouseSpriteCellSize + 2), mouseYGrid + (i * mouseSpriteCellSize + 2),
+            if (spritePrint[localCurrCell] != "0") {
+                currCellColor = spritePrint[localCurrCell];
+                drawSquare(mouseXSpriteGrid + (j * mouseSpriteCellSize + 2), mouseYSpriteGrid + (i * mouseSpriteCellSize + 2),
                     mouseSpriteCellSize, mouseSpriteCellSize, false, currCellColor, 4);
             }
 
         }
-    }*/
+    }
 }

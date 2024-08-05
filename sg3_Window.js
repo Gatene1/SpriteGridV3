@@ -103,4 +103,5 @@ function openWindow(whichWindow) {
 function spriteCanvasLeave() {
     spriteHeld = false;
     spritePrint = [];
+    spriteCellOn = -1;
 }

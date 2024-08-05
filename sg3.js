@@ -7,7 +7,7 @@
 
         var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
             previewWindowCTX, spriteCanvas, spriteCanvasCTX;
-        var mouseXGrid, mouseYGrid;
+        var mouseXGrid, mouseYGrid, mouseXSpriteGrid, mouseYSpriteGrid;
         var pixelsPerUnit = 2;
         var gridSize = 16;
         var cellSize = 24;
@@ -129,7 +129,7 @@ var savedColorSquares = [
         var window6Color = "Green";
         var divSide6 = document.getElementById("divSide6");
         var spriteWindowWidth, spriteWindowHeight;
-        var spriteRowOn, spriteColOn;
+        var spriteRowOn, spriteColOn, spriteCellOn;
 
 // Vars for SpriteSheet.
         var howManySpritesInSpriteSheet = 0;
@@ -142,6 +142,7 @@ var savedColorSquares = [
         var spritePrint = [];
         var spriteImportWorkingGrid = document.getElementById("spriteImportWorkingGrid");
         var mouseSpriteCellSize = 2
+        var spriteInCellSize = 2;
 
 
 window.onload = function() {
@@ -255,6 +256,7 @@ window.onload = function() {
     spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
     spriteCanvas.addEventListener('mousemove', gridUpdateMousePosSpriteSheet, true);
     spriteCanvas.addEventListener('mouseleave', spriteCanvasLeave, true);
+    spriteCanvas.addEventListener('click', addToSpritePrintArray, true);
     spriteImportWorkingGrid.addEventListener('click', grabFromMainGrid, true);
 
 }

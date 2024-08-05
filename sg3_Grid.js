@@ -23,7 +23,7 @@ function fillSpriteArrayWithZeroes() {
     let i;
     spriteGrid = [];
     for (i = 0; i < spriteGridSize; i++) {
-        grid.push(null);
+        spriteGrid.push(null);
     }
 }
 
@@ -67,10 +67,22 @@ function LMBRelease() {
 }
 
 function spriteCellLocation() {
-    let x = Math.floor(mouseXGrid);
-    let y = Math.floor(mouseYGrid);
+    let x = Math.floor(mouseXSpriteGrid);
+    let y = Math.floor(mouseYSpriteGrid);
     //576
-    spriteRowOn = 64/y;
-    spriteColOn = 64/x;
+    spriteRowOn = Math.floor(y/64);
+    spriteColOn = Math.floor(x/64);
+
+    spriteCellOn = (spriteRowOn * 9) + spriteColOn;
+
     let rowEndingColumnPixel = numberOfSpritesPerRow * spriteCellSize;
+}
+
+function addToSpritePrintArray() {
+    if (spriteHeld && spriteCellOn >= 0) {
+        spriteGrid[spriteCellOn] = null;
+        spriteGrid[spriteCellOn] = new spriteSquareIcon(Math.floor(Math.sqrt(spritePrint.length)), spritePrint);
+        spriteHeld = false;
+    }
+
 }

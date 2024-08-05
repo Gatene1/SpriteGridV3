@@ -10,3 +10,10 @@ class savedColorSquare {
         this.colorHeld = colorHeld;
     }
 }
+
+class spriteSquareIcon {
+    constructor(mySize, chart) {
+        this.mySize = mySize;
+        this.chart = chart;
+    }
+}
