@@ -19,13 +19,7 @@ function fillArrayWithZeroes() {
     titleBar.innerHTML = "Working Grid - Unknown.gat &#x1F4C2;";
 }
 
-function fillSpriteArrayWithZeroes() {
-    let i;
-    spriteGrid = [];
-    for (i = 0; i < spriteGridSize; i++) {
-        spriteGrid.push(null);
-    }
-}
+
 
 function refreshGridOutput() {
     let i;
@@ -38,6 +32,9 @@ function refreshGridOutput() {
     }
     // This will show the last value of the grid[] array, and end the output with a "];".
     gridOutput.value = gridOutput.value + "\"" + grid[gridSize * gridSize - 1] + "\"  ];";
+
+
+
 }
 
 function zeroOutRefresh() {
@@ -64,25 +61,4 @@ function RMB(e) {
 
 function LMBRelease() {
     lmbDown = false;
-}
-
-function spriteCellLocation() {
-    let x = Math.floor(mouseXSpriteGrid);
-    let y = Math.floor(mouseYSpriteGrid);
-    //576
-    spriteRowOn = Math.floor(y/64);
-    spriteColOn = Math.floor(x/64);
-
-    spriteCellOn = (spriteRowOn * 9) + spriteColOn;
-
-    let rowEndingColumnPixel = numberOfSpritesPerRow * spriteCellSize;
-}
-
-function addToSpritePrintArray() {
-    if (spriteHeld && spriteCellOn >= 0) {
-        spriteGrid[spriteCellOn] = null;
-        spriteGrid[spriteCellOn] = new spriteSquareIcon(Math.floor(Math.sqrt(spritePrint.length)), spritePrint);
-        spriteHeld = false;
-    }
-
 }

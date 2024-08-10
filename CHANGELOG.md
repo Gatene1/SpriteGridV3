@@ -80,3 +80,8 @@
 
 # 8/4/24
 - Tried many things to solve the problem where opening another SingleCharacter file overwrites what's in the spriteGrid array with the contents of the file, but to no avail.
+
+# 8/9/24
+- Decided to delete everything having to do with the sprite grid, except the window and buttons themselves, but deleted their functionality, in an attempt to fix the problem where the entire sprite grid array was overwritten when a new sprite .gat was opened.
+- Re-added the drawing of the sprite canvas' grid, its numbering system too.
+- Re-added the highlighting of the cell the user is hovering over with the mouse, and by extension, knowing the cell number the user is hovering over.

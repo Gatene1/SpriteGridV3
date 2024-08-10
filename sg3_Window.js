@@ -99,9 +99,3 @@ function openWindow(whichWindow) {
             break;
     }
 }
-
-function spriteCanvasLeave() {
-    spriteHeld = false;
-    spritePrint = [];
-    spriteCellOn = -1;
-}
