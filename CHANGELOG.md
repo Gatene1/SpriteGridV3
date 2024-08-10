@@ -85,3 +85,10 @@
 - Decided to delete everything having to do with the sprite grid, except the window and buttons themselves, but deleted their functionality, in an attempt to fix the problem where the entire sprite grid array was overwritten when a new sprite .gat was opened.
 - Re-added the drawing of the sprite canvas' grid, its numbering system too.
 - Re-added the highlighting of the cell the user is hovering over with the mouse, and by extension, knowing the cell number the user is hovering over.
+
+# 8/10/24
+- Finally figured out a workaround for what unknown reason was causing the spriteGrid array to be overwritten when a new .gat file is loaded. I created a separate array for the grid, and added each element one at a time to the array copy, and had the mouseSprite hold the copy.
+- Made the sprites show in the individual cells if they existed in the array.
+- Centered the sprites in the individual cells of the sprite grid.
+- Cleared the spriteGrid canvas, to stop the redraw of the held sprites outside the grid itself.
+- Fixed the bug that didn't let me choose a different color from the palette.

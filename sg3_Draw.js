@@ -4,6 +4,7 @@ function drawAll() {
     drawColorSquares();
     drawPreviewUpdate();
     drawSpriteCanvasUpdate();
+    refreshGridOutput();
 }
 
 function whichCanvas(canvasToFigureOut) {
@@ -155,16 +156,46 @@ function drawPreviewUpdate() {
 }
 
 function drawSpriteCanvasUpdate() {
-    let i;
+    let i, j;
     let spriteColNum = 0;
     let x = 0;
     let y = 0;
+    let a, b;
     let spriteGridFillColor;
+    let gridColumn = 0;
+    let spriteColumn = 0;
+
+    spriteCanvasCTX.clearRect(0, 0, spriteWindowWidth, spriteWindowHeight);
+
     for (i = 0; i < spriteGridSize; i++) {
+        // Determines the fill color of the individual cell. If the cell being drawn is the same the user is hovering over, it will be the highlighted, else, will be the normal color.
         spriteGridFillColor = i == spriteCellOn ? SPRITE_GRID_HOVER_FILL_COLOR : SPRITE_GRID_FILL_COLOR;
+        // Draw the individual cell of the spriteGrid.
         drawSquare (x, y, spriteCellSize, spriteCellSize, true, spriteGridFillColor, 4);
+        // Draws the # of the individual cell in the lower right hand corner of the cell.
         drawText(i, x + spriteCellSize - 20, y + spriteCellSize - 5, 12, "black", 4)
 
+        // If there is a sprite in the spriteGrid array for the cell being drawn, then draw the sprite.
+        if (spriteGrid[i] != null) {
+            // Center the icon in the cell.
+            a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+            b = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+            for (j = 0; j < spriteGrid[i].size * spriteGrid[i].size; j++) {
+                if (spriteGrid[i].grid[j] != "0")
+                    drawSquare(x + a, y + b, spriteInCellSize, spriteInCellSize, false, spriteGrid[i].grid[j], 4);
+                spriteColumn++;
+                if (spriteColumn >= spriteGrid[i].size) {
+                    spriteColumn = 0;
+                    a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+                    b += spriteInCellSize;
+                } else {
+                    a += spriteInCellSize;
+                }
+
+            }
+        }
+
+        // if the max number of cells has been drawn for a single row, restart the spriteColNum count, and the X-axis count, but increase the Y, if not, continue drawing on the same row.
         if (spriteColNum == numberOfSpritesPerRow - 1) {
             spriteColNum = 0;
             x = 0;
@@ -174,4 +205,23 @@ function drawSpriteCanvasUpdate() {
             x += spriteCellSize;
         }
     }
+    x = 0;
+    y = 0;
+
+    // if a sprite should be on the mouse cursor, then draw it.
+    if (spriteHeld) {
+        for (i = 0; i < mouseSprite.size * mouseSprite.size; i++) {
+            if (mouseSprite.grid[i] != "0")
+                drawSquare(mouseXSpriteCanvas + x, mouseYSpriteCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, mouseSprite.grid[i], 4);
+            gridColumn++;
+            if (gridColumn >= mouseSprite.size) {
+                gridColumn = 0;
+                x = 0;
+                y += mouseSpriteCellSize;
+            } else {
+                x += mouseSpriteCellSize;
+            }
+        }
+    }
+
 }

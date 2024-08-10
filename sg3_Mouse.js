@@ -494,6 +494,8 @@ function gridUpdateMousePosColorChoose(e) {
 
     mouseToGrid = (Math.floor(mouseYSpriteGrid / cellSize) * gridSize) + Math.floor(mouseXSpriteGrid / cellSize);
 
+    //drawText (Math.floor(mouseXSpriteGrid) + ", " + Math.floor(mouseYSpriteGrid), mouseXSpriteGrid, mouseYSpriteGrid, 8, "black", 2)
+
     gridSizeRangeText.value = gridSizeRange.value + " X " + gridSizeRange.value;
     cSizeRangeText.value = cellSizeRange.value + " Pixels";
 
@@ -506,8 +508,13 @@ function gridUpdateMousePosColorChoose(e) {
 function gridUpdateMousePosSpriteSheet(e) {
     let rect = spriteCanvas.getBoundingClientRect();
     let root = document.documentElement;
+
+    // Get the X & Y coordinates of the mouse while hovering over the sprite canvas.
     mouseXSpriteCanvas = e.clientX - rect.left - root.scrollLeft;
     mouseYSpriteCanvas = e.clientY - rect.top - root.scrollTop;
+
+    // if the mouse cursor is within the boundaries of the grid, then calculate which cell the mouse cursor is hovering over.
     if ((mouseXSpriteCanvas <= spriteCellSize * numberOfSpritesPerRow) && (mouseYSpriteCanvas <= spriteGridSize / numberOfSpritesPerRow * spriteCellSize))
         spriteCellOn = (Math.floor(mouseYSpriteCanvas / spriteCellSize) * numberOfSpritesPerRow) + Math.floor(mouseXSpriteCanvas / spriteCellSize);
+
 }

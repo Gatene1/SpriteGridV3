@@ -21,6 +21,7 @@
         var gridOutput = document.getElementById("gridOutput");
 
         var grid = ["0"];
+        var gridCopy = ["0"];
         var mouseToGrid;
 
 // Vars for classes
@@ -142,7 +143,7 @@ var savedColorSquares = [
         var spriteGrid = [];
         var spriteChart = [];
         var spriteHeld = false;
-        var spritePrint = [];
+        var mouseSprite = null;
         var spriteImportWorkingGrid = document.getElementById("spriteImportWorkingGrid");
         var mouseSpriteCellSize = 2
         var spriteInCellSize = 2;
@@ -156,6 +157,7 @@ window.onload = function() {
     cSizeRangeText.value = cellSize + " Pixels";
 
     fillArrayWithZeroes();
+    fillSpriteGridArrayWithNulls();
     refreshGridOutput();
 
 
@@ -257,4 +259,7 @@ window.onload = function() {
     spriteGearHW.addEventListener('mousedown', spriteGearClick, true);
     spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
     spriteCanvas.addEventListener('mousemove', gridUpdateMousePosSpriteSheet, true);
+    spriteCanvas.addEventListener('mouseleave', mouseSpriteSheetLeave, true);
+    spriteCanvas.addEventListener('click', addToSpriteGrid, true);
+    spriteImportWorkingGrid.addEventListener('click', workingGridToMouseSprite, true);
 }

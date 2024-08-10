@@ -13,3 +13,13 @@ function colorText() {
     colorPicker.color.hexString = currColor;
 }
 
+function workingGridToMouseSprite() {
+    let spriteDimension = Math.floor(Math.sqrt(grid.length));
+    let i;
+    gridCopy = [];
+    for (i = 0; i < gridSize * gridSize; i++) {
+        gridCopy.push(grid[i]);
+    }
+    mouseSprite = new spriteSquareIcon(spriteDimension, gridCopy);
+    spriteHeld = true;
+}

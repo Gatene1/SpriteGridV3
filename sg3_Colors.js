@@ -9,7 +9,7 @@ function activateColor() {
 
 function findWhereClicked() {
     savedColorSquares.forEach((square, index) => {
-        if (mouseXGrid >= square.x1 && mouseXGrid <= square.x2 && mouseYGrid >= square.y1 && mouseYGrid <= square.y2) {
+        if (mouseXSpriteGrid >= square.x1 && mouseXSpriteGrid <= square.x2 && mouseYSpriteGrid >= square.y1 && mouseYSpriteGrid <= square.y2) {
             colorStoresClicked = index;
         }
     })

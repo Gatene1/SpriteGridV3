@@ -12,8 +12,8 @@ class savedColorSquare {
 }
 
 class spriteSquareIcon {
-    constructor(mySize, chart) {
-        this.mySize = mySize;
-        this.chart = chart;
+    constructor(size, grid) {
+        this.size = size;
+        this.grid = grid;
     }
 }
