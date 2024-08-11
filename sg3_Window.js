@@ -6,32 +6,41 @@ function windowZRearrange(elementToLookAt) {
             windowZ[windowZ.indexOf(3)]--;
             windowZ[windowZ.indexOf(4)]--;
             windowZ[windowZ.indexOf(5)]--;
-        break;
+            windowZ[windowZ.indexOf(6)]--;
+            break;
 
         case 1 :
             windowZ[windowZ.indexOf(2)]--;
             windowZ[windowZ.indexOf(3)]--;
             windowZ[windowZ.indexOf(4)]--;
             windowZ[windowZ.indexOf(5)]--;
-        break;
+            windowZ[windowZ.indexOf(6)]--;
+            break;
 
         case 2 :
             windowZ[windowZ.indexOf(3)]--;
             windowZ[windowZ.indexOf(4)]--;
             windowZ[windowZ.indexOf(5)]--;
-        break;
+            windowZ[windowZ.indexOf(6)]--;
+            break;
 
         case 3 :
             windowZ[windowZ.indexOf(4)]--;
             windowZ[windowZ.indexOf(5)]--;
-        break;
+            windowZ[windowZ.indexOf(6)]--;
+            break;
 
         case 4 :
             windowZ[windowZ.indexOf(5)]--;
+            windowZ[windowZ.indexOf(6)]--;
+            break;
+
+        case 5:
+            windowZ[windowZ.indexOf(6)]--;
             break;
     }
 
-    windowZ[elementToLookAt] = 5;
+    windowZ[elementToLookAt] = 6;
 }
 
 function windowZRefresh() {
@@ -41,6 +50,7 @@ function windowZRefresh() {
     outLittleWindow.style.zIndex = windowZ[3].toString();
     fileLittleWindow.style.zIndex = windowZ[4].toString();
     spriteLittleWindow.style.zIndex = windowZ[5].toString();
+    levelLittleWindow.style.zIndex = windowZ[6].toString();
 }
 
 function closeWindow(whichWindow) {
@@ -69,6 +79,10 @@ function closeWindow(whichWindow) {
             spriteLittleWindow.style.visibility = "collapse";
             divSide6.style.visibility = "visible";
             break;
+        case 6 :
+            levelLittleWindow.style.visibility = "collapse";
+            divSide7.style.visibility = "visible";
+            break;
     }
 }
 function openWindow(whichWindow) {
@@ -96,6 +110,10 @@ function openWindow(whichWindow) {
         case 5 :
             spriteLittleWindow.style.visibility = "visible";
             divSide6.style.visibility = "hidden";
+            break;
+        case 6 :
+            levelLittleWindow.style.visibility = "visible";
+            divSide7.style.visibility = "hidden";
             break;
     }
 }

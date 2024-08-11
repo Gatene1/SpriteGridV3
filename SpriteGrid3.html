@@ -11,27 +11,31 @@
 
     <!-- Minimized Window Section Elements //-->
     <div id="divSide1" class="divSide1"> <!-- Working Grid //-->
-        G<br>R<br>I<br>D<br>
+        G<br>R<br>I<br>D
     </div>
 
     <div id="divSide2" class="divSide2"> <!-- Preview //-->
-        S<br>C<br>A<br>L<br>E<br>
+        S<br>C<br>A<br>L<br>E
     </div>
 
     <div id="divSide3" class="divSide3"> <!-- Color Iro.js //-->
-        C<br>O<br>L<br>O<br>R<br>
+        C<br>O<br>L<br>O<br>R
     </div>
 
     <div id="divSide4" class="divSide4"> <!-- Grid Output //-->
-        O<br>U<br>T<br>P<br>U<br>T<br>
+        O<br>U<br>T<br>P<br>U<br>T
     </div>
 
     <div id="divSide5" class="divSide5"> <!-- File Saving //-->
-        F<br>I<br>L<br>E<br>
+        F<br>I<br>L<br>E
     </div>
 
     <div id="divSide6" class="divSide6"> <!-- File Saving //-->
-        S<br>P<br>R<br>I<br>T<br>E<br>
+        S<br>P<br>R
+    </div>
+
+    <div id="divSide7" class="divSide7"><!-- Level Builder //-->
+        L<br>E<br>V<br>E<br>L
     </div>
     <!-- End Minimized Window Section Elements //-->
 
@@ -162,12 +166,34 @@
             <div class="spriteRightButtonDiv">
                 <button type="button" class="btn btn-success" id="spriteSaveButton">Save</button>
                 <button type="button" class="btn btn-success" id="spriteImportWorkingGrid">Use Working Grid</button>
-                <button type="button" class="btn btn-success" id="spriteImportSingleSprite">Use Single Sprite</button>
+                <button type="button" class="btn btn-success" id="eraseSingleSprite">Erase</button>
             </div>
         </div>
     </div>
     <!-- End Sixth Window (Sprite Sheet) //-->
 
+    <!-- Seventh Window (Level Editor) //-->
+    <div id="levelLittleWindowHW" class="divTitle7">
+        <div class="divTitleBreakDown">
+            <div id="levelGearHW" class="seven">&nbsp;&#9881;</div>
+            <div id="levelTitleBarHW" class="eightyThree">Level Editor - Unknown.gss &#x1F4C2;</div>
+            <div id="levelCloseHW" class="ten">&nbsp;X&nbsp;</div>
+        </div>
+        <div class="divInnerBottomFlexColChildLevel">
+            <div class="divForLevelGrid">
+                <canvas id="levelCanvas" width = "10000" height = "578"></canvas>
+            </div>
+            <div class="levelRightButtonDiv">
+                <button type="button" class="btn btn-success" id="levelBgColor">Change BG Color</button>
+                <button type="button" class="btn btn-success" id="levelSaveButton">Save</button>
+                <button type="button" class="btn btn-success" id="levelImportWorkingGrid">Use Working Grid</button>
+                <button type="button" class="btn btn-success" id="levelCellErase">Erase</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Seventh Window (Level Editor) //-->
+
+    <script type="text/javascript" src="sg3_Tools.js"></script>
     <script type="text/javascript" src="sg3_Classes.js"></script>
     <script type="text/javascript" src="sg3.js"></script>
     <script type="text/javascript" src="sg3_Grid.js"></script>

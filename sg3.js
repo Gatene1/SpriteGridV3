@@ -6,9 +6,10 @@
         const GRID_FILL_COLOR = "#f5f5f5";
         const SPRITE_GRID_FILL_COLOR = "#f5f5f5";
         const SPRITE_GRID_HOVER_FILL_COLOR = "#dee5ff";
+        const SPRITE_GRID_CHOSEN_CELL_FILL_COLOR = "#b0b1ff";
 
         var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
-            previewWindowCTX, spriteCanvas, spriteCanvasCTX;
+            previewWindowCTX, spriteCanvas, spriteCanvasCTX, levelCanvas, levelCanvasCTX;
         var mouseXGrid, mouseYGrid, mouseXSpriteGrid, mouseYSpriteGrid;
         var pixelsPerUnit = 2;
         var gridSize = 16;
@@ -23,6 +24,9 @@
         var grid = ["0"];
         var gridCopy = ["0"];
         var mouseToGrid;
+        var toolGrid = ["0"];
+        var toolSize = 16;
+        var eraseTool = false;
 
 // Vars for classes
 var savedColorSquares = [
@@ -55,7 +59,7 @@ var savedColorSquares = [
         var previewSelect = document.getElementById("previewSelect");
 
 // Vars for every window
-        var windowZ = [0, 1, 2, 3, 4, 5];
+        var windowZ = [0, 1, 2, 3, 4, 5, 6];
 
 // Vars for First Window (Grid)
         var lmbDown = false;
@@ -118,8 +122,10 @@ var savedColorSquares = [
         var divSide5 = document.getElementById("divSide5");
         var fileSavingOpenButton = document.getElementById("fileSavingOpenButton");
         var fileSavingSaveButton = document.getElementById("fileSavingSaveButton");
+        var newSSheet = document.getElementById("newSSheet");
         var openFileContents;
-        var openPalletteContents;
+        var openPaletteContents;
+        var openSSheetContents;
 
         // Vars for Sixth Window (Sprite Sheet)
         var spriteLmbDown = false;
@@ -141,12 +147,31 @@ var savedColorSquares = [
         var spriteCellSize = 64;
         var spriteGridSize = 500;
         var spriteGrid = [];
-        var spriteChart = [];
+        var spriteGridBlob = [];
         var spriteHeld = false;
+        var spriteChosen = -1;
+        var pasteSprite = false;
         var mouseSprite = null;
         var spriteImportWorkingGrid = document.getElementById("spriteImportWorkingGrid");
+        var spriteSaveButton = document.getElementById("spriteSaveButton");
+        var openSSheet = document.getElementById("openSSheet");
+        var eraseSingleSprite = document.getElementById("eraseSingleSprite");
         var mouseSpriteCellSize = 2
         var spriteInCellSize = 2;
+
+        // Vars for Seventh Window (Level Editor)
+        var levelLmbDown = false;
+        var levelMousePosition;
+        var levelMousePositionOffset = [0, 0];
+        var levelTitleBar = document.getElementById("levelTitleBarHW");
+        var levelLittleWindow = document.getElementById("levelLittleWindowHW");
+        var levelGearHW = document.getElementById("levelGearHW");
+        var levelCloseHW = document.getElementById("levelCloseHW");
+        var window7Color = "Green";
+        var divSide7 = document.getElementById("divSide7");
+        var levelCanvasWidth, levelCanvasHeight;
+        var bgColorChoose = "#6185f8";
+        var levelBgColor = document.getElementById("levelBgColor");
 
 
 window.onload = function() {
@@ -180,6 +205,11 @@ window.onload = function() {
     spriteWindowHeight = spriteCanvas.height;
     numberOfSpritesPerRow = Math.floor(spriteWindowWidth / spriteCellSize);
 
+    levelCanvas = document.getElementById("levelCanvas");
+    levelCanvasCTX = levelCanvas.getContext('2d');
+    levelCanvasWidth = levelCanvas.width;
+    levelCanvasHeight = levelCanvas.offsetHeight;
+
     setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
     // Listeners for whole app.
@@ -195,71 +225,111 @@ window.onload = function() {
     { openWindow(4); windowZRearrange(4); windowZRefresh(); }, true);
     divSide6.addEventListener('mousedown', function()
     { openWindow(5); windowZRearrange(5); windowZRefresh(); }, true);
+    divSide7.addEventListener('mousedown', function()
+    { openWindow(6); windowZRearrange(6); windowZRefresh(); }, true);
     cellSizeRange.addEventListener('change', changeCellSize, false);
     gridSizeRange.addEventListener('change', changeGridSize, false);
 
-    // Listeners for the Color Iro.js
-    colorPicker.on('color:change', function(color) { currColor = colorPicker.color.hexString; colorTextElement.value = currColor; });
+                // Listeners for the Color Iro.js
+                colorPicker.on('color:change', function(color) { currColor = colorPicker.color.hexString; colorTextElement.value = currColor; });
 
-    // Listeners for the Grid Canvas
-    canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
-    canvasGrid.addEventListener('mousedown', changeCellColor, false);
-    canvasGrid.addEventListener('mouseup', LMBRelease, false);
-    canvasGrid.addEventListener('contextmenu', RMB, true);
+                // Listeners for the Grid Canvas
+                canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
+                //canvasGrid.addEventListener('mousedown', changeCellColor, false);
+                canvasGrid.addEventListener('mouseup', (e) => {
+                    switch (e.button) {
+                        case 0:
+                            LMBRelease();
+                            break;
+                        case 2:
+                            RMBRelease();
+                            break;
+                    }
+                }, false);
+                canvasGrid.addEventListener('mousedown', (e) => {
+                    switch (e.button) {
+                        case 0:
+                            changeCellColor();
+                            break;
+                        case 1:
+                            e.preventDefault();
+                            siphonColor();
+                            break;
+                        case 2:
+                            RMB();
+                            break;
+                        default:
+                            break;
+                    }
+                }, false);
+                canvasGrid.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
 
-    // Listeners for First Window (Grid)
-    littleWindow.addEventListener('mousedown', littleWindowClick, false);
-    titleBar.addEventListener('mousedown', divTitleClick, false);
-    titleBar.addEventListener('mouseup', divTitleUnClick, true);
-    gearHW.addEventListener('mousedown', gearClick, true);
-    closeHW.addEventListener('mousedown', function() { closeWindow(0); }, true);
-    resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
 
-    // Listeners for Second Window (Preview)
-    prevLittleWindow.addEventListener('mousedown', prevLittleWindowClick, false);
-    prevTitleBar.addEventListener('mousedown', prevDivTitleClick, false);
-    prevTitleBar.addEventListener('mouseup', prevDivTitleUnClick, true);
-    prevGearHW.addEventListener('mousedown', prevGearClick, true);
-    prevCloseHW.addEventListener('mousedown', function() { closeWindow(1); }, true);
-    previewSelect.addEventListener('change', previewScale, true);
+                // Listeners for First Window (Grid)
+                littleWindow.addEventListener('mousedown', littleWindowClick, false);
+                titleBar.addEventListener('mousedown', divTitleClick, false);
+                titleBar.addEventListener('mouseup', divTitleUnClick, true);
+                gearHW.addEventListener('mousedown', gearClick, true);
+                closeHW.addEventListener('mousedown', function() { closeWindow(0); }, true);
+                resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
 
-    // Listeners for Third Window (Color Iro.js)
-    colorLittleWindow.addEventListener('mousedown', colorLittleWindowClick, false);
-    colorTitleBar.addEventListener('mousedown', colorDivTitleClick, false);
-    colorTitleBar.addEventListener('mouseup', colorDivTitleUnClick, true);
-    colorGearHW.addEventListener('mousedown', colorGearClick, true);
-    colorCloseHW.addEventListener('mousedown', function() { closeWindow(2); }, true);
-    colorChooseRow1.addEventListener('click', activateColor, true);
-    colorChooseRow1.addEventListener('mousemove', gridUpdateMousePosColorChoose, true);
-    saveButton.addEventListener('click', saveToStore, true);
-    colorTextElement.addEventListener('change', colorText, true);
-    loadPalletteButton.addEventListener('click', loadPalletteFile, true);
-    savePalletteButton.addEventListener('click', savePalletteFile, true);
+                // Listeners for Second Window (Preview)
+                prevLittleWindow.addEventListener('mousedown', prevLittleWindowClick, false);
+                prevTitleBar.addEventListener('mousedown', prevDivTitleClick, false);
+                prevTitleBar.addEventListener('mouseup', prevDivTitleUnClick, true);
+                prevGearHW.addEventListener('mousedown', prevGearClick, true);
+                prevCloseHW.addEventListener('mousedown', function() { closeWindow(1); }, true);
+                previewSelect.addEventListener('change', previewScale, true);
 
-    // Listeners for Fourth Window (Output)
-    outLittleWindow.addEventListener('mousedown', outLittleWindowClick, false);
-    outTitleBar.addEventListener('mousedown', outDivTitleClick, false);
-    outTitleBar.addEventListener('mouseup', outDivTitleUnClick, true);
-    outGearHW.addEventListener('mousedown', outGearClick, true);
-    outCloseHW.addEventListener('mousedown', function() { closeWindow(3); }, true);
+                // Listeners for Third Window (Color Iro.js)
+                colorLittleWindow.addEventListener('mousedown', colorLittleWindowClick, false);
+                colorTitleBar.addEventListener('mousedown', colorDivTitleClick, false);
+                colorTitleBar.addEventListener('mouseup', colorDivTitleUnClick, true);
+                colorGearHW.addEventListener('mousedown', colorGearClick, true);
+                colorCloseHW.addEventListener('mousedown', function() { closeWindow(2); }, true);
+                colorChooseRow1.addEventListener('click', activateColor, true);
+                colorChooseRow1.addEventListener('mousemove', gridUpdateMousePosColorChoose, true);
+                saveButton.addEventListener('click', saveToStore, true);
+                colorTextElement.addEventListener('change', colorText, true);
+                loadPalletteButton.addEventListener('click', loadPalletteFile, true);
+                savePalletteButton.addEventListener('click', savePalletteFile, true);
 
-    // Listeners for Fifth Window (File Saving)
-    fileLittleWindow.addEventListener('mousedown', fileLittleWindowClick, false);
-    fileTitleBar.addEventListener('mousedown', fileDivTitleClick, false);
-    fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);
-    fileGearHW.addEventListener('mousedown', fileGearClick, true);
-    fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
-    fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
-    fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
+                // Listeners for Fourth Window (Output)
+                outLittleWindow.addEventListener('mousedown', outLittleWindowClick, false);
+                outTitleBar.addEventListener('mousedown', outDivTitleClick, false);
+                outTitleBar.addEventListener('mouseup', outDivTitleUnClick, true);
+                outGearHW.addEventListener('mousedown', outGearClick, true);
+                outCloseHW.addEventListener('mousedown', function() { closeWindow(3); }, true);
 
-    // Listeners for Sixth Window (Sprite Sheet)
-    spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);
-    spriteTitleBar.addEventListener('mousedown', spriteDivTitleClick, false);
-    spriteTitleBar.addEventListener('mouseup', spriteDivTitleUnClick, true);
-    spriteGearHW.addEventListener('mousedown', spriteGearClick, true);
-    spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
-    spriteCanvas.addEventListener('mousemove', gridUpdateMousePosSpriteSheet, true);
-    spriteCanvas.addEventListener('mouseleave', mouseSpriteSheetLeave, true);
-    spriteCanvas.addEventListener('click', addToSpriteGrid, true);
-    spriteImportWorkingGrid.addEventListener('click', workingGridToMouseSprite, true);
+                // Listeners for Fifth Window (File Saving)
+                fileLittleWindow.addEventListener('mousedown', fileLittleWindowClick, false);
+                fileTitleBar.addEventListener('mousedown', fileDivTitleClick, false);
+                fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);
+                fileGearHW.addEventListener('mousedown', fileGearClick, true);
+                fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
+                fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
+                fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
+
+                // Listeners for Sixth Window (Sprite Sheet)
+                spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);
+                spriteTitleBar.addEventListener('mousedown', spriteDivTitleClick, false);
+                spriteTitleBar.addEventListener('mouseup', spriteDivTitleUnClick, true);
+                spriteGearHW.addEventListener('mousedown', spriteGearClick, true);
+                spriteCloseHW.addEventListener('mousedown', function() { closeWindow(5); }, true);
+                spriteCanvas.addEventListener('mousemove', gridUpdateMousePosSpriteSheet, true);
+                spriteCanvas.addEventListener('mouseleave', mouseSpriteSheetLeave, true);
+                spriteCanvas.addEventListener('click', clickFunction, true);
+                spriteImportWorkingGrid.addEventListener('click', workingGridToMouseSprite, true);
+                spriteSaveButton.addEventListener('click', spriteSheetSave, true);
+                eraseSingleSprite.addEventListener('click', eraseInSpriteSheet, true )
+                openSSheet.addEventListener('click', openSpriteSheet, true);
+                newSSheet.addEventListener('click', createNewSpriteSheet, true);
+
+                // Listeners for Seventh Window (Level Editor)
+                levelLittleWindow.addEventListener('mousedown', levelLittleWindowClick, false);
+                levelTitleBar.addEventListener('mousedown', levelDivTitleClick, false);
+                levelTitleBar.addEventListener('mouseup', levelDivTitleUnClick, true);
+                levelGearHW.addEventListener('mousedown', levelGearClick, true);
+                levelCloseHW.addEventListener('mousedown', function() { closeWindow(6); }, true);
+                levelBgColor.addEventListener('click', changeLevelBG, true);
 }

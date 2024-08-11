@@ -70,11 +70,11 @@
 
 # 7/23/24
 - Fixed Z-index issue with the SpriteSheet window.
-- Made the SpriteSheet Window moveable like the others.
+- Made the SpriteSheet Window movable like the others.
 - Made the SpriteSheet Window start collapsed, and the side tab visible.
 
 # 8/3/24
-- Implemented functionaility of the "Use Working Grid" button.
+- Implemented functionality of the "Use Working Grid" button.
 - After clicking the "Use Working Grid" button, the mouse cursor would have the contents of the "Working Grid" at its tail.
 - Made the spritePrint array & the "Working Grid" representation next to the mouse empty.
 
@@ -92,3 +92,19 @@
 - Centered the sprites in the individual cells of the sprite grid.
 - Cleared the spriteGrid canvas, to stop the redraw of the held sprites outside the grid itself.
 - Fixed the bug that didn't let me choose a different color from the palette.
+- Added the ability to click on the Sprite Sheet canvas, and it will show the sprite of what is in the Sprite Sheet away after clicking.
+- Added functionality to the "Open Sprite sheet" button.
+- Added functionality to the "Save" button in the Sprite Sheet window. 
+- Created and added functionality to the "Erase" button in the Sprite Sheet Window.
+- Removed the Undo button from the Sprite Sheet Window.
+- Removed "Use Single Sprite" button from the Sprite Sheet Window.
+
+# 8/11/24
+- Added functionality to the "New Sprite Sheet" button in the File Saving Window.
+- Made the MMB act as a color grabber for any cell in the Working Grid Window.
+- Fixed the bug that wasn't allowing me to hold RMB to erase individual cells in the Working Grid Window.
+- Made individual cells in the Sprite Sheet clickable to choose a single cell.
+- Made the Level Editor Window and Movable like the others.
+- Made the "Change BG Color" button.
+- Added the functionality for the "Change BG Color" button.
+- Ran into a problem where the Z-indexes aren't changing like they are supposed to when I made the new Level Editor Window.

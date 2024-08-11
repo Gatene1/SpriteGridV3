@@ -35,6 +35,12 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
     flex-wrap: nowrap; overflow: clip; visibility: collapse; }
 
+.divTitle7   { position: absolute;  background-color: darkgreen; width: 50%; height: 79%; top: 100px; left: 27%;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    border: 2px solid #000000; user-select: none; -webkit-user-select: none;
+    -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
+    flex-wrap: nowrap; overflow: clip; visibility: collapse; }
+
 .divSide1 {position: relative; background-color: darkgreen; width: 2.3%; height: 20%; top: 0px; left: 0px;
         border: solid black 2px; visibility: hidden; font-weight: bold; color: #ffffff; text-align: center;
         cursor: pointer; }
@@ -59,7 +65,9 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
     border: solid black 2px; visibility: visible; font-weight: bold; color: #ffffff; text-align: center;
     cursor: pointer; }
 
-.divSide7 { }
+.divSide7 { position: relative; background-color: darkgreen; width: 2.3%; height: 20%; top: 115%; left: 0px;
+    border: solid black 2px; visibility: visible; font-weight: bold; color: #ffffff; text-align: center;
+    cursor: pointer; }
 
 .divTitleBreakDown { display: flex; flex-direction: row; justify-content: space-between; flex-wrap: nowrap; }
 
@@ -77,6 +85,9 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 .divInnerBottomFlexColChildFile { background-color: #ffffff; width: 100%; height: 100%; color: #000000; padding: 3px; display: flex;
     flex-direction: column; justify-content: center; align-items: center; }
 
+.divInnerBottomFlexColChildLevel { width: 100%;  height: 96%; text-align: center; background-color: #ffffff;
+    overflow: clip; display: flex; flex-direction: row; justify-content: flex-start;  }
+
 .divInnerBottomFlexGrid { background-color: #ffffff; width: 100%; height: 100%; color: #000000; padding: 3px;
     display: flex; flex-direction: row; justify-content: flex-start; }
 
@@ -88,7 +99,12 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 .spriteRightButtonDiv { width: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center;
     align-content: center;  }
 
+.levelRightButtonDiv { width: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center;
+    align-content: center;  }
+
 .divForSpriteGrid { overflow: scroll; }
+
+.divForLevelGrid { width: 80%; height: 100%; overflow: scroll; }
 
 .seven { width: 7%; cursor: pointer; }
 .ten { width: 10%; cursor: pointer; }
@@ -103,12 +119,7 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 #saveButton { padding: 3px; width: fit-content; }
 
-#fileSavingOpenButton { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#fileSavingSaveButton { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#newSSheet { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#openSSheet { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#newLevel { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#openLevel { border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#spriteSaveButton { border: solid 2px black; margin-bottom: 3px; width: fit-content; margin-left: auto; margin-right: auto; }
-#spriteImportWorkingGrid { border: solid 2px black; margin-bottom: 3px; width: fit-content; margin-left:auto; margin-right: auto; }
-#spriteImportSingleSprite { border: solid 2px black; margin-bottom: 3px; width: fit-content; margin-left:auto; margin-right: auto; }
+#fileSavingOpenButton, #fileSavingSaveButton, #newSSheet, #openSSheet, #newLevel, #openLevel {
+    border: solid 2px black; margin-bottom: 3px; width: fit-content; }
+#spriteSaveButton, #spriteImportWorkingGrid, #eraseSingleSprite, #levelSaveButton, #levelImportWorkingGrid, #levelCellErase, #levelBgColor {
+    border: solid 2px black; margin-bottom: 3px; width: fit-content; margin-left:auto; margin-right: auto; }

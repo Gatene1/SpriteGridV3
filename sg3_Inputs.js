@@ -16,10 +16,32 @@ function colorText() {
 function workingGridToMouseSprite() {
     let spriteDimension = Math.floor(Math.sqrt(grid.length));
     let i;
+    if (isNotEmpty(1)) {
+        gridCopy = [];
+        for (i = 0; i < gridSize * gridSize; i++) {
+            gridCopy.push(grid[i]);
+        }
+        mouseSprite = new spriteSquareIcon(spriteDimension, gridCopy);
+        spriteHeld = true;
+        pasteSprite = true;
+        eraseTool = false;
+    }
+}
+
+function eraseInSpriteSheet() {
+    let spriteDimension = Math.floor(Math.sqrt(eraserGrid.length));
+    let i;
     gridCopy = [];
-    for (i = 0; i < gridSize * gridSize; i++) {
-        gridCopy.push(grid[i]);
+    for (i = 0; i < eraserGrid.length; i++) {
+        gridCopy.push(eraserGrid[i]);
     }
     mouseSprite = new spriteSquareIcon(spriteDimension, gridCopy);
     spriteHeld = true;
+    pasteSprite = false;
+    eraseTool = true;
+}
+
+function createNewSpriteSheet() {
+    spriteGrid = [];
+    fillSpriteGridArrayWithNulls();
 }

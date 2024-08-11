@@ -384,7 +384,7 @@ function fileGearClick() {
 }
 
 
-// functions for Fifth Window (File Saving)
+// functions for Sixth Window (Sprite Sheet)
 // =====================================
 function spriteLittleWindowClick() {
     windowZRearrange(5);
@@ -457,6 +457,83 @@ function spriteGearClick() {
             spriteLittleWindow.style.color = "#ffffff";
             divSide6.style.backgroundColor = "darkgreen";
             divSide6.style.color = "#ffffff";
+            break;
+    }
+}
+
+// functions for Seventh Window (Level Editor)
+// =====================================
+function levelLittleWindowClick() {
+    windowZRearrange(6);
+    windowZRefresh();
+}
+function levelDivTitleClick(e) {
+    e.stopPropagation();
+    document.addEventListener('mousemove', levelUpdateMousePos, true);
+    levelLmbDown = true;
+    levelTitleBar.style.cursor = "grabbing";
+    levelMousePositionOffset = [
+        levelLittleWindow.offsetLeft - e.clientX,
+        levelLittleWindow.offsetTop - e.clientY
+    ];
+    levelLittleWindowClick();
+}
+function levelDivTitleUnClick() {
+    levelLmbDown = false;
+    levelTitleBar.style.cursor = "grab";
+    document.removeEventListener('mousemove', levelUpdateMousePos, true);
+}
+function levelUpdateMousePos(e) {
+    e.preventDefault();
+    if (levelLmbDown) {
+        levelMousePosition = {
+            x : e.clientX,
+            y : e.clientY
+        };
+        levelLittleWindow.style.left = (levelMousePosition.x + levelMousePositionOffset[0]) + 'px';
+        levelLittleWindow.style.top = (levelMousePosition.y + levelMousePositionOffset[1]) + 'px';
+    }
+}
+function levelGearClick() {
+    switch (window7Color) {
+        case "Green" :
+            window7Color = "Red";
+            levelLittleWindow.style.backgroundColor = "darkred";
+            divSide7.style.backgroundColor = "darkred";
+            break;
+
+        case "Red" :
+            window7Color = "Blue";
+            levelLittleWindow.style.backgroundColor = "midnightblue";
+            divSide7.style.backgroundColor = "midnightblue";
+            break;
+
+        case "Blue" :
+            window7Color = "Black";
+            levelLittleWindow.style.backgroundColor = "#000000";
+            divSide7.style.backgroundColor = "#000000";
+            break;
+
+        case "Black" :
+            window7Color = "White";
+            levelLittleWindow.style.backgroundColor = "#ffffff";
+            levelLittleWindow.style.color = "#000000";
+            divSide7.style.backgroundColor = "#ffffff";
+            divSide7.style.color = "#000000";
+            break;
+
+        case "White" :
+            window7Color = "Yellow";
+            levelLittleWindow.style.backgroundColor = "khaki";
+            divSide7.style.backgroundColor = "khaki";
+            break;
+
+        case "Yellow" :
+            window7Color = "Green";
+            levelLittleWindow.style.backgroundColor = "darkgreen";
+            levelLittleWindow.style.color = "#ffffff";
+            divSide7.style.backgroundColor = "darkgreen";
+            divSide7.style.color = "#ffffff";
             break;
     }
 }

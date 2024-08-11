@@ -3,8 +3,8 @@ function drawAll() {
     drawPreviewSquare(100);
     drawColorSquares();
     drawPreviewUpdate();
-    drawSpriteCanvasUpdate();
-    refreshGridOutput();
+    if (spriteLittleWindow.style.visibility) drawSpriteCanvasUpdate();
+    if (levelLittleWindow.style.visibility)  drawLevelCanvasUpdate();
 }
 
 function whichCanvas(canvasToFigureOut) {
@@ -52,6 +52,9 @@ function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0,
             break;
         case 4:
             canvasChoice = spriteCanvasCTX;
+            break;
+        case 5:
+            canvasChoice = levelCanvasCTX;
             break;
     }
     canvasChoice.strokeStyle = strokeColor;
@@ -169,7 +172,12 @@ function drawSpriteCanvasUpdate() {
 
     for (i = 0; i < spriteGridSize; i++) {
         // Determines the fill color of the individual cell. If the cell being drawn is the same the user is hovering over, it will be the highlighted, else, will be the normal color.
-        spriteGridFillColor = i == spriteCellOn ? SPRITE_GRID_HOVER_FILL_COLOR : SPRITE_GRID_FILL_COLOR;
+        if (i == spriteChosen)
+            spriteGridFillColor = SPRITE_GRID_CHOSEN_CELL_FILL_COLOR;
+        else if (i == spriteCellOn)
+            spriteGridFillColor = SPRITE_GRID_HOVER_FILL_COLOR;
+        else
+            spriteGridFillColor = SPRITE_GRID_FILL_COLOR;
         // Draw the individual cell of the spriteGrid.
         drawSquare (x, y, spriteCellSize, spriteCellSize, true, spriteGridFillColor, 4);
         // Draws the # of the individual cell in the lower right hand corner of the cell.
@@ -224,4 +232,13 @@ function drawSpriteCanvasUpdate() {
         }
     }
 
+}
+
+function drawLevelCanvasUpdate() {
+    levelCanvasCTX.clearRect(0, 0, levelCanvasWidth, levelCanvasHeight);
+    drawSquare(0, 0, levelCanvasWidth, levelCanvasHeight, false, bgColorChoose, 5);
+}
+
+function changeLevelBG() {
+    bgColorChoose = currColor;
 }

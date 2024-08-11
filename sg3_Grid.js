@@ -53,9 +53,8 @@ function changeCellColor(e) {
     }
 }
 
-function RMB(e) {
-    e.preventDefault();
-
+function RMB() {
+    rmbDown = true;
     if (Math.floor(mouseXGrid / cellSize) <= gridSize - 1) {
         grid[mouseToGrid] = "0";
         refreshGridOutput();
@@ -66,12 +65,58 @@ function LMBRelease() {
     lmbDown = false;
 }
 
+function RMBRelease() {
+    rmbDown = false;
+}
+
+function siphonColor() {
+    currColor = grid[mouseToGrid] == "0" ? "#f5f5f5" : grid[mouseToGrid];
+    colorPicker.color.hexString = currColor;
+}
+
 function mouseSpriteSheetLeave() {
     spriteHeld = false;
+    eraseTool = false;
+    pasteSprite = false;
     mouseSprite = null;
 }
 
-function addToSpriteGrid() {
-    spriteGrid[spriteCellOn] = mouseSprite;
-    mouseSpriteSheetLeave();
+function addToSpriteGrid(whichTool) {
+    switch (whichTool) {
+        case 1:
+            spriteGrid[spriteCellOn] = mouseSprite;
+            mouseSpriteSheetLeave();
+            break;
+        case 2:
+            spriteGrid[spriteCellOn] = null;
+            break;
+    }
 }
+
+function clickFunction() {
+    if (eraseTool)
+        addToSpriteGrid(2);
+    else if (pasteSprite)
+        addToSpriteGrid(1);
+    else
+        if (isNotEmpty(4)) spriteChosen = spriteCellOn;
+}
+
+function isNotEmpty(whichArray) {
+    let i;
+    let returnValue = false;
+    switch (whichArray) {
+        case 1:
+            for (i = 0; i < grid.length; i++) {
+                if (grid[i] != "0" && grid[i] != null) returnValue = true;
+            }
+            break;
+        case 4:
+            for (i = 0; i < spriteGrid[spriteCellOn].grid.length; i++) {
+                if (spriteGrid[spriteCellOn].grid[i] != "0" && spriteGrid[spriteCellOn].grid[i] != null) returnValue = true;
+            }
+            break;
+    }
+    return returnValue;
+}
+
