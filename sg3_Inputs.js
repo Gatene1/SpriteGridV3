@@ -45,3 +45,10 @@ function createNewSpriteSheet() {
     spriteGrid = [];
     fillSpriteGridArrayWithNulls();
 }
+
+function saveGridAsPNG() {
+    image.src = canvasGrid.toDataURL("png");
+    link.href = image.src;
+    link.download = "canvas_image.png"
+    link.click();
+}

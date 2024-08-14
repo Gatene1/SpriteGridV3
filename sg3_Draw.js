@@ -4,7 +4,11 @@ function drawAll() {
     drawColorSquares();
     drawPreviewUpdate();
     if (spriteLittleWindow.style.visibility) drawSpriteCanvasUpdate();
-    if (levelLittleWindow.style.visibility)  drawLevelCanvasUpdate();
+    if (levelLittleWindow.style.visibility) {
+        drawLevelCanvasUpdate();
+        drawLevelExtendIcon();
+        drawLevelGrid();
+    }
 }
 
 function whichCanvas(canvasToFigureOut) {
@@ -32,7 +36,7 @@ function whichCanvas(canvasToFigureOut) {
 }
 
 function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0,
-                     strokeColor = GRID_BORDER_COLOR) {
+                     strokeColor = GRID_BORDER_COLOR, fill = true) {
     let canvasChoice = canvasGridCTX;
 
     switch (whichCanvas) {
@@ -60,7 +64,9 @@ function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0,
     canvasChoice.strokeStyle = strokeColor;
     canvasChoice.lineWidth = 1;
     if (stroke) canvasChoice.strokeRect(x, y, width, height);
-    canvasChoice.fillStyle = fillColor;
+    if (fill) {
+        canvasChoice.fillStyle = fillColor;
+    }
     canvasChoice.fillRect(x, y, width, height);
 }
 
@@ -75,12 +81,15 @@ function drawGrid() {
             currCell = (i * gridSize) + j;
 
             if (grid[currCell] == "0") {
-                currCellColor = GRID_FILL_COLOR;
+                if (showTheGrid) {
+                    currCellColor = GRID_FILL_COLOR;
+                    drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor);
+                }
             } else {
                 currCellColor = grid[currCell];
+                drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor);
             }
 
-            drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, true, currCellColor);
         }
     }
 }
@@ -241,4 +250,37 @@ function drawLevelCanvasUpdate() {
 
 function changeLevelBG() {
     bgColorChoose = currColor;
+}
+
+function turnGridOnOff() {
+    showTheGrid = showGridCheckbox.checked;
+}
+
+function drawLevelExtendIcon() {
+    //let logo { x, y };
+}
+
+function drawLevelGrid() {
+    // Take the length of the canvas (levelCanvasWidth) and divide it / 17 (17 * 32 = 544 pixels wide for one screen)
+    // Take the height of the canvas (levelCanvasHeight) and divide it / 15 (15 * 32 = 480 pixels tall for one screen)
+    // Those equations above will tell how many squares to create (length/17 + height/15).
+    // 17 x 13 pixels for one screen, each of these
+
+    let i, j;
+    let x = 0;
+    let y = 0;
+    let squaresForLevelGridWidth = Math.floor(levelCanvasWidth / levelGridSize); // Should be 17 initially
+    let squaresForLevelGridHeight = Math.floor(levelCanvasHeight / levelGridSize); // should be 15 initially
+
+    for (i = 0; i < squaresForLevelGridHeight; i++) {
+        for (j = 0; j < squaresForLevelGridWidth; j++) {
+            drawSquare(x, y, levelGridSize, levelGridSize, true, "white", 5, "black", false);
+            if (j >= squaresForLevelGridWidth - 1) {
+                y += levelGridSize;
+                x = 0;
+            } else {
+                x += levelGridSize;
+            }
+        }
+    }
 }

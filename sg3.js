@@ -1,3 +1,5 @@
+// Each level 15 (only 13 are used) sprites tall and 17 wide, canvas is 578 pixels tall, so each pixel can be 38 pixels square
+// So, pixelsPerUnit for the level will be 2.
 // Vars for Web App
         const FRAMES_PER_SECOND = 30;
         const CANVAS_GRID_WIDTH = 775;
@@ -7,6 +9,8 @@
         const SPRITE_GRID_FILL_COLOR = "#f5f5f5";
         const SPRITE_GRID_HOVER_FILL_COLOR = "#dee5ff";
         const SPRITE_GRID_CHOSEN_CELL_FILL_COLOR = "#b0b1ff";
+        const image = new Image();
+        const link = document.createElement('a');
 
         var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
             previewWindowCTX, spriteCanvas, spriteCanvasCTX, levelCanvas, levelCanvasCTX;
@@ -20,8 +24,10 @@
         var gridSizeRangeText = document.getElementById("gridSizeRangeText");
         var cSizeRangeText = document.getElementById("cellSizeRangeText");
         var gridOutput = document.getElementById("gridOutput");
+        var savePNGButton = document.getElementById("savePNGButton");
 
         var grid = ["0"];
+        var showTheGrid = true;
         var gridCopy = ["0"];
         var mouseToGrid;
         var toolGrid = ["0"];
@@ -73,6 +79,7 @@ var savedColorSquares = [
         var window1Color = "Green";
         var divSide1 = document.getElementById("divSide1");
         var resetGridButton = document.getElementById("resetGridButton");
+        var showGridCheckbox = document.getElementById("showGridCheckbox");
 
 // Vars for Second Window (Preview)
         var prevLmbDown = false;
@@ -169,7 +176,10 @@ var savedColorSquares = [
         var levelCloseHW = document.getElementById("levelCloseHW");
         var window7Color = "Green";
         var divSide7 = document.getElementById("divSide7");
-        var levelCanvasWidth, levelCanvasHeight;
+        var levelCanvasWidth = 544;
+        var levelCanvasHeight = 480;
+        var levelGrid = [];
+        var levelGridSize = 32;
         var bgColorChoose = "#6185f8";
         var levelBgColor = document.getElementById("levelBgColor");
 
@@ -207,8 +217,8 @@ window.onload = function() {
 
     levelCanvas = document.getElementById("levelCanvas");
     levelCanvasCTX = levelCanvas.getContext('2d');
-    levelCanvasWidth = levelCanvas.width;
-    levelCanvasHeight = levelCanvas.offsetHeight;
+    levelCanvas.width = levelCanvasWidth;
+    levelCanvas.height = levelCanvasHeight;
 
     setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
@@ -272,6 +282,8 @@ window.onload = function() {
                 gearHW.addEventListener('mousedown', gearClick, true);
                 closeHW.addEventListener('mousedown', function() { closeWindow(0); }, true);
                 resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
+                showGridCheckbox.addEventListener('change', turnGridOnOff, true);
+                savePNGButton.addEventListener('click', saveGridAsPNG, true);
 
                 // Listeners for Second Window (Preview)
                 prevLittleWindow.addEventListener('mousedown', prevLittleWindowClick, false);

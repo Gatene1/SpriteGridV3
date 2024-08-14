@@ -108,3 +108,10 @@
 - Made the "Change BG Color" button.
 - Added the functionality for the "Change BG Color" button.
 - Ran into a problem where the Z-indexes aren't changing like they are supposed to when I made the new Level Editor Window.
+- Fixed the bug where the Z-index for the Level Editor Window is working as it should; letting other windows in front of it.
+- Added a "Show Grid?" Checkbox, and its functionality.
+- Added a "Save As PNG" button, and its functionality.
+- Made the form elements in the "Working Grid" Window all green and outlined like the others in other windows.
+
+# 8/13/24
+- Added the Grid layout to the level editor to be 17 x 15.

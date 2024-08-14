@@ -61,8 +61,10 @@
                 <label for="cellSizeRangeSlider" class="form-label">Choose Cell Size:</label><br>
                 <input type="range" min="2" max="24" step="2" id="cellSizeRangeSlider"><br>
                 <input type="text" disabled id="cellSizeRangeText" class="form-control" value="# Pixels"><br>
-                <button type="button" class="btn btn-primary" data-bs-toggle="button" id="resetGridButton">Reset Grid
-                </button>
+                <button type="button" class="btn btn-success" data-bs-toggle="button" id="resetGridButton">Reset Grid</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="button" id="savePNGButton">Save As PNG</button><br><br>
+                <label class="form-check-label" for="showGridCheckbox">Show Grid?</label>
+                <input type="checkbox" class="form-check-input" value="" id="showGridCheckbox" checked>
             </div>
         </div>
     </div>
@@ -114,8 +116,8 @@
                 <canvas id = "colorChooseRow1" width = "28px" height="420px"></canvas>
             </div>
             <div>
-                <button class="btn btn-success" id="loadPalletteButton">Load Pallete</button><br><br>
-                <button class="btn btn-success" id="savePalletteButton">Save Pallete</button>
+                <button class="btn btn-success" id="loadPalletteButton">Load Palette</button><br><br>
+                <button class="btn btn-success" id="savePalletteButton">Save Palette</button>
             </div>
         </div>
     </div>
@@ -181,7 +183,7 @@
         </div>
         <div class="divInnerBottomFlexColChildLevel">
             <div class="divForLevelGrid">
-                <canvas id="levelCanvas" width = "10000" height = "578"></canvas>
+                <canvas id="levelCanvas"></canvas>
             </div>
             <div class="levelRightButtonDiv">
                 <button type="button" class="btn btn-success" id="levelBgColor">Change BG Color</button>
