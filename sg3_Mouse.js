@@ -595,3 +595,18 @@ function gridUpdateMousePosSpriteSheet(e) {
         spriteCellOn = (Math.floor(mouseYSpriteCanvas / spriteCellSize) * numberOfSpritesPerRow) + Math.floor(mouseXSpriteCanvas / spriteCellSize);
 
 }
+
+function gridUpdateMousePosLevelEditor(e) {
+    let rect = levelCanvas.getBoundingClientRect();
+    let root = document.documentElement;
+
+    // Get the X & Y coordinates of the mouse while hovering over the Level Editor canvas.
+    mouseXLevelCanvas = e.clientX - rect.left - root.scrollLeft;
+    mouseYLevelCanvas = e.clientY - rect.top - root.scrollTop;
+    squaresForLevelGridWidth = Math.floor(levelCanvasWidth / levelGridCellSize); // Should be 17 initially
+
+    // if the mouse cursor is within the boundaries of the grid, then calculate which cell the mouse cursor is hovering over.
+    if ((mouseXLevelCanvas <= levelGridSize * squaresForLevelGridWidth) && (mouseYLevelCanvas <= spriteGridSize / squaresForLevelGridWidth * levelGridSize))
+        levelCellOn = (Math.floor(mouseYLevelCanvas / levelGridCellSize) * squaresForLevelGridWidth) + Math.floor(mouseXLevelCanvas / levelGridCellSize);
+
+}

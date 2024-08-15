@@ -52,3 +52,19 @@ function saveGridAsPNG() {
     link.download = "canvas_image.png"
     link.click();
 }
+
+function levelUseSpriteChosen() {
+    let tempGrid = [];
+    let i;
+    let spriteDimension;
+    if (spriteChosen >= 0) {
+        if (spriteGrid[spriteChosen] != null) {
+            spriteDimension = Math.floor(Math.sqrt(spriteGrid[spriteChosen].grid.length));
+            levelSpriteHeld = true;
+            for (i = 0; i < spriteGrid[spriteChosen].grid.length; i++) {
+                tempGrid.push(spriteGrid[spriteChosen].grid[i]);
+            }
+            levelMouseSprite = new spriteSquareIcon(spriteDimension, tempGrid);
+        }
+    }
+}

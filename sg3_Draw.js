@@ -7,7 +7,6 @@ function drawAll() {
     if (levelLittleWindow.style.visibility) {
         drawLevelCanvasUpdate();
         drawLevelExtendIcon();
-        drawLevelGrid();
     }
 }
 
@@ -28,6 +27,9 @@ function whichCanvas(canvasToFigureOut) {
             break;
         case 4:
             canvasChoice = spriteCanvasCTX;
+            break;
+        case 5:
+            canvasChoice = levelCanvasCTX;
             break;
     }
 
@@ -99,7 +101,8 @@ function drawPreviewSquare(dimensions) {
 }
 
 function drawText (whatToSay, x, y, fontSize, fontColor, canvasChoice = canvasGridCTX) {
-    let drawCanvas = whichCanvas(canvasChoice);
+    let drawCanvas;
+    if (canvasChoice != canvasGridCTX) drawCanvas = whichCanvas(canvasChoice);
     drawCanvas.font = fontSize + "px Trebuchet MS";
     drawCanvas.fillStyle = fontColor;
     drawCanvas.fillText(whatToSay, x, y);
@@ -244,8 +247,60 @@ function drawSpriteCanvasUpdate() {
 }
 
 function drawLevelCanvasUpdate() {
+    let i, k;
+    let x = 0;
+    let y = levelCanvasHeight - levelGridCellSize;
+    let gridColumn = 0;
+    let cellCount = 0;
+
+    // Clear the canvas, and then redraw the chosen background color.
     levelCanvasCTX.clearRect(0, 0, levelCanvasWidth, levelCanvasHeight);
     drawSquare(0, 0, levelCanvasWidth, levelCanvasHeight, false, bgColorChoose, 5);
+
+    // Take the length of the canvas (levelCanvasWidth) and divide it / 17 (17 * 32 = 544 pixels wide for one screen)
+    // Take the height of the canvas (levelCanvasHeight) and divide it / 15 (15 * 32 = 480 pixels tall for one screen)
+    // Those equations above will tell how many squares to create (length/17 + height/15).
+    // 17 x 13 pixels for one screen, each of these
+
+    squaresForLevelGridWidth = Math.floor(levelCanvasWidth / levelGridCellSize); // Should be 17 initially
+    squaresForLevelGridHeight = Math.floor(levelCanvasHeight / levelGridCellSize); // should be 15 initially
+    levelGridSize = squaresForLevelGridWidth * squaresForLevelGridHeight;
+
+    for (k = 0; k < levelGridSize; k++) {
+        if (levelCellOn == k)
+            drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, "Green", 5, "black", true);
+        else
+            drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, "Green", 5, "black", false);
+        cellCount++;
+        if (cellCount >= squaresForLevelGridWidth) {
+            cellCount = 0;
+            y -= levelGridCellSize;
+            x = 0;
+        } else {
+            x += levelGridCellSize;
+        }
+    }
+
+    // Need to reset the x and y coords to draw the mouse cursor of the sprite from either Sprite Sheet or Working Grid.
+    x = 0;
+    y = 0;
+
+    // if a sprite should be on the mouse cursor, then draw it.
+    if (levelSpriteHeld) {
+        for (i = 0; i < levelMouseSprite.size * levelMouseSprite.size; i++) {
+            if (levelMouseSprite.grid[i] != "0")
+                drawSquare(mouseXLevelCanvas + x, mouseYLevelCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, levelMouseSprite.grid[i], 5, GRID_BORDER_COLOR, true);
+                //drawText("Hello World!", mouseXLevelCanvas, mouseYLevelCanvas, 32, "white", 5);
+            gridColumn++;
+            if (gridColumn >= levelMouseSprite.size) {
+                gridColumn = 0;
+                x = 0;
+                y += mouseSpriteCellSize;
+            } else {
+                x += mouseSpriteCellSize;
+            }
+        }
+    }
 }
 
 function changeLevelBG() {
@@ -261,26 +316,5 @@ function drawLevelExtendIcon() {
 }
 
 function drawLevelGrid() {
-    // Take the length of the canvas (levelCanvasWidth) and divide it / 17 (17 * 32 = 544 pixels wide for one screen)
-    // Take the height of the canvas (levelCanvasHeight) and divide it / 15 (15 * 32 = 480 pixels tall for one screen)
-    // Those equations above will tell how many squares to create (length/17 + height/15).
-    // 17 x 13 pixels for one screen, each of these
 
-    let i, j;
-    let x = 0;
-    let y = 0;
-    let squaresForLevelGridWidth = Math.floor(levelCanvasWidth / levelGridSize); // Should be 17 initially
-    let squaresForLevelGridHeight = Math.floor(levelCanvasHeight / levelGridSize); // should be 15 initially
-
-    for (i = 0; i < squaresForLevelGridHeight; i++) {
-        for (j = 0; j < squaresForLevelGridWidth; j++) {
-            drawSquare(x, y, levelGridSize, levelGridSize, true, "white", 5, "black", false);
-            if (j >= squaresForLevelGridWidth - 1) {
-                y += levelGridSize;
-                x = 0;
-            } else {
-                x += levelGridSize;
-            }
-        }
-    }
 }

@@ -179,9 +179,16 @@ var savedColorSquares = [
         var levelCanvasWidth = 544;
         var levelCanvasHeight = 480;
         var levelGrid = [];
-        var levelGridSize = 32;
+        var levelGridCellSize = 32;
         var bgColorChoose = "#6185f8";
         var levelBgColor = document.getElementById("levelBgColor");
+        var levelImportSpriteChosen = document.getElementById("levelImportSpriteChosen")
+        var levelSpriteHeld = false;
+        var levelMouseSprite = null;
+        var mouseXLevelCanvas, mouseYLevelCanvas;
+        var squaresForLevelGridWidth, squaresForLevelGridHeight;
+        var levelCellOn;
+        var levelGridSize;
 
 
 window.onload = function() {
@@ -344,4 +351,6 @@ window.onload = function() {
                 levelGearHW.addEventListener('mousedown', levelGearClick, true);
                 levelCloseHW.addEventListener('mousedown', function() { closeWindow(6); }, true);
                 levelBgColor.addEventListener('click', changeLevelBG, true);
+                levelImportSpriteChosen.addEventListener('click', levelUseSpriteChosen, true);
+                levelCanvas.addEventListener('mousemove', gridUpdateMousePosLevelEditor, true);
 }

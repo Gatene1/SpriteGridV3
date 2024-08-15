@@ -115,3 +115,7 @@
 
 # 8/13/24
 - Added the Grid layout to the level editor to be 17 x 15.
+
+# 8/14/24
+- Finished adding functionality to the "Use Chosen Sprite" button in the Level Editor, so that the mouse pointer looks like it is holding the sprite chosen in the Sprite Sheet.
+- I have run into a snag where the cell I'm hovering over in the Level editor should be lit, but since the grid is drawn backwards, it doesn't work as expected. Draw the grid the right way? I'll find out.

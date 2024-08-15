@@ -124,7 +124,7 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 #fileSavingOpenButton, #fileSavingSaveButton, #newSSheet, #openSSheet, #newLevel, #openLevel {
     border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#spriteSaveButton, #spriteImportWorkingGrid, #eraseSingleSprite, #levelSaveButton, #levelImportWorkingGrid, #levelCellErase, #levelBgColor {
+#spriteSaveButton, #spriteImportWorkingGrid, #eraseSingleSprite, #levelSaveButton, #levelImportWorkingGrid, #levelCellErase, #levelBgColor, #levelImportSpriteChosen {
     border: solid 2px black; margin-bottom: 3px; width: fit-content; margin-left:auto; margin-right: auto; }
 
 #gridSizeRangeSlider, #cellSizeRangeSlider { accent-color: #006400; }
