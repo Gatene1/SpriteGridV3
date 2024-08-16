@@ -245,17 +245,47 @@ function drawSpriteCanvasUpdate() {
     }
 
 }
+// This function exists so the LMB can be held to draw the sprites in multiple cells under 1 LMB press, instead
+// of one at a time like in the Sprite Sheet.
+function drawLevelSprite(cellOn, x, y) {
+    let k = cellOn;
+    let a, b, j;
+
+    // If there is a sprite in the LevelGrid array for the cell being drawn, then draw the sprite.
+    if (levelGrid[k] != null) {
+        // Center the icon in the cell.
+        a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
+        b = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
+        for (j = 0; j < levelGrid[k].size * levelGrid[k].size; j++) {
+            if (levelGrid[k].grid[j] != "0")
+                drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
+            spriteColumn++;
+            if (spriteColumn >= levelGrid[k].size) {
+                spriteColumn = 0;
+                a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
+                b += levelSpriteInCellSize;
+            } else {
+                a += levelSpriteInCellSize;
+            }
+
+        }
+    }
+}
 
 function drawLevelCanvasUpdate() {
-    let i, k;
+    let a, b, i, j, k;
     let x = 0;
-    let y = levelCanvasHeight - levelGridCellSize;
+    let y = 0;
     let gridColumn = 0;
+    let spriteColumn = 0;
     let cellCount = 0;
+    let spriteGridFillColor;
+    let spriteGridFillBool;
 
     // Clear the canvas, and then redraw the chosen background color.
     levelCanvasCTX.clearRect(0, 0, levelCanvasWidth, levelCanvasHeight);
     drawSquare(0, 0, levelCanvasWidth, levelCanvasHeight, false, bgColorChoose, 5);
+    gridSizeRangeText.value = levelCellOn;
 
     // Take the length of the canvas (levelCanvasWidth) and divide it / 17 (17 * 32 = 544 pixels wide for one screen)
     // Take the height of the canvas (levelCanvasHeight) and divide it / 15 (15 * 32 = 480 pixels tall for one screen)
@@ -267,14 +297,27 @@ function drawLevelCanvasUpdate() {
     levelGridSize = squaresForLevelGridWidth * squaresForLevelGridHeight;
 
     for (k = 0; k < levelGridSize; k++) {
-        if (levelCellOn == k)
-            drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, "Green", 5, "black", true);
-        else
-            drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, "Green", 5, "black", false);
+        if (levelCellOn == k) {
+            spriteGridFillColor = SPRITE_GRID_HOVER_FILL_COLOR;
+            spriteGridFillBool = true;
+        } else if (levelSpriteChosen == k) {
+            spriteGridFillColor = SPRITE_GRID_HOVER_FILL_COLOR;
+            spriteGridFillBool = true;
+        } else {
+            spriteGridFillColor = SPRITE_GRID_FILL_COLOR;
+            spriteGridFillBool = false;
+            drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, bgColorChoose, 5, "black", true);
+        }
+        drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, spriteGridFillColor, 5, "black", spriteGridFillBool);
+
+        // This function exists so the LMB can be held to draw the sprites in multiple cells under 1 LMB press, instead
+        // of one at a time like in the Sprite Sheet.
+        drawLevelSprite(k ,x, y);
+
         cellCount++;
         if (cellCount >= squaresForLevelGridWidth) {
             cellCount = 0;
-            y -= levelGridCellSize;
+            y += levelGridCellSize;
             x = 0;
         } else {
             x += levelGridCellSize;

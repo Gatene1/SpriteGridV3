@@ -119,3 +119,9 @@
 # 8/14/24
 - Finished adding functionality to the "Use Chosen Sprite" button in the Level Editor, so that the mouse pointer looks like it is holding the sprite chosen in the Sprite Sheet.
 - I have run into a snag where the cell I'm hovering over in the Level editor should be lit, but since the grid is drawn backwards, it doesn't work as expected. Draw the grid the right way? I'll find out.
+
+# 8/15/24
+- Figured out my mistake with the level Grid not highlighted the current cell hovered over. I didn't take into account of the background color being added each frame.
+- Tried making it where you click on an occupied cell on the level grid, and it "selects" the cell, but for some reason, it just looks like it erases the cell, even after "selecting" another cell, it doesn't revert.
+- I implemented clicking on the cell in the level grid to "paste" what's "held" by the mouse.
+- Am working on when the user holds LMB and drags across the Level Editor Grid with a sprite "held" by the mouse, it constantly "pastes" the sprite onto each column.

@@ -74,12 +74,6 @@ function siphonColor() {
     colorPicker.color.hexString = currColor;
 }
 
-function mouseSpriteSheetLeave() {
-    spriteHeld = false;
-    eraseTool = false;
-    pasteSprite = false;
-    mouseSprite = null;
-}
 
 function addToSpriteGrid(whichTool) {
     switch (whichTool) {
@@ -89,6 +83,15 @@ function addToSpriteGrid(whichTool) {
             break;
         case 2:
             spriteGrid[spriteCellOn] = null;
+            spriteChosen = -1;
+            break;
+    }
+}
+
+function addToLevelGrid(whichTool) {
+    switch (whichTool) {
+        case 1:
+            levelGrid[levelCellOn] = levelMouseSprite;
             break;
     }
 }
@@ -116,7 +119,19 @@ function isNotEmpty(whichArray) {
                 if (spriteGrid[spriteCellOn].grid[i] != "0" && spriteGrid[spriteCellOn].grid[i] != null) returnValue = true;
             }
             break;
+        case 5:
+            for (i = 0; i < levelGrid[spriteCellOn].grid.length; i++) {
+                if (levelGrid[spriteCellOn].grid[i] != "0" && spriteGrid[spriteCellOn].grid[i] != null) returnValue = true;
+            }
+            break;
     }
     return returnValue;
+}
+
+function levelClickFunction() {
+    if (pasteLevelSprite)
+        addToLevelGrid(1);
+    else
+        if (isNotEmpty(5)) levelSpriteChosen = levelCellOn;
 }
 

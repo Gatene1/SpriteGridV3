@@ -596,9 +596,18 @@ function gridUpdateMousePosSpriteSheet(e) {
 
 }
 
+function mouseSpriteSheetLeave() {
+    spriteHeld = false;
+    eraseTool = false;
+    pasteSprite = false;
+    mouseSprite = null;
+    spriteCellOn = -1;
+}
+
 function gridUpdateMousePosLevelEditor(e) {
     let rect = levelCanvas.getBoundingClientRect();
     let root = document.documentElement;
+    let x, y;
 
     // Get the X & Y coordinates of the mouse while hovering over the Level Editor canvas.
     mouseXLevelCanvas = e.clientX - rect.left - root.scrollLeft;
@@ -609,4 +618,21 @@ function gridUpdateMousePosLevelEditor(e) {
     if ((mouseXLevelCanvas <= levelGridSize * squaresForLevelGridWidth) && (mouseYLevelCanvas <= spriteGridSize / squaresForLevelGridWidth * levelGridSize))
         levelCellOn = (Math.floor(mouseYLevelCanvas / levelGridCellSize) * squaresForLevelGridWidth) + Math.floor(mouseXLevelCanvas / levelGridCellSize);
 
+    if(levelLmbDown) {
+        drawLevelSprite(levelCellOn, x, y);
+    }
+}
+
+function mouseLevelEditorLeave() {
+    levelSpriteHeld = false;
+    levelMouseSprite = null;
+    levelCellOn = -1;
+}
+
+function mouseLevelEditorDown() {
+    levelLmbDown = true;
+}
+
+function mouseLevelEditorUp() {
+    levelLmbDown = false;
 }

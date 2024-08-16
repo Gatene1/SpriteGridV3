@@ -65,6 +65,7 @@ function levelUseSpriteChosen() {
                 tempGrid.push(spriteGrid[spriteChosen].grid[i]);
             }
             levelMouseSprite = new spriteSquareIcon(spriteDimension, tempGrid);
+            pasteLevelSprite = true;
         }
     }
 }
