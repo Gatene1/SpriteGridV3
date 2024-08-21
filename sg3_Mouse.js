@@ -619,7 +619,10 @@ function gridUpdateMousePosLevelEditor(e) {
         levelCellOn = (Math.floor(mouseYLevelCanvas / levelGridCellSize) * squaresForLevelGridWidth) + Math.floor(mouseXLevelCanvas / levelGridCellSize);
 
     if(levelLmbDown) {
-        drawLevelSprite(levelCellOn, x, y);
+        y = Math.floor(levelCellOn / squaresForLevelGridWidth);
+        x = levelCellOn - (y * squaresForLevelGridWidth) // 73 = 4th row 5th col
+        addToLevelGrid(1);
+        //drawLevelSprite(levelCellOn, x * levelGridCellSize, y * levelGridCellSize);
     }
 }
 

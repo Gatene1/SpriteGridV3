@@ -249,15 +249,19 @@ function drawSpriteCanvasUpdate() {
 // of one at a time like in the Sprite Sheet.
 function drawLevelSprite(cellOn, x, y) {
     let k = cellOn;
-    let a, b, j;
+    let a = 0;
+    let b = 0;
+    let j;
+    let spriteColumn = 0;
 
     // If there is a sprite in the LevelGrid array for the cell being drawn, then draw the sprite.
     if (levelGrid[k] != null) {
         // Center the icon in the cell.
-        a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
-        b = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
+        //a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
+        //b = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
         for (j = 0; j < levelGrid[k].size * levelGrid[k].size; j++) {
             if (levelGrid[k].grid[j] != "0")
+                //drawSquare(x, y, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
                 drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
             spriteColumn++;
             if (spriteColumn >= levelGrid[k].size) {
@@ -285,7 +289,6 @@ function drawLevelCanvasUpdate() {
     // Clear the canvas, and then redraw the chosen background color.
     levelCanvasCTX.clearRect(0, 0, levelCanvasWidth, levelCanvasHeight);
     drawSquare(0, 0, levelCanvasWidth, levelCanvasHeight, false, bgColorChoose, 5);
-    gridSizeRangeText.value = levelCellOn;
 
     // Take the length of the canvas (levelCanvasWidth) and divide it / 17 (17 * 32 = 544 pixels wide for one screen)
     // Take the height of the canvas (levelCanvasHeight) and divide it / 15 (15 * 32 = 480 pixels tall for one screen)

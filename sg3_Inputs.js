@@ -28,6 +28,21 @@ function workingGridToMouseSprite() {
     }
 }
 
+function spriteSheetToWorkingGrid() {
+    let i;
+    if (spriteChosen >= 0) {
+        gridCopy = [];
+        gridSizeRange.value = spriteGrid[spriteChosen].size;
+        changeGridSize();
+        for (i = 0; i < spriteGrid[spriteChosen].grid.length; i++) {
+            gridCopy.push(spriteGrid[spriteChosen].grid[i]);
+        }
+        grid = gridCopy;
+        gridCopy = [];
+        refreshGridOutput();
+    }
+}
+
 function eraseInSpriteSheet() {
     let spriteDimension = Math.floor(Math.sqrt(eraserGrid.length));
     let i;

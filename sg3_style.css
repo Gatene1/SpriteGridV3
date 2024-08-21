@@ -96,7 +96,7 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 .divInnerBottomFlex41 { display: flex; flex-direction: column; align-content: center; text-align: center; }
 
-.spriteRightButtonDiv { width: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center;
+.spriteRightButtonDiv { width: 23%; height: 100%; display: flex; flex-direction: column; justify-content: center;
     align-content: center;  }
 
 .levelRightButtonDiv { width: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center;
@@ -124,7 +124,8 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 #fileSavingOpenButton, #fileSavingSaveButton, #newSSheet, #openSSheet, #newLevel, #openLevel {
     border: solid 2px black; margin-bottom: 3px; width: fit-content; }
-#spriteSaveButton, #spriteImportWorkingGrid, #eraseSingleSprite, #levelSaveButton, #levelImportWorkingGrid, #levelCellErase, #levelBgColor, #levelImportSpriteChosen {
+#spriteSaveButton, #spriteImportWorkingGrid, #spriteExportWorkingGrid, #eraseSingleSprite, #levelSaveButton,
+#levelImportWorkingGrid, #levelCellErase, #levelBgColor, #levelImportSpriteChosen {
     border: solid 2px black; margin-bottom: 3px; width: fit-content; margin-left:auto; margin-right: auto; }
 
 #gridSizeRangeSlider, #cellSizeRangeSlider { accent-color: #006400; }

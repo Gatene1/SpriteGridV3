@@ -125,3 +125,11 @@
 - Tried making it where you click on an occupied cell on the level grid, and it "selects" the cell, but for some reason, it just looks like it erases the cell, even after "selecting" another cell, it doesn't revert.
 - I implemented clicking on the cell in the level grid to "paste" what's "held" by the mouse.
 - Am working on when the user holds LMB and drags across the Level Editor Grid with a sprite "held" by the mouse, it constantly "pastes" the sprite onto each column.
+
+# 8/16/24
+- Figured out how to continuously "paste" a sprite onto the Level Editor Grid while holding LMB.
+
+# 8/20/24
+- Added the "Send To Working Grid" button to the Sprite Sheet Window.
+- Lengthened the width of the button area of the Sprite Sheet Window to accommodate the new button's width.
+- Added the functionality to the "Send To Working Grid" button.

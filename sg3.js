@@ -160,6 +160,7 @@ var savedColorSquares = [
         var pasteSprite = false;
         var mouseSprite = null;
         var spriteImportWorkingGrid = document.getElementById("spriteImportWorkingGrid");
+        var spriteExportWorkingGrid = document.getElementById("spriteExportWorkingGrid");
         var spriteSaveButton = document.getElementById("spriteSaveButton");
         var openSSheet = document.getElementById("openSSheet");
         var eraseSingleSprite = document.getElementById("eraseSingleSprite");
@@ -343,6 +344,7 @@ window.onload = function() {
                 spriteCanvas.addEventListener('mouseleave', mouseSpriteSheetLeave, true);
                 spriteCanvas.addEventListener('click', clickFunction, true);
                 spriteImportWorkingGrid.addEventListener('click', workingGridToMouseSprite, true);
+                spriteExportWorkingGrid.addEventListener('click', spriteSheetToWorkingGrid, true);
                 spriteSaveButton.addEventListener('click', spriteSheetSave, true);
                 eraseSingleSprite.addEventListener('click', eraseInSpriteSheet, true )
                 openSSheet.addEventListener('click', openSpriteSheet, true);
@@ -359,6 +361,6 @@ window.onload = function() {
                 levelCanvas.addEventListener('mousemove', gridUpdateMousePosLevelEditor, true);
                 levelCanvas.addEventListener('mouseleave', mouseLevelEditorLeave, true);
                 levelCanvas.addEventListener('click', levelClickFunction, true);
-                levelCanvas.addEventListener('mousedown', gridUpdateMousePosLevelEditor, true);
-                levelCanvas.addEventListener('mouseup', gridUpdateMousePosLevelEditor, true);
+                levelCanvas.addEventListener('mousedown', mouseLevelEditorDown, true);
+                levelCanvas.addEventListener('mouseup', mouseLevelEditorUp, true);
 }
