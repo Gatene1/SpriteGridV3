@@ -3,40 +3,40 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
               padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
               border: 2px solid #000000; user-select: none; -webkit-user-select: none;
               -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-              flex-wrap: nowrap; overflow: scroll; }
+              flex-wrap: nowrap; overflow: scroll; visibility: visible; }
 
 .divTitle2   { position: absolute;  background-color: darkgreen; width: 300px; height: 300px; bottom: 0px; left: 57.00%;
-    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: normal;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; overflow: clip; }
+    flex-wrap: nowrap; overflow: clip; visibility: visible; }
 
 .divTitle3   { position: absolute;  background-color: darkgreen; width: 25%; height: 60%; top: 0px; left: 57.00%;
-    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: normal;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; overflow: scroll; }
+    flex-wrap: nowrap; overflow: scroll; visibility: visible; }
 
 .divTitle4   { position: absolute;  background-color: darkgreen; width: 300px; height: 50%; top: 0px; right: 0px;
-    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: normal;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; overflow: clip; }
+    flex-wrap: nowrap; overflow: clip; visibility: visible; }
 
 .divTitle5   { position: absolute;  background-color: darkgreen; width: 300px; height: 49%; bottom: 0px; right: 0px;
-    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: normal;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
-    flex-wrap: nowrap; overflow: clip; }
+    flex-wrap: nowrap; overflow: clip; visibility: visible; }
 
 .divTitle6   { position: absolute;  background-color: darkgreen; width: 50%; height: 49%; top: 200px; left: 27%;
-    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: normal;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
     flex-wrap: nowrap; overflow: clip; visibility: collapse; }
 
 .divTitle7   { position: absolute;  background-color: darkgreen; width: 50%; height: 79%; top: 100px; left: 27%;
-    padding: 0px; margin: 0px; color: #ffffff; font-weight: bold;
+    padding: 0px; margin: 0px; color: #ffffff; font-weight: normal;
     border: 2px solid #000000; user-select: none; -webkit-user-select: none;
     -ms-user-select: none; display: flex; flex-direction: column; justify-content: flex-start;
     flex-wrap: nowrap; overflow: clip; visibility: collapse; }
@@ -70,6 +70,14 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
     cursor: pointer; }
 
 .divTitleBreakDown { display: flex; flex-direction: row; justify-content: space-between; flex-wrap: nowrap; }
+
+.eightyThree { font-weight: bold; font-style: normal; }
+.eightyThreeBlur { font-weight: normal; font-style: italic; }
+/*.eightyThreeColor { color: #878787; font-weight: normal; font-style: italic; }*/
+/*.eightyThreeOut { color: #878787; font-weight: normal; font-style: italic; }*/
+/*.eightyThreeFile { color: #878787; font-weight: normal; font-style: italic; }*/
+/*.eightyThreeSprite { color: #878787; font-weight: normal; font-style: italic; }*/
+/*.eightyThreeLevel { color: #878787; font-weight: normal; font-style: italic; }*/
 
 .divInnerBottomFlex { background-color: #ffffff; height: 100%; color: #000000; padding: 3px; display: flex;
     flex-direction: row; justify-content: flex-start; }
@@ -108,7 +116,7 @@ body { font-family: "Trebuchet MS"; margin: 0px; overflow: clip; }
 
 .seven { width: 7%; cursor: pointer; }
 .ten { width: 10%; cursor: pointer; }
-.eightyThree { width: 83%;  text-align: center; cursor: grab; }
+.eightyThree, .eightyThreeBlur { width: 83%;  text-align: center; cursor: grab; }
 
 #gridSizeRangeText { width: 150px; font-weight: bold; }
 #cellSizeRangeText { width: 150px; font-weight: bold; }

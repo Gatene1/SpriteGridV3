@@ -1,13 +1,21 @@
 function drawAll() {
-    drawGrid();
-    drawPreviewSquare(100);
-    drawColorSquares();
-    drawPreviewUpdate();
-    if (spriteLittleWindow.style.visibility) drawSpriteCanvasUpdate();
-    if (levelLittleWindow.style.visibility) {
+    // Each if-statement will check to see if this is the initial drawing of WebApp or if the Window is active and
+    // the Window is visible, then draw its contents.
+    if ((littleWindow.style.visibility != "collapse" && littleWindow.style.visibility != "hidden" && windowZ[0] == 6) || firstDraw) {
+        drawGrid();
+        drawPreviewUpdate();
+    }
+    if ((colorLittleWindow.style.visibility != "collapse" && colorLittleWindow.style.visibility != "hidden" && windowZ[2] == 6) || firstDraw){
+        drawColorSquares();
+        drawPreviewSquare(100);
+    }
+    if ((spriteLittleWindow.style.visibility != "collapse" && spriteLittleWindow.style.visibility != "hidden" && windowZ[5] == 6)) drawSpriteCanvasUpdate();
+    if ((levelLittleWindow.style.visibility != "collapse" && levelLittleWindow.style.visibility != "hidden" && windowZ[6] == 6)) {
         drawLevelCanvasUpdate();
         drawLevelExtendIcon();
     }
+
+    if (firstDraw) firstDraw = false;
 }
 
 function whichCanvas(canvasToFigureOut) {

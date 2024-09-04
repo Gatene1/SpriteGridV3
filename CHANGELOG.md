@@ -133,3 +133,8 @@
 - Added the "Send To Working Grid" button to the Sprite Sheet Window.
 - Lengthened the width of the button area of the Sprite Sheet Window to accommodate the new button's width.
 - Added the functionality to the "Send To Working Grid" button.
+
+# 9/3/24
+- Made each Window that have canvases only refresh if its Window has focus.
+- Made a noticeable difference between the Window that has focus and the ones that are blurred.
+- I am currently working on when closing a Window, the next in the hierarchy is the Window that has focus.

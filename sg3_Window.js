@@ -44,20 +44,81 @@ function windowZRearrange(elementToLookAt) {
 }
 
 function windowZRefresh() {
+    // The if-statements below each zIndex assignation is to change text of the titleBar depending on if it's the one
+    // selected or not.
     littleWindow.style.zIndex = windowZ[0].toString();
+        if (windowZ[0] == 6) {
+            titleBar.style.fontWeight = "bold";
+            titleBar.style.fontStyle = "normal";
+        } else {
+            titleBar.style.fontWeight = "normal";
+            titleBar.style.fontStyle = "italic";
+        }
     prevLittleWindow.style.zIndex = windowZ[1].toString();
+        if (windowZ[1] == 6) {
+            prevTitleBar.style.fontWeight = "bold";
+            prevTitleBar.style.fontStyle = "normal";
+        } else {
+            prevTitleBar.style.fontWeight = "normal";
+            prevTitleBar.style.fontStyle = "italic";
+        }
     colorLittleWindow.style.zIndex = windowZ[2].toString();
+        if (windowZ[2] == 6) {
+            colorTitleBar.style.fontWeight = "bold";
+            colorTitleBar.style.fontStyle = "normal";
+        } else {
+            colorTitleBar.style.fontWeight = "normal";
+            colorTitleBar.style.fontStyle = "italic";
+        }
     outLittleWindow.style.zIndex = windowZ[3].toString();
+        if (windowZ[3] == 6) {
+            outTitleBar.style.fontWeight = "bold";
+            outTitleBar.style.fontStyle = "normal";
+        } else {
+            outTitleBar.style.fontWeight = "normal";
+            outTitleBar.style.fontStyle = "italic";
+        }
     fileLittleWindow.style.zIndex = windowZ[4].toString();
+        if (windowZ[4] == 6) {
+            fileTitleBar.style.fontWeight = "bold";
+            fileTitleBar.style.fontStyle = "normal";
+        } else {
+            fileTitleBar.style.fontWeight = "normal";
+            fileTitleBar.style.fontStyle = "italic";
+        }
     spriteLittleWindow.style.zIndex = windowZ[5].toString();
+        if (windowZ[5] == 6) {
+            spriteTitleBar.style.fontWeight = "bold";
+            spriteTitleBar.style.fontStyle = "normal";
+        } else {
+            spriteTitleBar.style.fontWeight = "normal";
+            spriteTitleBar.style.fontStyle = "italic";
+        }
     levelLittleWindow.style.zIndex = windowZ[6].toString();
+        if (windowZ[6] == 6) {
+            levelTitleBar.style.fontWeight = "bold";
+            levelTitleBar.style.fontStyle = "normal";
+        } else {
+            levelTitleBar.style.fontWeight = "normal";
+            levelTitleBar.style.fontStyle = "italic";
+        }
+}
+
+function hasVisibility(whichWindow) {
+    switch (whichWindow) {
+        case 0 :
+            if (littleWindow.style.visibility != "collapse") return true; else return false;
+            break;
+    }
 }
 
 function closeWindow(whichWindow) {
+    let foundFocus = false;
+    let currCheckBlurForVisible = 5;
     switch (whichWindow) {
         case 0 :
             littleWindow.style.visibility = "collapse";
-            divSide1.style.visibility = "visible";
+            divSide1.style.visibility = "visible"
             break;
         case 1 :
             prevLittleWindow.style.visibility = "collapse";
@@ -83,6 +144,18 @@ function closeWindow(whichWindow) {
             levelLittleWindow.style.visibility = "collapse";
             divSide7.style.visibility = "visible";
             break;
+    };
+
+    // If this Window is the Window that has focus, then the next blurred AND visible Window needs focus.
+    while (!foundFocus) {
+        if (hasVisibility(windowZ.indexOf(currCheckBlurForVisible))) {
+            windowZRearrange(currCheckBlurForVisible);
+            windowZRefresh();
+            foundFocus = true;
+        } else {
+            currCheckBlurForVisible--;
+        }
+        if (currCheckBlurForVisible == -1) foundFocus = true;
     }
 }
 function openWindow(whichWindow) {

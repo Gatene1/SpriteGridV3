@@ -102,7 +102,10 @@ function clickFunction() {
     else if (pasteSprite)
         addToSpriteGrid(1);
     else
-        if (isNotEmpty(4)) spriteChosen = spriteCellOn;
+        if (spriteChosen == spriteCellOn)
+            spriteChosen = -1;
+        else
+            if (isNotEmpty(4)) spriteChosen = spriteCellOn;
 }
 
 function isNotEmpty(whichArray) {

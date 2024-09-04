@@ -17,3 +17,11 @@ class spriteSquareIcon {
         this.grid = grid;
     }
 }
+
+class levelEditorMap {
+    constructor(spriteSheetUsed, levelName, levelGrid) {
+        this.spriteSheetUsed = spriteSheetUsed;
+        this.levelName = levelName;
+        this.levelGrid = levelGrid;
+    }
+}

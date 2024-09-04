@@ -12,6 +12,7 @@
         const image = new Image();
         const link = document.createElement('a');
 
+        var firstDraw = true;
         var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
             previewWindowCTX, spriteCanvas, spriteCanvasCTX, levelCanvas, levelCanvasCTX;
         var mouseXGrid, mouseYGrid, mouseXSpriteGrid, mouseYSpriteGrid;
