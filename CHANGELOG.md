@@ -138,3 +138,6 @@
 - Made each Window that have canvases only refresh if its Window has focus.
 - Made a noticeable difference between the Window that has focus and the ones that are blurred.
 - I am currently working on when closing a Window, the next in the hierarchy is the Window that has focus.
+
+# 9/4/24
+- Kept working on getting the titleBar for the Window that has focus after closing another is closed to be bold and not italicized, but to no avail. Maybe not check if the Window in question has visibility, since the Z-order is updated before the actual closing?

@@ -66,7 +66,9 @@ var savedColorSquares = [
         var previewSelect = document.getElementById("previewSelect");
 
 // Vars for every window
-        var windowZ = [0, 1, 2, 3, 4, 5, 6];
+        var windowZ = [6, 0, 1, 2, 3, 4, 5];
+        // Old windowZ values, just in case my fix is not a fix, but a blunder lol.
+        //var windowZ = [0, 1, 2, 3, 4, 5, 6];
 
 // Vars for First Window (Grid)
         var lmbDown = false;
@@ -293,7 +295,7 @@ window.onload = function() {
                 titleBar.addEventListener('mousedown', divTitleClick, false);
                 titleBar.addEventListener('mouseup', divTitleUnClick, true);
                 gearHW.addEventListener('mousedown', gearClick, true);
-                closeHW.addEventListener('mousedown', function() { closeWindow(0); }, true);
+                closeHW.addEventListener('mousedown', function() { closeWindow(0); }, false);
                 resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
                 showGridCheckbox.addEventListener('change', turnGridOnOff, true);
                 savePNGButton.addEventListener('click', saveGridAsPNG, true);

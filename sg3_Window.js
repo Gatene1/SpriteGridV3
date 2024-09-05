@@ -109,12 +109,35 @@ function hasVisibility(whichWindow) {
         case 0 :
             if (littleWindow.style.visibility != "collapse") return true; else return false;
             break;
+        case 1 :
+            if (prevLittleWindow.style.visibility != "collapse") return true; else return false;
+            break;
+        case 2 :
+            if (colorLittleWindow.style.visibility != "collapse") return true; else return false;
+            break;
+        case 3 :
+            if (outLittleWindow.style.visibility != "collapse") return true; else return false;
+            break;
+        case 4 :
+            if (fileLittleWindow.style.visibility != "collapse") return true; else return false;
+            break;
+        case 5 :
+            if (spriteLittleWindow.style.visibility != "collapse") return true; else return false;
+            break;
+        case 6 :
+            if (levelLittleWindow.style.visibility != "collapse") return true; else return false;
+            break;
     }
 }
 
 function closeWindow(whichWindow) {
     let foundFocus = false;
     let currCheckBlurForVisible = 5;
+    let nextWindowToHaveFocus;
+
+    windowZRearrange(whichWindow);
+    windowZRefresh();
+
     switch (whichWindow) {
         case 0 :
             littleWindow.style.visibility = "collapse";
@@ -144,12 +167,15 @@ function closeWindow(whichWindow) {
             levelLittleWindow.style.visibility = "collapse";
             divSide7.style.visibility = "visible";
             break;
-    };
+    }
 
-    // If this Window is the Window that has focus, then the next blurred AND visible Window needs focus.
+        // If this Window is the Window that has focus, then the next blurred AND visible Window needs focus.
     while (!foundFocus) {
-        if (hasVisibility(windowZ.indexOf(currCheckBlurForVisible))) {
-            windowZRearrange(currCheckBlurForVisible);
+        nextWindowToHaveFocus = windowZ.indexOf(currCheckBlurForVisible);
+        if (hasVisibility(nextWindowToHaveFocus)) {
+            alert ("0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
+            alert ("New Window to have focus = " + nextWindowToHaveFocus);
+            windowZRearrange(nextWindowToHaveFocus);
             windowZRefresh();
             foundFocus = true;
         } else {
@@ -157,6 +183,7 @@ function closeWindow(whichWindow) {
         }
         if (currCheckBlurForVisible == -1) foundFocus = true;
     }
+    alert ("0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
 }
 function openWindow(whichWindow) {
     switch (whichWindow) {

@@ -14,7 +14,6 @@ function drawAll() {
         drawLevelCanvasUpdate();
         drawLevelExtendIcon();
     }
-
     if (firstDraw) firstDraw = false;
 }
 
