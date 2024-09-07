@@ -46,6 +46,8 @@ function windowZRearrange(elementToLookAt) {
 function windowZRefresh() {
     // The if-statements below each zIndex assignation is to change text of the titleBar depending on if it's the one
     // selected or not.
+
+    alert ("Refresh! 0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
     littleWindow.style.zIndex = windowZ[0].toString();
         if (windowZ[0] == 6) {
             titleBar.style.fontWeight = "bold";
@@ -104,39 +106,20 @@ function windowZRefresh() {
         }
 }
 
-function hasVisibility(whichWindow) {
-    switch (whichWindow) {
-        case 0 :
-            if (littleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-        case 1 :
-            if (prevLittleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-        case 2 :
-            if (colorLittleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-        case 3 :
-            if (outLittleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-        case 4 :
-            if (fileLittleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-        case 5 :
-            if (spriteLittleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-        case 6 :
-            if (levelLittleWindow.style.visibility != "collapse") return true; else return false;
-            break;
-    }
-}
+
+// Why won't the new TitleBar be updated with a bold font and non-italicized???
 
 function closeWindow(whichWindow) {
     let foundFocus = false;
     let currCheckBlurForVisible = 5;
-    let nextWindowToHaveFocus;
+    let nextWindowToHaveFocus = 0;
+    closingWindow = true;
+    alert ("closeWindow 0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
 
     windowZRearrange(whichWindow);
     windowZRefresh();
+    nextWindowToHaveFocus = windowZ.indexOf(currCheckBlurForVisible);
+    closingWindow = true;
 
     switch (whichWindow) {
         case 0 :
@@ -169,21 +152,63 @@ function closeWindow(whichWindow) {
             break;
     }
 
-        // If this Window is the Window that has focus, then the next blurred AND visible Window needs focus.
-    while (!foundFocus) {
-        nextWindowToHaveFocus = windowZ.indexOf(currCheckBlurForVisible);
-        if (hasVisibility(nextWindowToHaveFocus)) {
-            alert ("0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
-            alert ("New Window to have focus = " + nextWindowToHaveFocus);
-            windowZRearrange(nextWindowToHaveFocus);
-            windowZRefresh();
-            foundFocus = true;
-        } else {
-            currCheckBlurForVisible--;
-        }
-        if (currCheckBlurForVisible == -1) foundFocus = true;
+
+    // If this Window is the Window that has focus, then the next blurred AND visible Window needs focus.
+    windowZRearrange(nextWindowToHaveFocus);
+    closingWindow = true;
+    alert ("windowZRearrange! \n0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
+    if (windowZ[0] == 6) {
+        titleBar.style.fontWeight = "bold";
+        titleBar.style.fontStyle = "normal";
+    } else {
+        titleBar.style.fontWeight = "normal";
+        titleBar.style.fontStyle = "italic";
     }
-    alert ("0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
+    if (windowZ[1] == 6) {
+        prevTitleBar.style.fontWeight = "bold";
+        prevTitleBar.style.fontStyle = "normal";
+    } else {
+        prevTitleBar.style.fontWeight = "normal";
+        prevTitleBar.style.fontStyle = "italic";
+    }
+    if (windowZ[2] == 6) {
+        colorTitleBar.style.fontWeight = "bold";
+        colorTitleBar.style.fontStyle = "normal";
+    } else {
+        colorTitleBar.style.fontWeight = "normal";
+        colorTitleBar.style.fontStyle = "italic";
+    }
+    if (windowZ[3] == 6) {
+        outTitleBar.style.fontWeight = "bold";
+        outTitleBar.style.fontStyle = "normal";
+    } else {
+        outTitleBar.style.fontWeight = "normal";
+        outTitleBar.style.fontStyle = "italic";
+    }
+    if (windowZ[4] == 6) {
+        fileTitleBar.style.fontWeight = "bold";
+        fileTitleBar.style.fontStyle = "normal";
+    } else {
+        fileTitleBar.style.fontWeight = "normal";
+        fileTitleBar.style.fontStyle = "italic";
+    }
+    if (windowZ[5] == 6) {
+        spriteTitleBar.style.fontWeight = "bold";
+        spriteTitleBar.style.fontStyle = "normal";
+    } else {
+        spriteTitleBar.style.fontWeight = "normal";
+        spriteTitleBar.style.fontStyle = "italic";
+    }
+    if (windowZ[6] == 6) {
+        levelTitleBar.style.fontWeight = "bold";
+        levelTitleBar.style.fontStyle = "normal";
+    } else {
+        levelTitleBar.style.fontWeight = "normal";
+        levelTitleBar.style.fontStyle = "italic";
+    }
+    windowZRefresh();
+
+
 }
 function openWindow(whichWindow) {
     switch (whichWindow) {

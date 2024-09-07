@@ -141,3 +141,7 @@
 
 # 9/4/24
 - Kept working on getting the titleBar for the Window that has focus after closing another is closed to be bold and not italicized, but to no avail. Maybe not check if the Window in question has visibility, since the Z-order is updated before the actual closing?
+
+# 9/6/24
+- Kept working on getting the titleBar for the Window that has focus after closing another is closed to be bold and not italicized, but still having issues...
+- Added a boolean closingWindow to tell the script that a Window is being closed, so not to rearrange the Window Z Order. Still no help, but I've gotten farther...It works once! Progress!
