@@ -74,12 +74,13 @@ function levelUseSpriteChosen() {
     let spriteDimension;
     if (spriteChosen >= 0) {
         if (spriteGrid[spriteChosen] != null) {
-            spriteDimension = Math.floor(Math.sqrt(spriteGrid[spriteChosen].grid.length));
+            // spriteDimension = Math.floor(Math.sqrt(spriteGrid[spriteChosen].grid.length));
             levelSpriteHeld = true;
-            for (i = 0; i < spriteGrid[spriteChosen].grid.length; i++) {
+            /*for (i = 0; i < spriteGrid[spriteChosen].grid.length; i++) {
                 tempGrid.push(spriteGrid[spriteChosen].grid[i]);
             }
-            levelMouseSprite = new spriteSquareIcon(spriteDimension, tempGrid);
+            levelMouseSprite = new spriteSquareIcon(spriteDimension, tempGrid);*/
+            levelMouseSprite = spriteChosen;
             pasteLevelSprite = true;
         }
     }

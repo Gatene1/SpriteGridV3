@@ -14,6 +14,7 @@
 
         var firstDraw = true;
         var closingWindow = false;
+        var prevWindowToHaveFocus = 0;
         var canvasGrid, canvasGridCTX, colorCanvas, colorCanvasCTX, colorChooseRow1, colorChooseRow1CTX, previewWindow,
             previewWindowCTX, spriteCanvas, spriteCanvasCTX, levelCanvas, levelCanvasCTX;
         var mouseXGrid, mouseYGrid, mouseXSpriteGrid, mouseYSpriteGrid;

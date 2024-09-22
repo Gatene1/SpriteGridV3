@@ -156,6 +156,8 @@ async function openSingleDrawing() {
     refreshGridOutput();
     openFileContents = "";
     titleBar.innerHTML = "Working Grid - " + file.name + " &#x1F4C2;";
+    windowZRearrange(0);
+    windowZRefresh();
 }
 
 async function loadPalletteFile() {
@@ -174,6 +176,9 @@ async function openSpriteSheet() {
     parseSSheetFile();
     openSSheetContents = "";
     spriteTitleBar.innerHTML = "Sprite Sheet - " + openSSheetFile.name + " &#x1F4C2;";
+    openWindow(5);
+    windowZRearrange(5);
+    windowZRefresh();
 }
 
 async function savePalletteFile() {

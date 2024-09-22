@@ -145,3 +145,11 @@
 # 9/6/24
 - Kept working on getting the titleBar for the Window that has focus after closing another is closed to be bold and not italicized, but still having issues...
 - Added a boolean closingWindow to tell the script that a Window is being closed, so not to rearrange the Window Z Order. Still no help, but I've gotten farther...It works once! Progress!
+
+# 9/21/24
+- When Opening a Single Character, after loading the file, the Working Grid gets focus back, so it displays the newly opened character.
+- When Opening a Sprite Sheet, after loading the file, the Sprite Sheet Window gets focus back, so it displays the newly opened sprite sheet.
+- Also, when opening a sprite sheet, if the Sprite Sheet Window isn't open, it opens the Sprite Sheet Window and makes it have focus.
+
+# 9/22/24
+- Made the levelGrid array only point to the associated Sprite Sheet's element in the spriteGrid array.

@@ -1,11 +1,8 @@
 // functions for First Window (Grid)
 // =================================
         function littleWindowClick() {
-         if (!closingWindow) {
-             windowZRearrange(0);
-             windowZRefresh();
-             closingWindow = false;
-         }
+         windowZRearrange(0);
+         windowZRefresh();
         }
         function divTitleClick(e) {
             e.stopPropagation();
@@ -81,11 +78,8 @@
 // functions for Second Window (Preview)
 // =====================================
         function prevLittleWindowClick() {
-            if (!closingWindow) {
-                windowZRearrange(1);
-                windowZRefresh();
-                closingWindow = false;
-            }
+            windowZRearrange(1);
+            windowZRefresh();
         }
         function prevDivTitleClick(e) {
             e.stopPropagation();
@@ -160,11 +154,8 @@
 // functions for Third Window (Color Iro.js)
 // =====================================
 function colorLittleWindowClick() {
-    if (!closingWindow) {
-        windowZRearrange(2);
-        windowZRefresh();
-        closingWindow = false;
-    }
+    windowZRearrange(2);
+    windowZRefresh();
 }
 function colorDivTitleClick(e) {
     e.stopPropagation();
@@ -241,11 +232,8 @@ function colorGearClick() {
 // functions for Fourth Window (Grid Output)
 // =====================================
 function outLittleWindowClick() {
-    if (!closingWindow) {
-        windowZRearrange(3);
-        windowZRefresh();
-        closingWindow = false;
-    }
+    windowZRearrange(3);
+    windowZRefresh();
 }
 function outDivTitleClick(e) {
     e.stopPropagation();
@@ -321,11 +309,8 @@ function outGearClick() {
 // functions for Fifth Window (File Saving)
 // =====================================
 function fileLittleWindowClick() {
-    if (!closingWindow) {
-        windowZRearrange(4);
-        windowZRefresh();
-        closingWindow = false;
-    }
+    windowZRearrange(4);
+    windowZRefresh();
 }
 function fileDivTitleClick(e) {
     e.stopPropagation();
@@ -402,11 +387,8 @@ function fileGearClick() {
 // functions for Sixth Window (Sprite Sheet)
 // =====================================
 function spriteLittleWindowClick() {
-    if (!closingWindow) {
-        windowZRearrange(5);
-        windowZRefresh();
-        closingWindow = false;
-    }
+    windowZRearrange(5);
+    windowZRefresh();
 }
 function spriteDivTitleClick(e) {
     e.stopPropagation();
@@ -482,11 +464,8 @@ function spriteGearClick() {
 // functions for Seventh Window (Level Editor)
 // =====================================
 function levelLittleWindowClick() {
-    if (!closingWindow) {
-        windowZRearrange(6);
-        windowZRefresh();
-        closingWindow = false;
-    }
+    windowZRearrange(6);
+    windowZRefresh();
 }
 function levelDivTitleClick(e) {
     e.stopPropagation();
@@ -651,6 +630,7 @@ function mouseLevelEditorLeave() {
     levelSpriteHeld = false;
     levelMouseSprite = null;
     levelCellOn = -1;
+    pasteLevelSprite = false;
 }
 
 function mouseLevelEditorDown() {

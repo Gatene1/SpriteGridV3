@@ -91,7 +91,11 @@ function addToSpriteGrid(whichTool) {
 function addToLevelGrid(whichTool) {
     switch (whichTool) {
         case 1:
-            levelGrid[levelCellOn] = levelMouseSprite;
+            if (pasteLevelSprite) {
+                //levelGrid[levelCellOn] = levelMouseSprite;
+                levelGrid[levelCellOn] = spriteChosen;
+                //alert(spriteChosen);
+            }
             break;
     }
 }

@@ -266,14 +266,16 @@ function drawLevelSprite(cellOn, x, y) {
         // Center the icon in the cell.
         //a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
         //b = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
-        for (j = 0; j < levelGrid[k].size * levelGrid[k].size; j++) {
-            if (levelGrid[k].grid[j] != "0")
+        for (j = 0; j < spriteGrid[levelGrid[k]].size * spriteGrid[levelGrid[k]].size; j++) {
+            if (spriteGrid[levelGrid[k]].grid[j] != "0")
+            //if (spriteGrid[levelGrid[k].grid[j]] != "0")
                 //drawSquare(x, y, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
-                drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
+                //drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
+                drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, spriteGrid[levelGrid[k]].grid[j], 5);
             spriteColumn++;
-            if (spriteColumn >= levelGrid[k].size) {
+            if (spriteColumn >= spriteGrid[levelGrid[k]].size) {
                 spriteColumn = 0;
-                a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
+                a = Math.floor((levelGridCellSize - (spriteGrid[levelGrid[k]].size * levelSpriteInCellSize)) / 2);
                 b += levelSpriteInCellSize;
             } else {
                 a += levelSpriteInCellSize;
@@ -340,12 +342,12 @@ function drawLevelCanvasUpdate() {
 
     // if a sprite should be on the mouse cursor, then draw it.
     if (levelSpriteHeld) {
-        for (i = 0; i < levelMouseSprite.size * levelMouseSprite.size; i++) {
-            if (levelMouseSprite.grid[i] != "0")
-                drawSquare(mouseXLevelCanvas + x, mouseYLevelCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, levelMouseSprite.grid[i], 5, GRID_BORDER_COLOR, true);
+        for (i = 0; i < spriteGrid[levelMouseSprite].size * spriteGrid[levelMouseSprite].size; i++) {
+            if (spriteGrid[levelMouseSprite].grid[i] != "0")
+                drawSquare(mouseXLevelCanvas + x, mouseYLevelCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, spriteGrid[levelMouseSprite].grid[i], 5, GRID_BORDER_COLOR, true);
                 //drawText("Hello World!", mouseXLevelCanvas, mouseYLevelCanvas, 32, "white", 5);
             gridColumn++;
-            if (gridColumn >= levelMouseSprite.size) {
+            if (gridColumn >= spriteGrid[levelMouseSprite].size) {
                 gridColumn = 0;
                 x = 0;
                 y += mouseSpriteCellSize;
