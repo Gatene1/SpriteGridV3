@@ -147,6 +147,7 @@ var savedColorSquares = [
         var spriteLittleWindow = document.getElementById("spriteLittleWindowHW");
         var spriteGearHW = document.getElementById("spriteGearHW");
         var spriteCloseHW = document.getElementById("spriteCloseHW");
+        var divForSpriteGrid = document.getElementById("divForSpriteGrid");
         var window6Color = "Green";
         var divSide6 = document.getElementById("divSide6");
         var spriteWindowWidth, spriteWindowHeight;
@@ -158,6 +159,8 @@ var savedColorSquares = [
         var numberOfSpritesPerRow;
         var spriteCellSize = 64;
         var spriteGridSize = 500;
+        var spriteGridViewableHeight = Math.ceil(divForSpriteGrid.clientHeight / spriteCellSize);
+        var spriteGridCellsViewable;
         var spriteGrid = [];
         var spriteGridBlob = [];
         var spriteHeld = false;
@@ -348,6 +351,7 @@ window.onload = function() {
                 spriteCanvas.addEventListener('mousemove', gridUpdateMousePosSpriteSheet, true);
                 spriteCanvas.addEventListener('mouseleave', mouseSpriteSheetLeave, true);
                 spriteCanvas.addEventListener('click', clickFunction, true);
+                divForSpriteGrid.addEventListener('scroll', debugAction, true);
                 spriteImportWorkingGrid.addEventListener('click', workingGridToMouseSprite, true);
                 spriteExportWorkingGrid.addEventListener('click', spriteSheetToWorkingGrid, true);
                 spriteSaveButton.addEventListener('click', spriteSheetSave, true);

@@ -152,4 +152,7 @@
 - Also, when opening a sprite sheet, if the Sprite Sheet Window isn't open, it opens the Sprite Sheet Window and makes it have focus.
 
 # 9/22/24
-- Made the levelGrid array only point to the associated Sprite Sheet's element in the spriteGrid array.
+- Made the levelGrid array only points to the associated Sprite Sheet's element in the spriteGrid array.
+
+# 9/23/24
+- Whenever scrolling in the Sprite Sheet Window, only the cells of the grid which are viewable are drawn every frame. 

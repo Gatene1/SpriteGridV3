@@ -178,59 +178,77 @@ function drawPreviewUpdate() {
 }
 
 function drawSpriteCanvasUpdate() {
-    let i, j;
+    let a, b, i, j;
     let spriteColNum = 0;
-    let x = 0;
-    let y = 0;
-    let a, b;
     let spriteGridFillColor;
     let gridColumn = 0;
     let spriteColumn = 0;
+    let startingNumViewable = (Math.floor(divForSpriteGrid.scrollTop / spriteCellSize) * numberOfSpritesPerRow );
+    let endingNumViewable = spriteGridViewableHeight * numberOfSpritesPerRow + startingNumViewable - 1;
+    let startingLineViewable = startingNumViewable / numberOfSpritesPerRow * spriteCellSize;
+    let x = 0;
+    let y = startingLineViewable;
+
+
+
+    // spriteCellSize = 64;
+    // numberOfSpritesPerRow = 10
+    // scrollTop will show me, basically, the Y value of what is visible...
+    // So, at 133.03572082519, 20-79 is visible  (Floor(scrollTop / spriteCellSize)) * numberOfSpritesRow = starting #
+    // then starting# + (numberOfSpritesRow - 1) will be the last # of the first row.
+    // spriteGridViewableHeight * numberOfSpritesPerRow + starting# - 1 = ending #
+
+    //gridSizeRangeText.value = startingNumViewable + " - " + (spriteGridViewableHeight * numberOfSpritesPerRow + startingNum - 1);
 
     spriteCanvasCTX.clearRect(0, 0, spriteWindowWidth, spriteWindowHeight);
 
-    for (i = 0; i < spriteGridSize; i++) {
-        // Determines the fill color of the individual cell. If the cell being drawn is the same the user is hovering over, it will be the highlighted, else, will be the normal color.
-        if (i == spriteChosen)
-            spriteGridFillColor = SPRITE_GRID_CHOSEN_CELL_FILL_COLOR;
-        else if (i == spriteCellOn)
-            spriteGridFillColor = SPRITE_GRID_HOVER_FILL_COLOR;
-        else
-            spriteGridFillColor = SPRITE_GRID_FILL_COLOR;
-        // Draw the individual cell of the spriteGrid.
-        drawSquare (x, y, spriteCellSize, spriteCellSize, true, spriteGridFillColor, 4);
-        // Draws the # of the individual cell in the lower right hand corner of the cell.
-        drawText(i, x + spriteCellSize - 20, y + spriteCellSize - 5, 12, "black", 4)
+    if (endingNumViewable >= spriteGridSize) endingNumViewable = spriteGridSize - 1;
 
-        // If there is a sprite in the spriteGrid array for the cell being drawn, then draw the sprite.
-        if (spriteGrid[i] != null) {
-            // Center the icon in the cell.
-            a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
-            b = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
-            for (j = 0; j < spriteGrid[i].size * spriteGrid[i].size; j++) {
-                if (spriteGrid[i].grid[j] != "0")
-                    drawSquare(x + a, y + b, spriteInCellSize, spriteInCellSize, false, spriteGrid[i].grid[j], 4);
-                spriteColumn++;
-                if (spriteColumn >= spriteGrid[i].size) {
-                    spriteColumn = 0;
-                    a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
-                    b += spriteInCellSize;
-                } else {
-                    a += spriteInCellSize;
+    if (startingNumViewable < endingNumViewable) {
+        for (i = startingNumViewable; i <= endingNumViewable; i++) {
+            // Determines the fill color of the individual cell. If the cell being drawn is the same the user is hovering over, it will be the highlighted, else, will be the normal color.
+            if (i == spriteChosen)
+                spriteGridFillColor = SPRITE_GRID_CHOSEN_CELL_FILL_COLOR;
+            else if (i == spriteCellOn)
+                spriteGridFillColor = SPRITE_GRID_HOVER_FILL_COLOR;
+            else
+                spriteGridFillColor = SPRITE_GRID_FILL_COLOR;
+            // Draw the individual cell of the spriteGrid.
+            drawSquare(x, y, spriteCellSize, spriteCellSize, true, spriteGridFillColor, 4);
+            // Draws the # of the individual cell in the lower right hand corner of the cell.
+            drawText(i, x + spriteCellSize - 20, y + spriteCellSize - 5, 12, "black", 4)
+
+            // If there is a sprite in the spriteGrid array for the cell being drawn, then draw the sprite.
+            if (spriteGrid[i] != null) {
+                // Center the icon in the cell.
+                a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+                b = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+                for (j = 0; j < spriteGrid[i].size * spriteGrid[i].size; j++) {
+                    if (spriteGrid[i].grid[j] != "0")
+                        drawSquare(x + a, y + b, spriteInCellSize, spriteInCellSize, false, spriteGrid[i].grid[j], 4);
+                    spriteColumn++;
+                    if (spriteColumn >= spriteGrid[i].size) {
+                        spriteColumn = 0;
+                        a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+                        b += spriteInCellSize;
+                    } else {
+                        a += spriteInCellSize;
+                    }
+
                 }
+            }
 
+            // if the max number of cells has been drawn for a single row, restart the spriteColNum count, and the X-axis count, but increase the Y, if not, continue drawing on the same row.
+            if (spriteColNum == numberOfSpritesPerRow - 1) {
+                spriteColNum = 0;
+                x = 0;
+                y += spriteCellSize;
+            } else {
+                spriteColNum++;
+                x += spriteCellSize;
             }
         }
-
-        // if the max number of cells has been drawn for a single row, restart the spriteColNum count, and the X-axis count, but increase the Y, if not, continue drawing on the same row.
-        if (spriteColNum == numberOfSpritesPerRow - 1) {
-            spriteColNum = 0;
-            x = 0;
-            y += spriteCellSize;
-        } else {
-            spriteColNum++;
-            x += spriteCellSize;
-        }
+        gridSizeRangeText.value = startingNumViewable + " - " + endingNumViewable;
     }
     x = 0;
     y = 0;
@@ -372,4 +390,17 @@ function drawLevelExtendIcon() {
 
 function drawLevelGrid() {
 
+}
+
+function debugAction() {
+    //gridSizeRangeText.value = divForSpriteGrid.scrollTop;
+    //let startingNum = (Math.floor(divForSpriteGrid.scrollTop / spriteCellSize) * numberOfSpritesPerRow );
+    //gridSizeRangeText.value = startingNum + " - " + (spriteGridViewableHeight * numberOfSpritesPerRow + startingNum - 1);
+
+    // spriteCellSize = 64;
+    // numberOfSpritesPerRow = 10
+    // scrollTop will show me, basically, the Y value of what is visible...
+    // So, at 133.03572082519, 20-79 is visible  (Floor(scrollTop / spriteCellSize)) * numberOfSpritesRow = starting #
+    // then starting# + (numberOfSpritesRow - 1) will be the last # of the first row.
+    // spriteGridViewableHeight * numberOfSpritesPerRow + starting# - 1 = ending #
 }
