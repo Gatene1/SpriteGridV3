@@ -1,187 +1,121 @@
 function windowZRearrange(elementToLookAt) {
-    prevWindowToHaveFocus = windowZ.indexOf(6);
+    const currentZ = windowZ[elementToLookAt];
 
-    switch (windowZ[elementToLookAt]) {
-        case 0 :
-            windowZ[windowZ.indexOf(1)]--;
-            windowZ[windowZ.indexOf(2)]--;
-            windowZ[windowZ.indexOf(3)]--;
-            windowZ[windowZ.indexOf(4)]--;
-            windowZ[windowZ.indexOf(5)]--;
-            windowZ[windowZ.indexOf(6)]--;
-            break;
+    // Skip rearrangement if the target is hidden
+    if (currentZ === -1) return;
 
-        case 1 :
-            windowZ[windowZ.indexOf(2)]--;
-            windowZ[windowZ.indexOf(3)]--;
-            windowZ[windowZ.indexOf(4)]--;
-            windowZ[windowZ.indexOf(5)]--;
-            windowZ[windowZ.indexOf(6)]--;
-            break;
+    for (let i = 0; i < windowZ.length; i++) {
+        if (i === elementToLookAt) continue; // Skip the window we're promoting
 
-        case 2 :
-            windowZ[windowZ.indexOf(3)]--;
-            windowZ[windowZ.indexOf(4)]--;
-            windowZ[windowZ.indexOf(5)]--;
-            windowZ[windowZ.indexOf(6)]--;
-            break;
-
-        case 3 :
-            windowZ[windowZ.indexOf(4)]--;
-            windowZ[windowZ.indexOf(5)]--;
-            windowZ[windowZ.indexOf(6)]--;
-            break;
-
-        case 4 :
-            windowZ[windowZ.indexOf(5)]--;
-            windowZ[windowZ.indexOf(6)]--;
-            break;
-
-        case 5:
-            windowZ[windowZ.indexOf(6)]--;
-            break;
+        // If window is visible and has a higher Z than the one we're promoting
+        if (windowZ[i] !== -1 && windowZ[i] > currentZ) {
+            windowZ[i] = Math.max(0, windowZ[i] - 1); // Decrease Z, not below 0
+        }
     }
 
+    // Now promote the selected window to Z = 6
     windowZ[elementToLookAt] = 6;
+
+    // Update visual indicators
+    windowZRefresh();
 }
 
 function windowZRefresh() {
-    // The if-statements below each zIndex assignation is to change text of the titleBar depending on if it's the one
-    // selected or not.
+    const windowElements = [
+        littleWindow,
+        prevLittleWindow,
+        colorLittleWindow,
+        outLittleWindow,
+        fileLittleWindow,
+        spriteLittleWindow,
+        levelLittleWindow
+    ];
 
-    littleWindow.style.zIndex = windowZ[0].toString();
-        if (windowZ[0] == 6) {
-            titleBar.style.fontWeight = "bold";
-            titleBar.style.fontStyle = "normal";
+    const titleBars = [
+        titleBar,
+        prevTitleBar,
+        colorTitleBar,
+        outTitleBar,
+        fileTitleBar,
+        spriteTitleBar,
+        levelTitleBar
+    ];
+
+    for (let i = 0; i < windowZ.length; i++) {
+        if (windowZ[i] === -1) continue; // Skip collapsed windows
+
+        windowElements[i].style.zIndex = windowZ[i].toString();
+
+        if (windowZ[i] === 6) {
+            titleBars[i].style.fontWeight = "bold";
+            titleBars[i].style.fontStyle = "normal";
         } else {
-            titleBar.style.fontWeight = "normal";
-            titleBar.style.fontStyle = "italic";
+            titleBars[i].style.fontWeight = "normal";
+            titleBars[i].style.fontStyle = "italic";
         }
-    prevLittleWindow.style.zIndex = windowZ[1].toString();
-        if (windowZ[1] == 6) {
-            prevTitleBar.style.fontWeight = "bold";
-            prevTitleBar.style.fontStyle = "normal";
-        } else {
-            prevTitleBar.style.fontWeight = "normal";
-            prevTitleBar.style.fontStyle = "italic";
-        }
-    colorLittleWindow.style.zIndex = windowZ[2].toString();
-        if (windowZ[2] == 6) {
-            colorTitleBar.style.fontWeight = "bold";
-            colorTitleBar.style.fontStyle = "normal";
-        } else {
-            colorTitleBar.style.fontWeight = "normal";
-            colorTitleBar.style.fontStyle = "italic";
-        }
-    outLittleWindow.style.zIndex = windowZ[3].toString();
-        if (windowZ[3] == 6) {
-            outTitleBar.style.fontWeight = "bold";
-            outTitleBar.style.fontStyle = "normal";
-        } else {
-            outTitleBar.style.fontWeight = "normal";
-            outTitleBar.style.fontStyle = "italic";
-        }
-    fileLittleWindow.style.zIndex = windowZ[4].toString();
-        if (windowZ[4] == 6) {
-            fileTitleBar.style.fontWeight = "bold";
-            fileTitleBar.style.fontStyle = "normal";
-        } else {
-            fileTitleBar.style.fontWeight = "normal";
-            fileTitleBar.style.fontStyle = "italic";
-        }
-    spriteLittleWindow.style.zIndex = windowZ[5].toString();
-        if (windowZ[5] == 6) {
-            spriteTitleBar.style.fontWeight = "bold";
-            spriteTitleBar.style.fontStyle = "normal";
-        } else {
-            spriteTitleBar.style.fontWeight = "normal";
-            spriteTitleBar.style.fontStyle = "italic";
-        }
-    levelLittleWindow.style.zIndex = windowZ[6].toString();
-        if (windowZ[6] == 6) {
-            levelTitleBar.style.fontWeight = "bold";
-            levelTitleBar.style.fontStyle = "normal";
-        } else {
-            levelTitleBar.style.fontWeight = "normal";
-            levelTitleBar.style.fontStyle = "italic";
-        }
+    }
 }
 
 
-// Why won't the new TitleBar be updated with a bold font and non-italicized???
+function closeWindow(windowIndex) {
+    const closingZ = windowZ[windowIndex];
+    const wasFocused = closingZ === Math.max(...windowZ);
 
+    // Step 1: Temporarily remove the closing window from Z-order
+    windowZ[windowIndex] = -1;
 
-function closeWindow(whichWindow) {
-    closingWindow = true;
-    prevWindowToHaveFocus = windowZ.indexOf(6);
-    windowZRearrange(whichWindow);
-
-
-    switch (whichWindow) {
-        case 0 :
-            littleWindow.style.visibility = "collapse";
-            divSide1.style.visibility = "visible"
-            break;
-        case 1 :
-            prevLittleWindow.style.visibility = "collapse";
-            divSide2.style.visibility = "visible";
-            break;
-        case 2 :
-            colorLittleWindow.style.visibility = "collapse";
-            divSide3.style.visibility = "visible";
-            break;
-        case 3 :
-            outLittleWindow.style.visibility = "collapse";
-            divSide4.style.visibility = "visible";
-            break;
-        case 4 :
-            fileLittleWindow.style.visibility = "collapse";
-            divSide5.style.visibility = "visible";
-            break;
-        case 5 :
-            spriteLittleWindow.style.visibility = "collapse";
-            divSide6.style.visibility = "visible";
-            break;
-        case 6 :
-            levelLittleWindow.style.visibility = "collapse";
-            divSide7.style.visibility = "visible";
-            break;
+    // Step 2: Collapse all Zs above the closed window’s Z, but don’t go below 0
+    for (let i = 0; i < windowZ.length; i++) {
+        if (windowZ[i] > closingZ) {
+            windowZ[i] = Math.max(0, windowZ[i] - 1);
+        }
     }
 
-    windowZRearrange(prevWindowToHaveFocus);
-    windowZRefresh();
-    //alert ("WindowZRearrange \n0 = " + windowZ[0] + "\n1 = " + windowZ[1] + "\n2 = " + windowZ[2] + "\n3 = " + windowZ[3] + "\n4 = " + windowZ[4] + "\n5 = " + windowZ[5] + "\n6 = " + windowZ[6]);
+    // Step 3: Promote the window with the new highest Z to 6
+    let maxZ = Math.max(...windowZ);
+    let maxIndex = windowZ.indexOf(maxZ);
 
+    if (maxIndex !== -1 && windowZ[maxIndex] !== -1) {
+        windowZ[maxIndex] = 6;
+    }
+
+    // Step 4: Collapse the window’s display, show its side tab
+    switch (windowIndex) {
+        case 0: littleWindow.style.visibility = "collapse"; divSide1.style.visibility = "visible"; break;
+        case 1: prevLittleWindow.style.visibility = "collapse"; divSide2.style.visibility = "visible"; break;
+        case 2: colorLittleWindow.style.visibility = "collapse"; divSide3.style.visibility = "visible"; break;
+        case 3: outLittleWindow.style.visibility = "collapse"; divSide4.style.visibility = "visible"; break;
+        case 4: fileLittleWindow.style.visibility = "collapse"; divSide5.style.visibility = "visible"; break;
+        case 5: spriteLittleWindow.style.visibility = "collapse"; divSide6.style.visibility = "visible"; break;
+        case 6: levelLittleWindow.style.visibility = "collapse"; divSide7.style.visibility = "visible"; break;
+    }
+
+    // Step 5: Update title bar fonts and zIndex styling
+    windowZRefresh();
+
+    alert (windowZ);
 }
 function openWindow(whichWindow) {
+    // Make the window visible
     switch (whichWindow) {
-        case 0 :
-            littleWindow.style.visibility = "visible";
-            divSide1.style.visibility = "hidden";
-            break;
-        case 1 :
-            prevLittleWindow.style.visibility = "visible";
-            divSide2.style.visibility = "hidden";
-            break;
-        case 2 :
-            colorLittleWindow.style.visibility = "visible";
-            divSide3.style.visibility = "hidden";
-            break;
-        case 3 :
-            outLittleWindow.style.visibility = "visible";
-            divSide4.style.visibility = "hidden";
-            break;
-        case 4 :
-            fileLittleWindow.style.visibility = "visible";
-            divSide5.style.visibility = "hidden";
-            break;
-        case 5 :
-            spriteLittleWindow.style.visibility = "visible";
-            divSide6.style.visibility = "hidden";
-            break;
-        case 6 :
-            levelLittleWindow.style.visibility = "visible";
-            divSide7.style.visibility = "hidden";
-            break;
+        case 0: littleWindow.style.visibility = "visible"; divSide1.style.visibility = "collapse"; break;
+        case 1: prevLittleWindow.style.visibility = "visible"; divSide2.style.visibility = "collapse"; break;
+        case 2: colorLittleWindow.style.visibility = "visible"; divSide3.style.visibility = "collapse"; break;
+        case 3: outLittleWindow.style.visibility = "visible"; divSide4.style.visibility = "collapse"; break;
+        case 4: fileLittleWindow.style.visibility = "visible"; divSide5.style.visibility = "collapse"; break;
+        case 5: spriteLittleWindow.style.visibility = "visible"; divSide6.style.visibility = "collapse"; break;
+        case 6: levelLittleWindow.style.visibility = "visible"; divSide7.style.visibility = "collapse"; break;
     }
+
+    // Assign temporary Z if window was closed (-1)
+    if (windowZ[whichWindow] === -1) {
+        windowZ[whichWindow] = 0;
+    }
+
+    // Promote this window to the front
+    windowZRearrange(whichWindow);
+}
+
+function isWindowActive(index, checkForFirstDraw) {
+    return windowZ[index] === 6 || (checkForFirstDraw && firstDraw);
 }

@@ -1,16 +1,16 @@
 function drawAll() {
     // Each if-statement will check to see if this is the initial drawing of WebApp or if the Window is active and
     // the Window is visible, then draw its contents.
-    if ((littleWindow.style.visibility != "collapse" && littleWindow.style.visibility != "hidden" && windowZ[0] == 6) || firstDraw) {
+    if (isWindowActive(0, true)) {
         drawGrid();
         drawPreviewUpdate();
     }
-    if ((colorLittleWindow.style.visibility != "collapse" && colorLittleWindow.style.visibility != "hidden" && windowZ[2] == 6) || firstDraw){
+    if (isWindowActive(2, true)){
         drawColorSquares();
         drawPreviewSquare(100);
     }
-    if ((spriteLittleWindow.style.visibility != "collapse" && spriteLittleWindow.style.visibility != "hidden" && windowZ[5] == 6)) drawSpriteCanvasUpdate();
-    if ((levelLittleWindow.style.visibility != "collapse" && levelLittleWindow.style.visibility != "hidden" && windowZ[6] == 6)) {
+    if (isWindowActive(5, false)) drawSpriteCanvasUpdate();
+    if (isWindowActive(6, false)) {
         drawLevelCanvasUpdate();
         drawLevelExtendIcon();
     }

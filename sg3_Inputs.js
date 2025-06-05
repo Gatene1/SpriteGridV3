@@ -41,6 +41,8 @@ function spriteSheetToWorkingGrid() {
         gridCopy = [];
         refreshGridOutput();
     }
+    //firstDraw = true;
+    drawGrid();
 }
 
 function eraseInSpriteSheet() {

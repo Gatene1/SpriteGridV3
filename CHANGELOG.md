@@ -155,4 +155,24 @@
 - Made the levelGrid array only points to the associated Sprite Sheet's element in the spriteGrid array.
 
 # 9/23/24
-- Whenever scrolling in the Sprite Sheet Window, only the cells of the grid which are viewable are drawn every frame. 
+- Whenever scrolling in the Sprite Sheet Window, only the cells of the grid which are viewable are drawn every frame.
+
+# 6/5/2025
+- Rebuilt `closeWindow(windowIndex)`:
+  - Prevents hidden windows from stealing focus
+  - Shifts Z-order correctly on close
+- Updated `windowZ[]` logic:
+  - Now uses `-1` to represent collapsed/hidden windows
+- Simplified `drawAll()`:
+  - Added `isWindowActive(index, checkForFirstDraw)` helper function
+  - Eliminated redundant visibility checks
+- Refactored `WindowZRefresh()`:
+  - Uses arrays and a loop to update z-index and title bar styling
+  - Skips hidden (`-1`) windows
+- Added `openWindow(whichWindow)`:
+  - Restores hidden window
+  - Promotes it to Z=6
+  - Collapses corresponding tab
+- Added `windowZRearrange(elementToLookAt)`:
+  - Brings selected window to front
+  - Decrements Z of other visible windows without dropping below 0

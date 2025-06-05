@@ -68,7 +68,10 @@ var savedColorSquares = [
         var previewSelect = document.getElementById("previewSelect");
 
 // Vars for every window
-        var windowZ = [6, 0, 1, 2, 3, 4, 5];
+        var windowZ = [6, 0, 1, 2, 3, -1, -1];
+        let windowZHistory = [];
+        let currentTopWindow;
+        let windowFocusHistory = [];
         // Old windowZ values, just in case my fix is not a fix, but a blunder lol.
         //var windowZ = [0, 1, 2, 3, 4, 5, 6];
 

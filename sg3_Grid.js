@@ -72,6 +72,7 @@ function RMBRelease() {
 function siphonColor() {
     currColor = grid[mouseToGrid] == "0" ? "#f5f5f5" : grid[mouseToGrid];
     colorPicker.color.hexString = currColor;
+    drawPreviewSquare(100);
 }
 
 
