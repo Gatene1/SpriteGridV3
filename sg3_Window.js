@@ -92,8 +92,6 @@ function closeWindow(windowIndex) {
 
     // Step 5: Update title bar fonts and zIndex styling
     windowZRefresh();
-
-    alert (windowZ);
 }
 function openWindow(whichWindow) {
     // Make the window visible

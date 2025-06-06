@@ -6,6 +6,7 @@ function saveToStore() {
 
 function previewScale() {
     prevCellSize = previewSelect.value;
+    firstDraw = true;
 }
 
 function colorText() {
@@ -64,8 +65,21 @@ function createNewSpriteSheet() {
 }
 
 function saveGridAsPNG() {
-    image.src = canvasGrid.toDataURL("png");
-    link.href = image.src;
+    const exportSize = gridSize * cellSize;
+    const tempCanvas = document.createElement("canvas");
+    const tempCtx = tempCanvas.getContext("2d");
+
+    tempCanvas.width = exportSize;
+    tempCanvas.height = exportSize;
+
+    tempCtx.drawImage(
+        canvasGrid,   // source canvas
+        0, 0, exportSize, exportSize,   // source area
+        0, 0, exportSize, exportSize    // destination
+    );
+
+    const dataURL = tempCanvas.toDataURL("image/png");
+    link.href = dataURL;
     link.download = "canvas_image.png"
     link.click();
 }
