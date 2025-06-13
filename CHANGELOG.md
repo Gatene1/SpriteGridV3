@@ -176,3 +176,50 @@
 - Added `windowZRearrange(elementToLookAt)`:
   - Brings selected window to front
   - Decrements Z of other visible windows without dropping below 0
+
+# 6/6/2025
+✅ General Fixes and Refactors
+Fixed Z-index handling with collapsed windows by updating windowZ to use -1 for hidden windows.
+
+Updated closeWindow(), windowZRearrange(), and openWindow() functions for clean Z-order management without giving unwanted focus.
+
+Created isWindowActive(index, checkForFirstDraw) helper to streamline visibility logic and reduce CPU usage.
+
+Simplified drawAll() using isWindowActive() for conditional rendering of visible windows only.
+
+Optimized WindowZRefresh() (formerly brute-force) using a loop and object mappings to update z-indexes and title bar styling cleanly.
+
+🎯 Preview Window Enhancement
+Added firstDraw = true to previewScale() in SG3Inputs.js, so preview window redraws automatically when magnification changes.
+
+🧠 Performance Enhancements
+Confirmed that startingNumViewable and endingNumViewable in DrawSpriteCanvasUpdate() provide effective redraw limits—no need for dirty flag system.
+
+Discussed and decided not to migrate to Uint32Array for color storage, opting to keep hex strings for readability and workflow consistency.
+
+Reinforced first-draw + focus-only rendering approach for sprite sheet and level editor windows to reduce redraws from 500-slot sprite data.
+
+🧪 Typed Array Exploration
+Created new project for Typed Array experimentation, including a well-commented JS file demonstrating:
+
+Uint32Array usage
+
+rgbToInt() and intToRGB() functions
+
+Bit masking, shifting, and padded hex strings for compact RGB encoding
+
+🖼️ PNG Export Fix
+Rewrote saveGridAsPNG() to export only the visible grid (based on gridSize * cellSize) by copying the relevant section of canvasGrid to a temporary canvas before saving.
+
+# 6/13/2025
+🌈 Revamped the internal color system across the project, shifting toward a typed-array-friendly structure for storing and manipulating color data.
+
+🔄 Updated functions related to color conversion, including RGB-to-Uint32 encoding for compact storage.
+
+🧠 Reorganized color input logic to more cleanly handle palette management and swatch interaction.
+
+💾 Integrated clipboard support for copying color values directly from the color input panel.
+
+🖼️ Enhanced UX by refining how color palette slots are assigned and saved when interacting with the “Save to Palette” button.
+
+🗂️ Committed incremental refactors across several files to prepare for tighter integration of typed arrays later, even if not fully deployed yet.

@@ -61,8 +61,10 @@
                 <label for="cellSizeRangeSlider" class="form-label">Choose Cell Size:</label><br>
                 <input type="range" min="2" max="24" step="2" id="cellSizeRangeSlider"><br>
                 <input type="text" disabled id="cellSizeRangeText" class="form-control" value="# Pixels"><br>
-                <button type="button" class="btn btn-success" data-bs-toggle="button" id="resetGridButton">Reset Grid</button>
                 <button type="button" class="btn btn-success" data-bs-toggle="button" id="savePNGButton">Save As PNG</button><br><br>
+                <button type="button" class="btn btn-success" data-bs-toggle="button" id="resetGridButton">New Drawing</button>
+                <button class="btn btn-success" id="fileSavingOpenButton">Open Drawing</button>
+                <button class="btn btn-success" id="fileSavingSaveButton">Save Drawing</button><br><br>
                 <label class="form-check-label" for="showGridCheckbox">Show Grid?</label>
                 <input type="checkbox" class="form-check-input" value="" id="showGridCheckbox" checked>
             </div>
@@ -107,10 +109,10 @@
                     <canvas id="colorPrev" width="110px" height="110px"></canvas>
                 </div>
                 <div id="colorTextbox" class="input-group-sm">
-                    <input type="text" id="colorTextElement" value = "#00ff00">
+                    <input type="text" id="colorTextElement" value = "#00ff00">&nbsp;<span id="copyColorCode">&#128203;</span>
                 </div>
                 <br>
-                <div> <button type="button" id = "saveButton" class="btn btn-success">Save Color to the Right!</button></div>
+                <div> <button type="button" id = "saveButton" class="btn btn-success">Save to Palette</button></div>
             </div>
             <div id="colorChoose">
                 <canvas id = "colorChooseRow1" width = "28px" height="420px"></canvas>
@@ -144,12 +146,6 @@
             <div id="fileCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
         <div class="divInnerBottomFlexColChildFile">
-                <button class="btn btn-success" id="fileSavingOpenButton">Open Single Character</button>
-                <button class="btn btn-success" id="fileSavingSaveButton">Save Single Character</button>
-                <button class="btn btn-success" id="newSSheet">New Sprite Sheet</button>
-                <button class="btn btn-success" id="openSSheet">Open Sprite Sheet</button>
-                <button class="btn btn-success" id="newLevel">New Level</button>
-                <button class="btn btn-success" id="openLevel">Open Level</button>
         </div>
     </div>
     <!-- End Fifth Window (File Saving) //-->
@@ -166,10 +162,12 @@
                 <canvas id="spriteCanvas" width = "700" height = "3750"></canvas>
             </div>
             <div class="spriteRightButtonDiv">
-                <button type="button" class="btn btn-success" id="spriteSaveButton">Save</button>
-                <button type="button" class="btn btn-success" id="spriteImportWorkingGrid">Use Working Grid</button>
-                <button type="button" class="btn btn-success" id="spriteExportWorkingGrid">Send To Working Grid</button>
-                <button type="button" class="btn btn-success" id="eraseSingleSprite">Erase</button>
+                <button class="btn btn-success" id="newSSheet">New Sprite Sheet</button>
+                <button class="btn btn-success" id="openSSheet">Open Sprite Sheet</button>
+                <button type="button" class="btn btn-success" id="spriteSaveButton">Save Sprite Sheet</button><br><br>
+                <button type="button" class="btn btn-success" id="spriteImportWorkingGrid">Get Grid Drawing</button>
+                <button type="button" class="btn btn-success" id="spriteExportWorkingGrid">Send To Grid</button><br>
+                <button type="button" class="btn btn-success" id="eraseSingleSprite">Erase A Cell</button>
             </div>
         </div>
     </div>
@@ -187,11 +185,12 @@
                 <canvas id="levelCanvas"></canvas>
             </div>
             <div class="levelRightButtonDiv">
-                <button type="button" class="btn btn-success" id="levelBgColor">Change BG Color</button>
-                <button type="button" class="btn btn-success" id="levelSaveButton">Save</button>
-                <button type="button" class="btn btn-success" id="levelImportWorkingGrid">Use Working Grid</button>
+                <button type="button" class="btn btn-success" id="levelBgColor">Change BG Color</button><br><br>
+                <button type="button" class="btn btn-success" id="newLevel">New Level</button>
+                <button type="button" class="btn btn-success" id="openLevel">Open Level</button>
+                <button type="button" class="btn btn-success" id="levelSaveButton">Save Level</button><br><br>
                 <button type="button" class="btn btn-success" id="levelImportSpriteChosen">Use Chosen Sprite</button>
-                <button type="button" class="btn btn-success" id="levelCellErase">Erase</button>
+                <button type="button" class="btn btn-success" id="levelCellErase">Erase A Cell</button>
             </div>
         </div>
     </div>

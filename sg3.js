@@ -113,6 +113,8 @@ var savedColorSquares = [
         var saveButton = document.getElementById("saveButton");
         var loadPalletteButton = document.getElementById('loadPalletteButton');
         var savePalletteButton = document.getElementById('savePalletteButton');
+        let copyColorCode = document.getElementById('copyColorCode');
+
 
         // Vars for Fourth Window (Grid Output)
         var outLmbDown = false;
@@ -307,6 +309,8 @@ window.onload = function() {
                 resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
                 showGridCheckbox.addEventListener('change', turnGridOnOff, true);
                 savePNGButton.addEventListener('click', saveGridAsPNG, true);
+                fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
+                fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
 
                 // Listeners for Second Window (Preview)
                 prevLittleWindow.addEventListener('mousedown', prevLittleWindowClick, false);
@@ -328,6 +332,7 @@ window.onload = function() {
                 colorTextElement.addEventListener('change', colorText, true);
                 loadPalletteButton.addEventListener('click', loadPalletteFile, true);
                 savePalletteButton.addEventListener('click', savePalletteFile, true);
+                copyColorCode.addEventListener('click', copyColorToClipboard, true);
 
                 // Listeners for Fourth Window (Output)
                 outLittleWindow.addEventListener('mousedown', outLittleWindowClick, false);
@@ -342,8 +347,6 @@ window.onload = function() {
                 fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);
                 fileGearHW.addEventListener('mousedown', fileGearClick, true);
                 fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
-                fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
-                fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
 
                 // Listeners for Sixth Window (Sprite Sheet)
                 spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);

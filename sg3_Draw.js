@@ -89,13 +89,13 @@ function drawGrid() {
         for (j = 0; j < gridSize; j++) {
             currCell = (i * gridSize) + j;
 
-            if (grid[currCell] == "0") {
+            if (grid[currCell] == 0) {
                 if (showTheGrid) {
-                    currCellColor = GRID_FILL_COLOR;
+                    currCellColor = "rgb(245, 245, 245)";
                     drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor);
                 }
             } else {
-                currCellColor = grid[currCell];
+                currCellColor = uIntToRgbString(grid[currCell]);
                 drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor);
             }
 
