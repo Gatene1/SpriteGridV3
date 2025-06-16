@@ -223,3 +223,24 @@ Rewrote saveGridAsPNG() to export only the visible grid (based on gridSize * cel
 🖼️ Enhanced UX by refining how color palette slots are assigned and saved when interacting with the “Save to Palette” button.
 
 🗂️ Committed incremental refactors across several files to prepare for tighter integration of typed arrays later, even if not fully deployed yet.
+
+# 6/16/2025
+🎨 Color Pipeline Refactored:
+
+Upgraded to use hex8 strings (#RRGGBBAA) for UI representation.
+
+Maintained rgba and Uint32 formats under the hood for logic and data.
+
+Ensured all current color values in memory now consistently use hex8String.
+
+🌈 Color Picker Integration Improved:
+
+iro.js color picker confirmed to support RGBA natively.
+
+Enabled alpha slider and verified color changes reflect in CurColor and ColorTextElement.
+
+🔍 Canvas Update Mechanism Traced:
+
+Discovered that drawPreviewSquare() is the actual function updating colorPrev.
+
+Realized that stroke style remains opaque, creating a visual imbalance at low alphas.

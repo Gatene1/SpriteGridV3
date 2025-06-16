@@ -6,16 +6,18 @@ function changeCellSize() {
 function changeGridSize() {
     gridSizeRangeText.value = gridSizeRange.value + " X " + gridSizeRange.value;
     gridSize = gridSizeRange.value;
+    //grid = new Uint32Array(gridSize * gridSize);
     fillArrayWithZeroes();
     refreshGridOutput();
 }
 
 function fillArrayWithZeroes() {
-    let i;
-    grid = [];
-    for (i = 0; i < gridSize * gridSize; i++) {
-        grid.push("0");
-    }
+    //let i;
+    //grid = [];
+    grid = new Uint32Array(gridSize * gridSize);
+    // for (i = 0; i < gridSize * gridSize; i++) {
+    //     grid.push("0");
+    // }
     titleBar.innerHTML = "Working Grid - Unknown.gat &#x1F4C2;";
 }
 

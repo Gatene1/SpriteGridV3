@@ -4,7 +4,7 @@ function activateColor() {
     colorStoresSelected = colorStoresClicked;
     savedColorSquares[colorStoresClicked].borderColor = GRID_BORDER_COLOR;
     currColor = savedColorSquares[colorStoresClicked].colorHeld;
-    colorPicker.color.hexString = currColor;
+    colorPicker.color.hex8String = currColor;
 }
 
 function findWhereClicked() {

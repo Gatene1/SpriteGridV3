@@ -29,7 +29,8 @@
         var gridOutput = document.getElementById("gridOutput");
         var savePNGButton = document.getElementById("savePNGButton");
 
-        var grid = ["0"];
+        //var grid = ["0"];
+        window.grid = new Uint32Array(gridSize * gridSize);
         var showTheGrid = true;
         var gridCopy = ["0"];
         var mouseToGrid;
@@ -52,8 +53,27 @@ var savedColorSquares = [
 ];
 
 // Vars for the color picker.
-        var colorPicker = new iro.ColorPicker('#picker', {width: 175, color: "#0f0"});
-        var currColor = colorPicker.color.hexString;
+        var colorPicker = new iro.ColorPicker('#picker', {width: 175, color: "rgba(0, 255, 0, 1)",
+            layout: [
+                {
+                    component: iro.ui.Wheel,
+                    options: {}
+                },
+                {
+                    component: iro.ui.Slider,
+                    options: {
+                        sliderType: "value"
+                    }
+                },
+                {
+                    component: iro.ui.Slider,
+                    options: {
+                        sliderType: 'alpha'
+                    }
+                }
+            ]
+        });
+        var currColor = colorPicker.color.hex8String;
         var colorTextElement = document.getElementById("colorTextElement");
         var colorStores = ["#00ff00", "#ff0000", GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR];
         var colorStoresSelected = 0;
@@ -266,7 +286,7 @@ window.onload = function() {
     gridSizeRange.addEventListener('change', changeGridSize, false);
 
                 // Listeners for the Color Iro.js
-                colorPicker.on('color:change', function(color) { currColor = colorPicker.color.hexString; colorTextElement.value = currColor; });
+                colorPicker.on('color:change', function(color) { currColor = colorPicker.color.hex8String; colorTextElement.value = currColor; });
 
                 // Listeners for the Grid Canvas
                 canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
