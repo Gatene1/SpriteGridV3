@@ -1,5 +1,5 @@
 function saveToStore() {
-    savedColorSquares.at(colorStoresSelected).colorHeld = currColor;
+    savedColorSquareArray.at(colorStoresSelected).colorHeld = currColor;
     colorStores[colorStoresSelected] = currColor;
 
 }
@@ -11,7 +11,7 @@ function previewScale() {
 
 function colorText() {
     currColor = colorTextElement.value;
-    colorPicker.color.hexString = currColor;
+    colorPicker.color.hex8String = currColor;
 }
 
 function workingGridToMouseSprite() {

@@ -4,11 +4,11 @@
         const FRAMES_PER_SECOND = 30;
         const CANVAS_GRID_WIDTH = 775;
         const CANVAS_GRID_HEIGHT = 775;
-        const GRID_BORDER_COLOR = "#a0a0a0";
-        const GRID_FILL_COLOR = "#f5f5f5";
-        const SPRITE_GRID_FILL_COLOR = "#f5f5f5";
-        const SPRITE_GRID_HOVER_FILL_COLOR = "#dee5ff";
-        const SPRITE_GRID_CHOSEN_CELL_FILL_COLOR = "#b0b1ff";
+        const GRID_BORDER_COLOR = "#a0a0a0ff";
+        const GRID_FILL_COLOR = 4294309365;
+        const SPRITE_GRID_FILL_COLOR = "#f5f5f5ff";
+        const SPRITE_GRID_HOVER_FILL_COLOR = "#dee5ffff";
+        const SPRITE_GRID_CHOSEN_CELL_FILL_COLOR = "#b0b1ffff";
         const image = new Image();
         const link = document.createElement('a');
 
@@ -39,17 +39,17 @@
         var eraseTool = false;
 
 // Vars for classes
-var savedColorSquares = [
-    new savedColorSquare(0, 0, 0, 0, GRID_BORDER_COLOR, "#00ff00"),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR),
-    new savedColorSquare(0, 0, 0, 0, "#000000", GRID_FILL_COLOR)
+var savedColorSquareArray = [
+    new savedColorSquare(0, 0, 0, 0, GRID_BORDER_COLOR, 4278255360),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", 4278190335),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR),
+    new savedColorSquare(0, 0, 0, 0, "#000000ff", GRID_FILL_COLOR)
 ];
 
 // Vars for the color picker.
@@ -75,7 +75,7 @@ var savedColorSquares = [
         });
         var currColor = colorPicker.color.hex8String;
         var colorTextElement = document.getElementById("colorTextElement");
-        var colorStores = ["#00ff00", "#ff0000", GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR];
+        var colorStores = [4278255360, 4278190335, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR];
         var colorStoresSelected = 0;
         var colorStoresSquareSize = 24;
         var colorStoresBorderSize = 2;
@@ -160,6 +160,10 @@ var savedColorSquares = [
         var fileSavingOpenButton = document.getElementById("fileSavingOpenButton");
         var fileSavingSaveButton = document.getElementById("fileSavingSaveButton");
         var newSSheet = document.getElementById("newSSheet");
+        var hexToUintButton = document.getElementById("hexToUintButton");
+        var hexToUintText = document.getElementById('hexToUintText');
+        var uintToHexButton = document.getElementById("uintToHexButton");
+        var uintToHexText = document.getElementById('uintToHexText');
         var openFileContents;
         var openPaletteContents;
         var openSSheetContents;
@@ -286,7 +290,13 @@ window.onload = function() {
     gridSizeRange.addEventListener('change', changeGridSize, false);
 
                 // Listeners for the Color Iro.js
-                colorPicker.on('color:change', function(color) { currColor = colorPicker.color.hex8String; colorTextElement.value = currColor; });
+                colorPicker.on('color:change', function(color) {
+                    const rgba = color.rgba;
+                    currColor = rgbToUint(rgba);
+                    colorTextElement.value = uint32ToHex8(currColor);
+                });
+
+
 
                 // Listeners for the Grid Canvas
                 canvasGrid.addEventListener('mousemove', gridUpdateMousePos, true);
@@ -367,6 +377,8 @@ window.onload = function() {
                 fileTitleBar.addEventListener('mouseup', fileDivTitleUnClick, true);
                 fileGearHW.addEventListener('mousedown', fileGearClick, true);
                 fileCloseHW.addEventListener('mousedown', function() { closeWindow(4); }, true);
+                hexToUintButton.addEventListener('click', function() { alert(hex8ToUint32(hexToUintText.value)); }, true);
+                uintToHexButton.addEventListener('click', function() { alert(uint32ToHex8(uintToHexText.value)); }, true);
 
                 // Listeners for Sixth Window (Sprite Sheet)
                 spriteLittleWindow.addEventListener('mousedown', spriteLittleWindowClick, false);

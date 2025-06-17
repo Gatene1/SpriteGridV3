@@ -55,10 +55,37 @@ function parseOpenFile() {
 function parsePaletteFile() {
     let openFilePointer;
     let colorStoresLoc = 0;
-    for (openFilePointer = 0; openFilePointer < openPaletteContents.length; openFilePointer += 7) {
-        savedColorSquares[colorStoresLoc].colorHeld = openPaletteContents.substring(openFilePointer, openFilePointer + 7);
-        colorStores[colorStoresLoc] = openPaletteContents.substring(openFilePointer, openFilePointer + 7);
-        colorStoresLoc++;
+    let filePointerProgressor = 7;
+    const firstChar = openPaletteContents[3];
+    const palString = openPaletteContents.substring(0, 3);
+    // this is supposed to read the contents of the palette file, test if it's hexString array or typed array
+    // if it is hext string, then it needs to add a "ff" to the end of the read color, convert to uint32
+    // store the uint32 version
+
+    if (palString == "PAL") {
+        if (firstChar === "#") {
+            // Old Hex System
+            for (openFilePointer = 1; openFilePointer < openPaletteContents.length; openFilePointer += filePointerProgressor) {
+                const thisSubString = openPaletteContents.substring(openFilePointer, openFilePointer + filePointerProgressor)
+                savedColorSquareArray[colorStoresLoc].colorHeld = rgbToUint(hexToRGB(thisSubString + "FF"));
+                colorStores[colorStoresLoc] = rgbToUint(hexToRGB(thisSubString + "FF"));
+                colorStoresLoc++;
+            }
+        } else if (firstChar === "|") {
+            // New Uint32 System
+            const data = openPaletteContents.substring(4); // skip "PAL|"
+            const entries = data.split("|").filter(e => e !== "");
+
+            for (let i = 0; i < entries.length && i < savedColorSquareArray.length; i++) {
+                const uint = parseInt(entries[i], 10);
+                savedColorSquareArray[i].colorHeld = uint;
+                colorStores[i] = uint;
+            }
+        } else {
+            alert(`Unrecognized file format: ${firstChar}.\n\nPalette files must begin with a \'#\' (legacy) or a \'|\' (Uint32)`);
+        }
+    } else {
+        alert('Unrecogined file format or not a valid .gpt Palette File.\n\nRefer to Spruce\'s \'gpt-spec.txt\' file for more information');
     }
 }
 
@@ -184,7 +211,14 @@ async function openSpriteSheet() {
 async function savePalletteFile() {
     const saveFileHandle = await window.showSaveFilePicker(palletteOptions);
     const saveFileWritableStream = await saveFileHandle.createWritable();
-    const saveFileBlob = new Blob(colorStores, { type: "text/plain" });
+
+    let fileData = "PAL";
+    for (let i = 0; i < savedColorSquareArray.length; i++) {
+        const uintColor = savedColorSquareArray[i].colorHeld;
+        fileData += "|" + uintColor.toString();
+    }
+
+    const saveFileBlob = new Blob([fileData], { type: "text/plain" });
     await saveFileWritableStream.write(saveFileBlob);
     colorTitleBar.innerHTML = "Color Selection - " + saveFileHandle.name + " &#x1F4C2;";
     await saveFileWritableStream.close();

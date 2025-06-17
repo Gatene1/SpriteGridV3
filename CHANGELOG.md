@@ -244,3 +244,39 @@ Enabled alpha slider and verified color changes reflect in CurColor and ColorTex
 Discovered that drawPreviewSquare() is the actual function updating colorPrev.
 
 Realized that stroke style remains opaque, creating a visual imbalance at low alphas.
+
+# 6/17/2025
+🧱 Core Fixes
+✅ Resolved Uint32 byte order issues by converting to proper little-endian format:
+Uint32 = (a << 24) | (b << 16) | (g << 8) | r
+
+✅ Corrected uint32ToHex8() function to properly unpack RGBA from Uint32
+
+✅ Updated rgbToUint() to support alpha channel and fall back to 255 if not provided
+
+✅ Ensured consistent use of currColor as Uint32, not a hex string, across all systems
+
+🎨 UI + Preview
+✅ Fixed bug where preview square only updated on second click by explicitly calling drawPreviewSquare() before syncing colorPicker
+
+✅ Cleaned up swatch click logic to align currColor, colorPicker, and visual feedback
+
+🔢 Alpha Channel Work
+⚠️ Discovered alpha slider issue:
+
+Alpha appears as 0x01 instead of 0xFF in some cases
+
+Potential cause: Iro.js passing alpha as integer, not float, or dropping alpha entirely
+
+🧪 Created normalization strategy for a:
+
+a > 1 ? a : Math.round(a * 255)
+
+📄 Palette File Loading
+✅ Finalized .gpt file reading using only the new Uint32 format
+
+✅ Removed legacy HexString parsing logic
+
+✅ File parser checks openPaletteContents[3] for | as system indicator
+
+✅ Adjusted string reading logic to accommodate proper byte alignment

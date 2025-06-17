@@ -121,33 +121,36 @@ function drawColorSquares() {
     if (!alreadyDeclaredSavedColorClasses) {
         for (i = 0; i <= savedColorSquare.count; i++) {
 
-            if (savedColorSquares[i].num === colorStoresSelected)
-                savedColorSquares[i].borderColor = GRID_BORDER_COLOR;
+            if (savedColorSquareArray[i].num === colorStoresSelected)
+                savedColorSquareArray[i].borderColor = GRID_BORDER_COLOR;
             else
-                savedColorSquares[i].borderColor = "#000000";
+                savedColorSquareArray[i].borderColor = "#000000";
 
-            savedColorSquares[i].x1 = colorStoresBorderSize;
-            savedColorSquares[i].x2 = colorStoresBorderSize * 2 + colorStoresSquareSize;
-            savedColorSquares[i].y1 = colorStoresSquareSize * i + colorStoresBorderSize + (i * colorStoresSquareGap);
-            savedColorSquares[i].y2 = savedColorSquares[i].y1 + colorStoresSquareSize + colorStoresBorderSize;
-            savedColorSquares[i].colorHeld = colorStores[i];
+            savedColorSquareArray[i].x1 = colorStoresBorderSize;
+            savedColorSquareArray[i].x2 = colorStoresBorderSize * 2 + colorStoresSquareSize;
+            savedColorSquareArray[i].y1 = colorStoresSquareSize * i + colorStoresBorderSize + (i * colorStoresSquareGap);
+            savedColorSquareArray[i].y2 = savedColorSquareArray[i].y1 + colorStoresSquareSize + colorStoresBorderSize;
+            savedColorSquareArray[i].colorHeld = uIntToRgbaString(colorStores[i]);
+            //alert(savedColorSquareArray[i].colorHeld);
             drawSquare(
-                savedColorSquares[i].x1,
-                savedColorSquares[i].y1,
+                savedColorSquareArray[i].x1,
+                savedColorSquareArray[i].y1,
                 colorStoresSquareSize, colorStoresSquareSize, true,
-                savedColorSquares[i].colorHeld, 2,
-                savedColorSquares[i].borderColor
+                savedColorSquareArray[i].colorHeld, 2,
+                savedColorSquareArray[i].borderColor
             );
         }
     } else {
         for (j = 0; j <= savedColorSquare.count; j++) {
             drawSquare(
-                savedColorSquares[j].x1,
-                savedColorSquares[j].y1,
+                savedColorSquareArray[j].x1,
+                savedColorSquareArray[j].y1,
                 colorStoresSquareSize, colorStoresSquareSize, true,
-                savedColorSquares[j].colorHeld, 2,
-                savedColorSquares[j].borderColor
+                savedColorSquareArray[j].colorHeld, 2,
+                savedColorSquareArray[j].borderColor
             );
+
+            //alert(savedColorSquareArray[j].colorHeld);
         }
     }
     alreadyDeclaredSavedColorClasses = true;
