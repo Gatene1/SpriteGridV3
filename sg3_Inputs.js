@@ -1,6 +1,7 @@
 function saveToStore() {
     savedColorSquareArray.at(colorStoresSelected).colorHeld = currColor;
     colorStores[colorStoresSelected] = currColor;
+    //alert (currColor);
 
 }
 

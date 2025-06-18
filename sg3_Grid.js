@@ -53,7 +53,9 @@ function changeCellColor(e) {
     lmbDown = true;
     if (Math.floor(mouseXGrid / cellSize) <= gridSize - 1 && !rmbDown) {
         //grid[mouseToGrid] = currColor == "#f5f5f5" ? "0" : currColor;
-        grid[mouseToGrid] = currColor == "#f5f5f5" ? 0 : rgbToUint(colorPicker.color.rgb);
+        //alert ("r:" + colorPicker.color.rgba.r + " g:" + colorPicker.color.rgba.g + " b:" + colorPicker.color.rgba.b + " a:" + colorPicker.color.rgba.a);
+        grid[mouseToGrid] = currColor == "#f5f5f580" ? 0 : rgbToUint(colorPicker.color.rgba);
+        //alert (grid[mouseToGrid]);
         refreshGridOutput();
     }
 }

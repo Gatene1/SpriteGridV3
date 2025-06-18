@@ -4,9 +4,9 @@ function activateColor() {
     colorStoresSelected = colorStoresClicked;
     savedColorSquareArray[colorStoresClicked].borderColor = GRID_BORDER_COLOR;
     currColor = savedColorSquareArray[colorStoresClicked].colorHeld;
-    //alert (currColor);
-    drawPreviewSquare();
-    colorPicker.color.rgbaString = currColor;
+    //alert (uIntToRgbaString(currColor));
+    drawPreviewSquare(100);
+    colorPicker.color.rgbaString = uIntToRgbaString(currColor);
 }
 
 function findWhereClicked() {
@@ -25,19 +25,16 @@ function copyColorToClipboard() {
         });
 }
 
-function rgbToUint({r, g, b, a = 1}) {
-    const alphaByte = Math.round(a * 255);
-    return (alphaByte << 24) | (b << 16) | (g << 8) | r;
-    // alert (rgbObject.r + " " + rgbObject.g + " " + rgbObject.b);
-    // alert (uIntNumber);
-    // alert (uIntToRGB.r + " " + uIntToRGB.g + " " + uIntToRGB.b);
+function rgbToUint(rgbObject) {
+    return ((rgbObject.a) * 255 << 24) | (rgbObject.b << 16) | (rgbObject.g << 8) | rgbObject.r;
 }
 
 function uIntToRgb(uInt) {
     return {
-        r: (uInt >> 16) & 0xFF,
+        a: (uInt >> 24) & 0xFF,
+        b: (uInt >> 16) & 0xFF,
         g: (uInt >> 8) & 0xFF,
-        b: uInt & 0xFF
+        r: uInt & 0xFF
     };
 }
 
@@ -45,7 +42,16 @@ function uIntToRgba(uInt) {
     return {
         g: (uInt >> 8) & 0xFF,
         b: (uInt >> 16) & 0xFF,
-        a: (uInt >> 24) & 0xFF,
+        a: ((uInt >> 24) & 0xFF) / 255,
+        r: uInt & 0xFF
+    };
+}
+
+function uIntToRgbaDivide(uInt) {
+    return {
+        g: (uInt >> 8) & 0xFF,
+        b: (uInt >> 16) & 0xFF,
+        a: ((uInt >> 24) / 255 & 0xFF),
         r: uInt & 0xFF
     };
 }
@@ -66,6 +72,11 @@ function uIntToRgbString(uInt) {
 
 function uIntToRgbaString(uInt) {
     const stringVersion = uIntToRgba(uInt);
+    return "rgba(" + stringVersion.r + ", " + stringVersion.g + ", " + stringVersion.b + ", " + stringVersion.a + ")";
+}
+
+function uIntToRgbaStringDivide(uInt) {
+    const stringVersion = uIntToRgbaDivide(uInt);
     return "rgba(" + stringVersion.r + ", " + stringVersion.g + ", " + stringVersion.b + ", " + stringVersion.a + ")";
 }
 
@@ -93,3 +104,24 @@ function uint32ToHex8(uint) {
     );
 }
 
+function createAlphaPattern() {
+    const tileSize = 8;
+    const patternCanvas = document.createElement("canvas");
+    patternCanvas.width = patternCanvas.height = tileSize * 2;
+
+    const pctx = patternCanvas.getContext("2d");
+
+    // Colors
+    const light = "#eee";
+    const dark = "#ccc";
+
+    // Draw 4 tiles
+    pctx.fillStyle = light;
+    pctx.fillRect(0, 0, tileSize * 2, tileSize * 2);
+    pctx.fillStyle = dark;
+    pctx.fillRect(0, 0, tileSize, tileSize);
+    pctx.fillRect(tileSize, tileSize, tileSize, tileSize);
+
+    // Store globally
+    alphaPattern = canvasGridCTX.createPattern(patternCanvas, "repeat");
+}

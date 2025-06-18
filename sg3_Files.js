@@ -58,20 +58,13 @@ function parsePaletteFile() {
     let filePointerProgressor = 7;
     const firstChar = openPaletteContents[3];
     const palString = openPaletteContents.substring(0, 3);
+    const firstCharHex = openPaletteContents[0];
     // this is supposed to read the contents of the palette file, test if it's hexString array or typed array
     // if it is hext string, then it needs to add a "ff" to the end of the read color, convert to uint32
     // store the uint32 version
 
     if (palString == "PAL") {
-        if (firstChar === "#") {
-            // Old Hex System
-            for (openFilePointer = 1; openFilePointer < openPaletteContents.length; openFilePointer += filePointerProgressor) {
-                const thisSubString = openPaletteContents.substring(openFilePointer, openFilePointer + filePointerProgressor)
-                savedColorSquareArray[colorStoresLoc].colorHeld = rgbToUint(hexToRGB(thisSubString + "FF"));
-                colorStores[colorStoresLoc] = rgbToUint(hexToRGB(thisSubString + "FF"));
-                colorStoresLoc++;
-            }
-        } else if (firstChar === "|") {
+        if (firstChar === "|") {
             // New Uint32 System
             const data = openPaletteContents.substring(4); // skip "PAL|"
             const entries = data.split("|").filter(e => e !== "");
@@ -83,6 +76,14 @@ function parsePaletteFile() {
             }
         } else {
             alert(`Unrecognized file format: ${firstChar}.\n\nPalette files must begin with a \'#\' (legacy) or a \'|\' (Uint32)`);
+        }
+    } else if (firstCharHex === "#") {
+        // Old Hex System
+        for (openFilePointer = 0; openFilePointer < openPaletteContents.length; openFilePointer += filePointerProgressor) {
+            const thisSubString = openPaletteContents.substring(openFilePointer, openFilePointer + filePointerProgressor)
+            savedColorSquareArray[colorStoresLoc].colorHeld = rgbToUint(hexToRGB(thisSubString + "FF"));
+            colorStores[colorStoresLoc] = rgbToUint(hexToRGB(thisSubString + "FF"));
+            colorStoresLoc++;
         }
     } else {
         alert('Unrecogined file format or not a valid .gpt Palette File.\n\nRefer to Spruce\'s \'gpt-spec.txt\' file for more information');

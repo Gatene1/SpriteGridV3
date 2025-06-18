@@ -14,7 +14,10 @@ function drawAll() {
         drawLevelCanvasUpdate();
         drawLevelExtendIcon();
     }
+
     if (firstDraw) firstDraw = false;
+
+    //alert (currColor);
 }
 
 function whichCanvas(canvasToFigureOut) {
@@ -45,7 +48,7 @@ function whichCanvas(canvasToFigureOut) {
 }
 
 function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0,
-                     strokeColor = GRID_BORDER_COLOR, fill = true) {
+                     strokeColor = GRID_BORDER_COLOR, fill = true, checkerBg = false) {
     let canvasChoice = canvasGridCTX;
 
     switch (whichCanvas) {
@@ -73,6 +76,10 @@ function drawSquare (x, y, width, height, stroke, fillColor, whichCanvas = 0,
     canvasChoice.strokeStyle = strokeColor;
     canvasChoice.lineWidth = 1;
     if (stroke) canvasChoice.strokeRect(x, y, width, height);
+    if (checkerBg) {
+        canvasChoice.fillStyle = alphaPattern;
+        canvasChoice.fillRect(x, y, width, height);
+    }
     if (fill) {
         canvasChoice.fillStyle = fillColor;
     }
@@ -90,13 +97,20 @@ function drawGrid() {
             currCell = (i * gridSize) + j;
 
             if (grid[currCell] == 0) {
+                if (!showTheGrid && !showAlpha) {
+                    continue;
+                }
                 if (showTheGrid) {
-                    currCellColor = "rgb(245, 245, 245)";
-                    drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor);
+                    currCellColor = "rgba(245, 245, 245, .5)";
+                    drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor, 0, GRID_BORDER_COLOR, true, showAlpha);
+                } else {
+                    currCellColor = "rgba(245, 245, 245, 0)";
+                    drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, false, currCellColor, 0, GRID_BORDER_COLOR, false, showAlpha);
                 }
             } else {
-                currCellColor = uIntToRgbString(grid[currCell]);
-                drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor);
+                currCellColor = uIntToRgbaString(grid[currCell]);
+                //alert (currCellColor);
+                drawSquare(j * cellSize + 2, i * cellSize + 2, cellSize, cellSize, showTheGrid, currCellColor, 0, GRID_BORDER_COLOR, true, showAlpha);
             }
 
         }
@@ -104,7 +118,7 @@ function drawGrid() {
 }
 
 function drawPreviewSquare(dimensions) {
-    drawSquare(2, 2, dimensions, dimensions, true, currColor, 1);
+    drawSquare(2, 2, dimensions, dimensions, true, uint32ToHex8(currColor), 1, GRID_BORDER_COLOR, true, true);
 }
 
 function drawText (whatToSay, x, y, fontSize, fontColor, canvasChoice = canvasGridCTX) {
@@ -130,14 +144,14 @@ function drawColorSquares() {
             savedColorSquareArray[i].x2 = colorStoresBorderSize * 2 + colorStoresSquareSize;
             savedColorSquareArray[i].y1 = colorStoresSquareSize * i + colorStoresBorderSize + (i * colorStoresSquareGap);
             savedColorSquareArray[i].y2 = savedColorSquareArray[i].y1 + colorStoresSquareSize + colorStoresBorderSize;
-            savedColorSquareArray[i].colorHeld = uIntToRgbaString(colorStores[i]);
-            //alert(savedColorSquareArray[i].colorHeld);
+            savedColorSquareArray[i].colorHeld = colorStores[i];
+            //alert(uIntToRgbaString(savedColorSquareArray[i].colorHeld));
             drawSquare(
                 savedColorSquareArray[i].x1,
                 savedColorSquareArray[i].y1,
                 colorStoresSquareSize, colorStoresSquareSize, true,
-                savedColorSquareArray[i].colorHeld, 2,
-                savedColorSquareArray[i].borderColor
+                uIntToRgbaString(savedColorSquareArray[i].colorHeld), 2,
+                savedColorSquareArray[i].borderColor,true, true
             );
         }
     } else {
@@ -146,8 +160,8 @@ function drawColorSquares() {
                 savedColorSquareArray[j].x1,
                 savedColorSquareArray[j].y1,
                 colorStoresSquareSize, colorStoresSquareSize, true,
-                savedColorSquareArray[j].colorHeld, 2,
-                savedColorSquareArray[j].borderColor
+                uIntToRgbaString(savedColorSquareArray[j].colorHeld), 2,
+                savedColorSquareArray[j].borderColor, true, true
             );
 
             //alert(savedColorSquareArray[j].colorHeld);

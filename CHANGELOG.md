@@ -280,3 +280,69 @@ a > 1 ? a : Math.round(a * 255)
 ✅ File parser checks openPaletteContents[3] for | as system indicator
 
 ✅ Adjusted string reading logic to accommodate proper byte alignment
+
+# 6/18/2025 [v3.3.0]
+🧠 Core System Updates
+Migrated fully to Uint32 color system (RGBA-aware).
+
+Removed support for HexString colors in internal logic, but still supports legacy file formats temporarily.
+
+Added proper little-endian conversion to fix RGBA interpretation in all displays and saving functions.
+
+🧪 Bug Fixes
+Fixed issue where swatches needed two clicks to update preview — drawPreviewSquare() now called at correct timing.
+
+Resolved Hex string showing incorrect alpha byte (e.g., fe01 instead of ff) by correcting rgbToUint() logic.
+
+Corrected Uint-to-RGBA conversion bug where (a * 255) & 0xFF was causing alpha values to truncate improperly. Fixed with proper normalization.
+
+uIntToRgbaString() now reliably parses correct decimal alpha values.
+
+Corrected color parsing issues where negative Uint32 values appeared in saved files but still loaded correctly due to JS two’s complement behavior.
+
+🧰 File Handling
+Updated parsePaletteFile() to:
+
+Detect both legacy (#) and new (|) formats.
+
+Handle files starting with "PAL" and route to proper parser.
+
+Updated savePaletteFile() to:
+
+Write only new Uint32-based format.
+
+Skip extra pipe delimiters to prevent malformed save files.
+
+🎨 Canvas and Rendering
+Implemented checkerboard alpha pattern (aka "Transparency Board"):
+
+Pattern visible in color swatches and grid canvas squares.
+
+Toggleable via "Alpha" checkbox.
+
+Optimized contrast using #eee and #ccc for improved visibility without visual noise.
+
+Resolved issue where disabling Grid + Alpha background would flood canvas with current paint color.
+
+Fixed by adjusting drawSquare() behavior and layering logic.
+
+🧾 UI + Logic Enhancements
+"Alpha" checkbox added for transparency overlay toggle.
+
+"Show Grid" checkbox properly linked with dynamic canvas redraws.
+
+Preview square now correctly initializes with loaded color (thanks to corrected script order and initialization logic).
+
+🛠 Internal Consistency / Quality
+Removed redundant isHex flag.
+
+Continued emphasis on not hardcoding progressors or magic values — values like filePointerProgressor = 7 remain for clarity.
+
+📌 Planned for SpriteGrid4.0
+🚫 Drop legacy HexString file format support.
+
+♿ Add Accessibility Mode (toggle high contrast, alt patterns, etc.).
+
+🧰 Add deprecation note to README and gpt-spec.txt for old format.
+
+✅ Checkerboard transparency support already planned to be improved/expanded.

@@ -73,7 +73,7 @@ var savedColorSquareArray = [
                 }
             ]
         });
-        var currColor = colorPicker.color.hex8String;
+        var currColor = hex8ToUint32(colorPicker.color.hex8String);
         var colorTextElement = document.getElementById("colorTextElement");
         var colorStores = [4278255360, 4278190335, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR, GRID_FILL_COLOR];
         var colorStoresSelected = 0;
@@ -108,6 +108,8 @@ var savedColorSquareArray = [
         var divSide1 = document.getElementById("divSide1");
         var resetGridButton = document.getElementById("resetGridButton");
         var showGridCheckbox = document.getElementById("showGridCheckbox");
+        var showTransparentCheckbox = document.getElementById("showTransparentCheckbox");
+        window.showAlpha = true;
 
 // Vars for Second Window (Preview)
         var prevLmbDown = false;
@@ -134,6 +136,7 @@ var savedColorSquareArray = [
         var loadPalletteButton = document.getElementById('loadPalletteButton');
         var savePalletteButton = document.getElementById('savePalletteButton');
         let copyColorCode = document.getElementById('copyColorCode');
+        window.alphaPattern = null;
 
 
         // Vars for Fourth Window (Grid Output)
@@ -271,6 +274,9 @@ window.onload = function() {
 
     setInterval(drawAll, 1000/FRAMES_PER_SECOND);
 
+
+    createAlphaPattern();
+
     // Listeners for whole app.
     divSide1.addEventListener('mousedown', function()
     { openWindow(0); windowZRearrange(0); windowZRefresh(); }, true);
@@ -294,6 +300,7 @@ window.onload = function() {
                     const rgba = color.rgba;
                     currColor = rgbToUint(rgba);
                     colorTextElement.value = uint32ToHex8(currColor);
+                    drawPreviewSquare(100);
                 });
 
 
@@ -338,6 +345,7 @@ window.onload = function() {
                 closeHW.addEventListener('mousedown', function() { closeWindow(0); }, false);
                 resetGridButton.addEventListener('mousedown', zeroOutRefresh, true);
                 showGridCheckbox.addEventListener('change', turnGridOnOff, true);
+                showTransparentCheckbox.addEventListener('change', function() { showAlpha = !showAlpha; }, true);
                 savePNGButton.addEventListener('click', saveGridAsPNG, true);
                 fileSavingOpenButton.addEventListener('click', openSingleDrawing, true);
                 fileSavingSaveButton.addEventListener('click', saveSingleDrawing, true);
