@@ -23,6 +23,7 @@ function workingGridToMouseSprite() {
         for (i = 0; i < gridSize * gridSize; i++) {
             gridCopy.push(grid[i]);
         }
+        // This will create the mouseSprite Object
         mouseSprite = new spriteSquareIcon(spriteDimension, gridCopy);
         spriteHeld = true;
         pasteSprite = true;
@@ -34,10 +35,10 @@ function spriteSheetToWorkingGrid() {
     let i;
     if (spriteChosen >= 0) {
         gridCopy = [];
-        gridSizeRange.value = spriteGrid[spriteChosen].size;
+        gridSizeRange.value = spriteGrid[spriteChosen].sizeOfGrid;
         changeGridSize();
-        for (i = 0; i < spriteGrid[spriteChosen].grid.length; i++) {
-            gridCopy.push(spriteGrid[spriteChosen].grid[i]);
+        for (i = 0; i < spriteGrid[spriteChosen].gridColors.length; i++) {
+            gridCopy.push(spriteGrid[spriteChosen].gridColors[i]);
         }
         grid = gridCopy;
         gridCopy = [];

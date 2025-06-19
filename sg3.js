@@ -6,9 +6,9 @@
         const CANVAS_GRID_HEIGHT = 775;
         const GRID_BORDER_COLOR = "#a0a0a0ff";
         const GRID_FILL_COLOR = 4294309365;
-        const SPRITE_GRID_FILL_COLOR = "#f5f5f5ff";
-        const SPRITE_GRID_HOVER_FILL_COLOR = "#dee5ffff";
-        const SPRITE_GRID_CHOSEN_CELL_FILL_COLOR = "#b0b1ffff";
+        const SPRITE_GRID_FILL_COLOR = 4294309365;
+        const SPRITE_GRID_HOVER_FILL_COLOR = 4294960606;
+        const SPRITE_GRID_CHOSEN_CELL_FILL_COLOR = 4294947248;
         const image = new Image();
         const link = document.createElement('a');
 
@@ -170,6 +170,7 @@ var savedColorSquareArray = [
         var openFileContents;
         var openPaletteContents;
         var openSSheetContents;
+        window.displayLegacyAlert = false;
 
         // Vars for Sixth Window (Sprite Sheet)
         var spriteLmbDown = false;

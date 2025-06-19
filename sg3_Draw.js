@@ -182,14 +182,15 @@ function drawPreviewUpdate() {
         for (j = 0; j < gridSize; j++) {
             localCurrCell = (i * gridSize) + j;
 
-            if (grid[localCurrCell] == "0") {
-                currCellColor = "#ffffff";
+            // If the color to draw is 0, then make it white, to match the background of the Preview Window.
+            if (grid[localCurrCell] == 0) {
+                currCellColor = 4294967295;
             } else {
                 currCellColor = grid[localCurrCell];
             }
 
             drawSquare(j * prevCellSize + 2, i * prevCellSize + 2, prevCellSize, prevCellSize, false,
-                currCellColor, 3);
+                uint32ToHex8(currCellColor), 3);
         }
     }
 }
@@ -231,22 +232,22 @@ function drawSpriteCanvasUpdate() {
             else
                 spriteGridFillColor = SPRITE_GRID_FILL_COLOR;
             // Draw the individual cell of the spriteGrid.
-            drawSquare(x, y, spriteCellSize, spriteCellSize, true, spriteGridFillColor, 4);
+            drawSquare(x, y, spriteCellSize, spriteCellSize, true, uint32ToHex8(spriteGridFillColor), 4);
             // Draws the # of the individual cell in the lower right hand corner of the cell.
             drawText(i, x + spriteCellSize - 20, y + spriteCellSize - 5, 12, "black", 4)
 
             // If there is a sprite in the spriteGrid array for the cell being drawn, then draw the sprite.
             if (spriteGrid[i] != null) {
                 // Center the icon in the cell.
-                a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
-                b = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
-                for (j = 0; j < spriteGrid[i].size * spriteGrid[i].size; j++) {
-                    if (spriteGrid[i].grid[j] != "0")
-                        drawSquare(x + a, y + b, spriteInCellSize, spriteInCellSize, false, spriteGrid[i].grid[j], 4);
+                a = Math.floor((spriteCellSize - (spriteGrid[i].sizeOfGrid * spriteInCellSize)) / 2);
+                b = Math.floor((spriteCellSize - (spriteGrid[i].sizeOfGrid * spriteInCellSize)) / 2);
+                for (j = 0; j < spriteGrid[i].sizeOfGrid * spriteGrid[i].sizeOfGrid; j++) {
+                    if (spriteGrid[i].gridColors[j] != 0)
+                        drawSquare(x + a, y + b, spriteInCellSize, spriteInCellSize, false, uint32ToHex8(spriteGrid[i].gridColors[j]), 4);
                     spriteColumn++;
-                    if (spriteColumn >= spriteGrid[i].size) {
+                    if (spriteColumn >= spriteGrid[i].sizeOfGrid) {
                         spriteColumn = 0;
-                        a = Math.floor((spriteCellSize - (spriteGrid[i].size * spriteInCellSize)) / 2);
+                        a = Math.floor((spriteCellSize - (spriteGrid[i].sizeOfGrid * spriteInCellSize)) / 2);
                         b += spriteInCellSize;
                     } else {
                         a += spriteInCellSize;
@@ -272,11 +273,11 @@ function drawSpriteCanvasUpdate() {
 
     // if a sprite should be on the mouse cursor, then draw it.
     if (spriteHeld) {
-        for (i = 0; i < mouseSprite.size * mouseSprite.size; i++) {
-            if (mouseSprite.grid[i] != "0")
-                drawSquare(mouseXSpriteCanvas + x, mouseYSpriteCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, mouseSprite.grid[i], 4);
+        for (i = 0; i < mouseSprite.sizeOfGrid * mouseSprite.sizeOfGrid; i++) {
+            if (mouseSprite.gridColors[i] != "0")
+                drawSquare(mouseXSpriteCanvas + x, mouseYSpriteCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, uint32ToHex8(mouseSprite.gridColors[i]), 4);
             gridColumn++;
-            if (gridColumn >= mouseSprite.size) {
+            if (gridColumn >= mouseSprite.sizeOfGrid) {
                 gridColumn = 0;
                 x = 0;
                 y += mouseSpriteCellSize;

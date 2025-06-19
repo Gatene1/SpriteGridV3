@@ -12,9 +12,9 @@ class savedColorSquare {
 }
 
 class spriteSquareIcon {
-    constructor(size, grid) {
-        this.size = size;
-        this.grid = grid;
+    constructor(sizeOfGrid, gridColors) {
+        this.sizeOfGrid = sizeOfGrid;
+        this.gridColors = gridColors;
     }
 }
 

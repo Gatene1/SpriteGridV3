@@ -346,3 +346,40 @@ Continued emphasis on not hardcoding progressors or magic values — values like
 🧰 Add deprecation note to README and gpt-spec.txt for old format.
 
 ✅ Checkerboard transparency support already planned to be improved/expanded.
+
+# 6/19/2025
+✅ Sprite Pasting now fully functional — individual sprite cells can receive sprites from the drawing grid via click, with cursor thumbnails and perfect centering.
+
+✅ Erasing Individual Sprite Cells implemented — spriteGrid cells now support null-erasure with proper UI feedback.
+
+✅ Created a New Retro Eraser Icon in 16×16 Uint32 format — vibrant 80s-style color scheme featuring hot pink, cyan, and purple.
+
+✅ New sprite icons now follow the cursor correctly when “picked up,” and display perfectly inside Sprite Sheet cells and near the pointer.
+
+✅ Mouse Sprite Icon System Updated — built using the spriteSquareIcon class; carries over Uint32 colors and grid size to render thumbnails.
+
+✅ Improved drawSpriteCanvasUpdate() — draws viewable sprite sheet window with correct hover, click, and selected visual feedback.
+
+✅ Dynamic view range system added to scrolling in sprite sheet view (calculates only what’s visible on screen for better performance).
+
+🔧 System Improvements & Logic
+
+✅ Refactored the addToSpriteGrid() and mouseSpriteSheetLeave() logic to manage tool states clearly (paste/erase/off).
+
+✅ Finalized all logic for pasting, erasing, and drawing sprite thumbnails in grid cells, centered with spriteInCellSize.
+
+✅ Confirmed all sprite cell indexing, math, and conditional rendering is working without bugs or misalignments.
+
+📦 File Structure Planning for .gss
+
+✅ Clarified final format:
+
+Header starts with "SSHEET,0," (our first inside joke 😎)
+
+Each sprite cell begins with two digits for gridSize, followed by the Uint32 pixel data
+
+Sprite cells are delimited by pipes |, no explicit | needed after header
+
+✅ Legacy format support considered deprecated in SpriteGrid4.0 (but remains in SpriteGrid3.3)
+
+

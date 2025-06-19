@@ -42,6 +42,14 @@ function refreshGridOutput() {
     // This will show the last value of the grid[] array, and end the output with a "];".
     //gridOutput.value = gridOutput.value + "\"" + grid[gridSize * gridSize - 1] + "\"  ];";
     gridOutput.value = gridOutput.value + grid[gridSize * gridSize - 1] + "  ];";
+
+    return new Promise((resolve, reject) => {
+        // async stuff here
+        setTimeout(() => {
+            // done
+            resolve ("Refreshed!");
+        }, 100);
+    });
 }
 
 function zeroOutRefresh() {
@@ -77,8 +85,8 @@ function RMBRelease() {
 }
 
 function siphonColor() {
-    currColor = grid[mouseToGrid] == "0" ? "#f5f5f5" : grid[mouseToGrid];
-    colorPicker.color.hexString = currColor;
+    currColor = grid[mouseToGrid] == 0 ? 16777215 : grid[mouseToGrid];
+    colorPicker.color.hexString = uint32ToHex8(currColor);
     drawPreviewSquare(100);
 }
 
@@ -130,8 +138,8 @@ function isNotEmpty(whichArray) {
             }
             break;
         case 4:
-            for (i = 0; i < spriteGrid[spriteCellOn].grid.length; i++) {
-                if (spriteGrid[spriteCellOn].grid[i] != "0" && spriteGrid[spriteCellOn].grid[i] != null) returnValue = true;
+            for (i = 0; i < spriteGrid[spriteCellOn].gridColors.length; i++) {
+                if (spriteGrid[spriteCellOn].gridColors[i] != "0" && spriteGrid[spriteCellOn].gridColors[i] != null) returnValue = true;
             }
             break;
         case 5:
