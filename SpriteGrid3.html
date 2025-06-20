@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>SpriteGrid 3.0 by David Riley</title>
@@ -7,34 +8,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
 </head>
+
 <body>
 
     <!-- Minimized Window Section Elements //-->
-    <div id="divSide1" class="divSide1"> <!-- Working Grid //-->
+    <div id="divSide1" class="divSide1">
+        <!-- Working Grid //-->
         G<br>R<br>I<br>D
     </div>
 
-    <div id="divSide2" class="divSide2"> <!-- Preview //-->
+    <div id="divSide2" class="divSide2">
+        <!-- Preview //-->
         S<br>C<br>A<br>L<br>E
     </div>
 
-    <div id="divSide3" class="divSide3"> <!-- Color Iro.js //-->
+    <div id="divSide3" class="divSide3">
+        <!-- Color Iro.js //-->
         C<br>O<br>L<br>O<br>R
     </div>
 
-    <div id="divSide4" class="divSide4"> <!-- Grid Output //-->
+    <div id="divSide4" class="divSide4">
+        <!-- Grid Output //-->
         O<br>U<br>T<br>P<br>U<br>T
     </div>
 
-    <div id="divSide5" class="divSide5"> <!-- File Saving //-->
+    <div id="divSide5" class="divSide5">
+        <!-- File Saving //-->
         F<br>I<br>L<br>E
     </div>
 
-    <div id="divSide6" class="divSide6"> <!-- File Saving //-->
+    <div id="divSide6" class="divSide6">
+        <!-- File Saving //-->
         S<br>P<br>R
     </div>
 
-    <div id="divSide7" class="divSide7"><!-- Level Builder //-->
+    <div id="divSide7" class="divSide7">
+        <!-- Level Builder //-->
         L<br>E<br>V<br>E<br>L
     </div>
     <!-- End Minimized Window Section Elements //-->
@@ -48,7 +57,7 @@
         </div>
         <div class="divInnerBottomFlexGrid">
             <div>
-                <canvas id = "canvasGrid" width="775" height="775"> </canvas>
+                <canvas id="canvasGrid" width="775" height="775"> </canvas>
             </div>
             <div class="input-group-sm">
 
@@ -111,13 +120,13 @@
                     <canvas id="colorPrev" width="85px" height="85px"></canvas>
                 </div>
                 <div id="colorTextbox" class="input-group-sm">
-                    <input type="text" id="colorTextElement" value = "#00ff00ff">&nbsp;<span id="copyColorCode">&#128203;</span>
+                    <input type="text" id="colorTextElement" value="#00ff00ff">&nbsp;<span id="copyColorCode">&#128203;</span>
                 </div>
                 <br>
-                <div> <button type="button" id = "saveButton" class="btn btn-success">Save to Palette</button></div>
+                <div> <button type="button" id="saveButton" class="btn btn-success">Save to Palette</button></div>
             </div>
             <div id="colorChoose">
-                <canvas id = "colorChooseRow1" width = "28px" height="420px"></canvas>
+                <canvas id="colorChooseRow1" width="28px" height="420px"></canvas>
             </div>
             <div>
                 <button class="btn btn-success" id="loadPalletteButton">Load Palette</button><br><br>
@@ -144,7 +153,7 @@
     <div id="fileLittleWindowHW" class="divTitle5">
         <div class="divTitleBreakDown">
             <div id="fileGearHW" class="seven">&nbsp;&#9881;</div>
-            <div id="fileTitleBarHW" class="eightyThreeBlur">File Saving</div>
+            <div id="fileTitleBarHW" class="eightyThreeBlur">Color Converters</div>
             <div id="fileCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
         <div class="divInnerBottomFlexColChildFile">
@@ -164,8 +173,8 @@
             <div id="spriteCloseHW" class="ten">&nbsp;X&nbsp;</div>
         </div>
         <div class="divInnerBottomFlexColChildSprite">
-            <div id = "divForSpriteGrid" class="divForSpriteGrid">
-                <canvas id="spriteCanvas" width = "700" height = "3750"></canvas>
+            <div id="divForSpriteGrid" class="divForSpriteGrid">
+                <canvas id="spriteCanvas" width="700" height="3750"></canvas>
             </div>
             <div class="spriteRightButtonDiv">
                 <button class="btn btn-success" id="newSSheet">New Sprite Sheet</button>
@@ -213,4 +222,5 @@
     <script type="text/javascript" src="sg3_Inputs.js"></script>
     <script type="text/javascript" src="sg3_Files.js"></script>
 </body>
+
 </html>

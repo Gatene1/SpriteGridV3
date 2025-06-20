@@ -382,4 +382,49 @@ Sprite cells are delimited by pipes |, no explicit | needed after header
 
 ✅ Legacy format support considered deprecated in SpriteGrid4.0 (but remains in SpriteGrid3.3)
 
+# 6/20/2025
+Modern Sprite Sheet Format Implemented
+New .gss files now use Uint32 RGBA values for full alpha support, cleaner parsing, and future-proofing.
+→ Start your grids right, save your sprites tight.
+
+Legacy Support Restored
+.gss files saved in the legacy hex format are now fully supported, including auto-conversion to Uint32 on load.
+→ Long live the old grid gods.
+
+Automatic Format Detection
+parseSSheetFile() cleanly detects SSHEET0 header to route files to the appropriate parser.
+→ No more guessing or broken loads.
+
+Middle Mouse Eyedropper Fixed
+Siphon tool now works on all RGBA-based grids and correctly updates the current color preview.
+→ Middle click with confidence.
+
+Swatch + Color Wheel Syncing
+Clicking a swatch now updates:
+
+Hex input
+
+RGBA sliders
+
+Preview square
+→ Stay visually in sync.
+
+Grid Loading and Saving (GAT + GSS)
+Both sprite grid (.gat) and sprite sheet (.gss) file formats can now be:
+
+Created
+
+Opened
+
+Saved
+With transparent values and size detection.
+→ The trifecta is complete.
+
+🧼 UI Tweaks & Final Touches
+Level Editor Panel Hidden
+It’s taking a nap until v4.0. Not removed, just tucked away for now.
+
+“File Saving” Dialog Repurposed
+Couldn’t be exorcised. Got rebranded as “Color Converters” to earn its keep.
+→ Sometimes the ghost becomes the feature.
 

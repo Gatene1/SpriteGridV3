@@ -1,38 +1,32 @@
 const fileOptions = {
-    types: [
-        {
-            description: "GAT Working Grid Files",
-            accept: {
-                "text/parameters": [".gat"],
-            },
+    types: [{
+        description: "GAT Working Grid Files",
+        accept: {
+            "text/parameters": [".gat"],
         },
-    ],
+    }, ],
     excludeAcceptAllOption: true,
     multiple: false,
 };
 
 const palletteOptions = {
-    types: [
-        {
-            description: "GAT Palette Files",
-            accept: {
-                "text/parameters": [".gpt"],
-            },
+    types: [{
+        description: "GAT Palette Files",
+        accept: {
+            "text/parameters": [".gpt"],
         },
-    ],
+    }, ],
     excludeAcceptAllOption: true,
     multiple: false,
 };
 
 const spriteSheetOptions = {
-    types: [
-        {
-            description: "GSS Sprite Sheet Files",
-            accept: {
-                "text/parameters": [".gss"],
-            },
+    types: [{
+        description: "GSS Sprite Sheet Files",
+        accept: {
+            "text/parameters": [".gss"],
         },
-    ],
+    }, ],
     excludeAcceptAllOption: true,
     multiple: false,
 };
@@ -45,7 +39,7 @@ function parseOpenFile() {
     // without changing, which would often lead to distortion.
     grid = [];
 
-    if (openFileContents.substring(0,4) !== "GRID") {
+    if (openFileContents.substring(0, 4) !== "GRID") {
         // The legacy grid file system
         for (openFilePointer = 0; openFilePointer < openFileContents.length; openFilePointer++) {
             if (openFileContents.charAt(openFilePointer) == '#') {
@@ -99,7 +93,7 @@ function parsePaletteFile() {
                 savedColorSquareArray[i].colorHeld = uint;
                 colorStores[i] = uint;
             }
-        displayLegacyAlert = false;
+            displayLegacyAlert = false;
         } else {
             alert(`Unrecognized file format: ${firstChar}.\n\nPalette files must begin with a \'#\' (legacy) or a \'|\' (Uint32)`);
         }
@@ -119,17 +113,59 @@ function parsePaletteFile() {
 
 function parseSpriteGrid() {
     let i;
-    for (i = 0; i < spriteGridSize; i++){
+    for (i = 0; i < spriteGridSize; i++) {
         if (spriteGrid[i] == null) {
             spriteGridBlob[i] = null;
         } else {
-            spriteGridBlob[i] = spriteGrid[i].size + "," + spriteGrid[i].grid;
+            spriteGridBlob[i] = spriteGrid[i].sizeOfGrid + "," + spriteGrid[i].gridColors;
             //spriteGridBlob[i] = String(spriteGrid[i].size).padStart(2, "0") + spriteGrid[i].grid.map(c => "," + c).join("");
         }
     }
 }
 
-function parseSSheetFile() {
+async function parseSSheetFile() {
+    // Clean up existing grid
+    spriteGrid = [];
+
+    if (openSSheetContents.startsWith("SSHEET0")) {
+        parseSSheetFile_Modern();
+    } else {
+        await parseSSheetFile_Legacy();
+    }
+    if (displayLegacyAlert) {
+        alert("It is recommended that you save this file before the release of SpriteGrid 4.0, because it is in the " +
+            "old (legacy) file format, and support will not be had in future releases from 4.0 on.");
+        displayLegacyAlert = false;
+    }
+}
+
+function parseSSheetFile_Modern() {
+    spriteGrid = [];
+
+    const spriteEntries = openSSheetContents.split("|");
+    const header = spriteEntries.shift(); // "SSHEET0"
+
+    if (!header.startsWith("SSHEET")) {
+        alert("Invalid sprite sheet file.");
+        return;
+    }
+
+    for (const entry of spriteEntries) {
+        if (entry === "null") {
+            spriteGrid.push(null);
+            continue;
+        }
+
+        const parts = entry.split(",");
+        const gridSize = parseInt(parts.shift());
+        const gridData = parts.map(val => parseInt(val));
+
+        spriteGrid.push(new spriteSquareIcon(gridSize, gridData));
+    }
+}
+
+function parseSSheetFile_Legacy() {
+    displayLegacyAlert = true;
     let i, j;
     spriteGrid = [];
     // 1 = Size of the grid saved, 2 = The grid itself
@@ -185,11 +221,12 @@ function parseSSheetFile() {
                     tempGridGridPointer = i;
 
                     if (openSSheetContents.substring(tempGridGridPointer, tempGridGridPointer + 1) == "0") {
-                        fileGridGrid.push("0");
+                        fileGridGrid.push(0);
                         if (fileGridGrid.length < fileGridSize * fileGridSize) i += 1;
                     } else {
-                        fileGridGrid.push(openSSheetContents.substring(tempGridGridPointer, tempGridGridPointer + 7))
-                        if (fileGridGrid.length < fileGridSize * fileGridSize) i += 7; else i+= 6;
+                        fileGridGrid.push(rgbToUint(hexToRGB(openSSheetContents.substring(tempGridGridPointer, tempGridGridPointer + 7))))
+                        if (fileGridGrid.length < fileGridSize * fileGridSize) i += 7;
+                        else i += 6;
                     }
 
                     if (fileGridGrid.length == fileGridSize * fileGridSize) {
@@ -198,10 +235,17 @@ function parseSSheetFile() {
                         //alert (spriteGrid[spriteGrid.length - 1].grid);
                         expectClassPart = 1;
                     }
-                   break;
+                    break;
             }
         }
     }
+    return new Promise((resolve, reject) => {
+        // async stuff here
+        setTimeout(() => {
+            // done!
+            resolve("Refreshed!");
+        }, 100);
+    });
 }
 
 async function openSingleDrawing() {
@@ -215,8 +259,9 @@ async function openSingleDrawing() {
     windowZRearrange(0);
     windowZRefresh();
     if (displayLegacyAlert) {
-        alert ("It is recommended that you save this file before the release of SpriteGrid 4.0, because it is in the " +
+        alert("It is recommended that you save this file before the release of SpriteGrid 4.0, because it is in the " +
             "old (legacy) file format, and support will not be had in future releases from 4.0 on.");
+        displayLegacyAlert = false;
     }
 }
 
@@ -228,8 +273,9 @@ async function loadPalletteFile() {
     openPaletteContents = "";
     colorTitleBar.innerHTML = "Color Selection - " + file.name + " &#x1F4C2;";
     if (displayLegacyAlert) {
-        alert ("It is recommended that you save this file before the release of SpriteGrid 4.0, because it is in the " +
+        alert("It is recommended that you save this file before the release of SpriteGrid 4.0, because it is in the " +
             "old (legacy) file format, and support will not be had in future releases from 4.0 on.");
+        displayLegacyAlert = false;
     }
 }
 
@@ -274,35 +320,23 @@ async function saveSingleDrawing() {
 async function spriteSheetSave() {
     const sSheetFileHandle = await window.showSaveFilePicker(spriteSheetOptions);
     const sSheetFileWritableStream = await sSheetFileHandle.createWritable();
+
     parseSpriteGrid();
-    const sSheetFileBlob = new Blob(spriteGridBlob, { type: "text/plain" });
-    await sSheetFileWritableStream.write(sSheetFileBlob);
-    spriteTitleBar.innerHTML = "Sprite Sheet - " + sSheetFileHandle.name + " &#x1F4C2;";
-    await sSheetFileWritableStream.close();
-    spriteGridBlob = [];
-}
 
-async function spriteSheetSave() {
-    const sSheetFileHandle = await window.showSaveFilePicker(spriteSheetOptions);
-    const sSheetFileWritableStream = await sSheetFileHandle.createWritable();
-
-    parseSpriteGrid(); // Assuming this populates spriteGridBlob[] correctly
-
-    let fileData = "SSHEET0"; // header + inside joke padding
+    let fileData = "SSHEET" + "0"; // header + inside joke padding
 
     for (let i = 0; i < spriteGridBlob.length; i++) {
         const sprite = spriteGridBlob[i];
-        if (sprite.length === 0) continue; // skip empty cells if needed
-
-        const spriteSize = Math.sqrt(sprite.length);
-        const sizeCode = String(spriteSize).padStart(2, "0");
-        const pixelData = sprite.map(c => c.toString()).join(",");
-
-        fileData += "|" + sizeCode + pixelData;
+        if (sprite === null) {
+            fileData += "|null";
+        } else {
+            fileData += "|" + spriteGridBlob[i];
+        }
     }
 
     await sSheetFileWritableStream.write(fileData);
     spriteTitleBar.innerHTML = "Sprite Sheet - " + sSheetFileHandle.name + " &#x1F4C2;";
     await sSheetFileWritableStream.close();
     spriteGridBlob = [];
+    fileData = null;
 }
