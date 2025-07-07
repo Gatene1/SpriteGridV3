@@ -428,3 +428,25 @@ It’s taking a nap until v4.0. Not removed, just tucked away for now.
 Couldn’t be exorcised. Got rebranded as “Color Converters” to earn its keep.
 → Sometimes the ghost becomes the feature.
 
+# 7/7/2025
+Level Editor Enhancements
+
+🎯 Implemented sprite cursor preview: Selected sprite now attaches to the mouse for intuitive placement feedback.
+
+🏗️ Added live editing support: Users can click to place, erase, and move sprites seamlessly on the level grid.
+
+⚙️ Debug text field introduced: Temporarily added for development insight during hover/debug issues — may remain for future iteration prep.
+
+💾 Level saving improvements: Resolved internal property mismatch from class renaming, enabling full grid render & save.
+
+PNG Export Feature
+
+🖼️ Export current level as PNG: Fully working export button captures visible level canvas.
+
+🧠 Fixed export sizing bug: Adjusted incorrect size calculation that was dividing dimensions by grid cell size, causing only one cell to be saved.
+
+✅ Grid toggle support in export: PNG reflects current grid visibility state at time of export (with or without overlay).
+
+Visual Polish
+
+🎨 Level rendering now feels more cohesive and true to NES-era layouts, showcasing tile-based design with nostalgic clarity.

@@ -32,6 +32,7 @@ var savePNGButton = document.getElementById("savePNGButton");
 //var grid = ["0"];
 window.grid = new Uint32Array(gridSize * gridSize);
 var showTheGrid = true;
+var showTheLevelGrid = true;
 var gridCopy = ["0"];
 var mouseToGrid;
 var toolGrid = ["0"];
@@ -225,7 +226,7 @@ var levelGrid = [];
 var levelGridCellSize = 32;
 var levelGridInCellSize = 32;
 var levelSpriteInCellSize = 2;
-var bgColorChoose = "#6185f8";
+var bgColorChoose = 4294477153;
 var levelBgColor = document.getElementById("levelBgColor");
 var levelImportSpriteChosen = document.getElementById("levelImportSpriteChosen")
 var levelSpriteHeld = false;
@@ -236,6 +237,9 @@ var mouseXLevelCanvas, mouseYLevelCanvas;
 var squaresForLevelGridWidth, squaresForLevelGridHeight;
 var levelCellOn;
 var levelGridSize;
+window.showLevelGridCheckbox = document.getElementById("showLevelGridCheckbox");
+window.saveLevelPNGButton = document.getElementById("saveLevelPNGButton");
+window.levelDebugging = document.getElementById("levelDebugging");
 
 
 window.onload = function() {
@@ -427,4 +431,6 @@ window.onload = function() {
     levelCanvas.addEventListener('click', levelClickFunction, true);
     levelCanvas.addEventListener('mousedown', mouseLevelEditorDown, true);
     levelCanvas.addEventListener('mouseup', mouseLevelEditorUp, true);
+    showLevelGridCheckbox.addEventListener('click', turnLevelGridOnOff);
+    saveLevelPNGButton.addEventListener('click', saveLevelGridAsPNG);
 }

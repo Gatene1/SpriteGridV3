@@ -256,7 +256,6 @@ body {
 }
 
 .divSide7 {
-    display: none;
     position: relative;
     background-color: darkgreen;
     width: 2.3%;
@@ -411,6 +410,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    font-weight: bold;
+    color: #000000;
 }
 
 .divForSpriteGrid {

@@ -302,16 +302,16 @@ function drawLevelSprite(cellOn, x, y) {
         // Center the icon in the cell.
         //a = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
         //b = Math.floor((levelGridCellSize - (levelGrid[k].size * levelSpriteInCellSize)) / 2);
-        for (j = 0; j < spriteGrid[levelGrid[k]].size * spriteGrid[levelGrid[k]].size; j++) {
-            if (spriteGrid[levelGrid[k]].grid[j] != "0")
+        for (j = 0; j < spriteGrid[levelGrid[k]].sizeOfGrid * spriteGrid[levelGrid[k]].sizeOfGrid; j++) {
+            if (spriteGrid[levelGrid[k]].gridColors[j] != "0")
             //if (spriteGrid[levelGrid[k].grid[j]] != "0")
                 //drawSquare(x, y, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
                 //drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, levelGrid[k].grid[j], 5);
-                drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, spriteGrid[levelGrid[k]].grid[j], 5);
+                drawSquare(x + a, y + b, levelSpriteInCellSize, levelSpriteInCellSize, false, uIntToRgbaString(spriteGrid[levelGrid[k]].gridColors[j]), 5);
             spriteColumn++;
-            if (spriteColumn >= spriteGrid[levelGrid[k]].size) {
+            if (spriteColumn >= spriteGrid[levelGrid[k]].sizeOfGrid) {
                 spriteColumn = 0;
-                a = Math.floor((levelGridCellSize - (spriteGrid[levelGrid[k]].size * levelSpriteInCellSize)) / 2);
+                a = Math.floor((levelGridCellSize - (spriteGrid[levelGrid[k]].sizeOfGrid * levelSpriteInCellSize)) / 2);
                 b += levelSpriteInCellSize;
             } else {
                 a += levelSpriteInCellSize;
@@ -331,9 +331,11 @@ function drawLevelCanvasUpdate() {
     let spriteGridFillColor;
     let spriteGridFillBool;
 
+    //levelDebugging.value = levelSpriteHeld;
+
     // Clear the canvas, and then redraw the chosen background color.
     levelCanvasCTX.clearRect(0, 0, levelCanvasWidth, levelCanvasHeight);
-    drawSquare(0, 0, levelCanvasWidth, levelCanvasHeight, false, bgColorChoose, 5);
+    drawSquare(0, 0, levelCanvasWidth, levelCanvasHeight, false, uIntToRgbaString(bgColorChoose), 5);
 
     // Take the length of the canvas (levelCanvasWidth) and divide it / 17 (17 * 32 = 544 pixels wide for one screen)
     // Take the height of the canvas (levelCanvasHeight) and divide it / 15 (15 * 32 = 480 pixels tall for one screen)
@@ -354,9 +356,9 @@ function drawLevelCanvasUpdate() {
         } else {
             spriteGridFillColor = SPRITE_GRID_FILL_COLOR;
             spriteGridFillBool = false;
-            drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, bgColorChoose, 5, "black", true);
+            drawSquare(x, y, levelGridCellSize, levelGridCellSize, showTheLevelGrid, uIntToRgbaString(bgColorChoose), 5, "black", true);
         }
-        drawSquare(x, y, levelGridCellSize, levelGridCellSize, true, spriteGridFillColor, 5, "black", spriteGridFillBool);
+        drawSquare(x, y, levelGridCellSize, levelGridCellSize, showTheLevelGrid, uIntToRgbaString(spriteGridFillColor), 5, "black", spriteGridFillBool);
 
         // This function exists so the LMB can be held to draw the sprites in multiple cells under 1 LMB press, instead
         // of one at a time like in the Sprite Sheet.
@@ -378,12 +380,13 @@ function drawLevelCanvasUpdate() {
 
     // if a sprite should be on the mouse cursor, then draw it.
     if (levelSpriteHeld) {
-        for (i = 0; i < spriteGrid[levelMouseSprite].size * spriteGrid[levelMouseSprite].size; i++) {
-            if (spriteGrid[levelMouseSprite].grid[i] != "0")
-                drawSquare(mouseXLevelCanvas + x, mouseYLevelCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, spriteGrid[levelMouseSprite].grid[i], 5, GRID_BORDER_COLOR, true);
+        levelDebugging.value = spriteGrid[levelMouseSprite].sizeOfGrid;
+        for (i = 0; i < spriteGrid[levelMouseSprite].sizeOfGrid * spriteGrid[levelMouseSprite].sizeOfGrid; i++) {
+            if (spriteGrid[levelMouseSprite].gridColors[i] != "0")
+                drawSquare(mouseXLevelCanvas + x, mouseYLevelCanvas + y, mouseSpriteCellSize, mouseSpriteCellSize, false, uIntToRgbaString(spriteGrid[levelMouseSprite].gridColors[i]), 5, GRID_BORDER_COLOR, true);
                 //drawText("Hello World!", mouseXLevelCanvas, mouseYLevelCanvas, 32, "white", 5);
             gridColumn++;
-            if (gridColumn >= spriteGrid[levelMouseSprite].size) {
+            if (gridColumn >= spriteGrid[levelMouseSprite].sizeOfGrid) {
                 gridColumn = 0;
                 x = 0;
                 y += mouseSpriteCellSize;
@@ -400,6 +403,10 @@ function changeLevelBG() {
 
 function turnGridOnOff() {
     showTheGrid = showGridCheckbox.checked;
+}
+
+function turnLevelGridOnOff() {
+    showTheLevelGrid = showLevelGridCheckbox.checked;
 }
 
 function drawLevelExtendIcon() {

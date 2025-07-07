@@ -86,6 +86,27 @@ function saveGridAsPNG() {
     link.click();
 }
 
+function saveLevelGridAsPNG() {
+    const exportSizeWidth = levelCanvasWidth;
+    const exportSizeHeight = levelCanvasHeight;
+    const tempCanvas = document.createElement("canvas");
+    const tempCtx = tempCanvas.getContext("2d");
+
+    tempCanvas.width = exportSizeWidth;
+    tempCanvas.height = exportSizeHeight;
+
+    tempCtx.drawImage(
+        levelCanvas,   // source canvas
+        0, 0, exportSizeWidth, exportSizeHeight,   // source area
+        0, 0, exportSizeWidth, exportSizeHeight    // destination
+    );
+
+    const dataURL = tempCanvas.toDataURL("image/png");
+    link.href = dataURL;
+    link.download = "canvas_image.png"
+    link.click();
+}
+
 function levelUseSpriteChosen() {
     let tempGrid = [];
     let i;
@@ -99,6 +120,7 @@ function levelUseSpriteChosen() {
             }
             levelMouseSprite = new spriteSquareIcon(spriteDimension, tempGrid);*/
             levelMouseSprite = spriteChosen;
+            //alert(spriteGrid[spriteChosen].gridColors);
             pasteLevelSprite = true;
         }
     }
