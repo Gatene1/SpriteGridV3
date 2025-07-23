@@ -554,10 +554,12 @@ function gridUpdateMousePos(e) {
     // If the LMB is pressed down for drag painting.
      if (lmbDown) {
          changeCellColor();
+         //queueRedraw();
      }
 
      if (rmbDown) {
          RMB();
+         //queueRedraw();
      }
 }
 

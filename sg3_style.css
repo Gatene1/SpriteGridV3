@@ -461,7 +461,7 @@ body {
 }
 
 #resetGridButton,
-#savePNGButton {
+#savePNGButton, #flipHorizontal, #flipVertical {
     padding: 5px;
     width: fit-content;
     border: solid 2px black;

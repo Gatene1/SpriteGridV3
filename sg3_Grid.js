@@ -64,6 +64,7 @@ function changeCellColor(e) {
         //alert ("r:" + colorPicker.color.rgba.r + " g:" + colorPicker.color.rgba.g + " b:" + colorPicker.color.rgba.b + " a:" + colorPicker.color.rgba.a);
         grid[mouseToGrid] = currColor == "#f5f5f580" ? 0 : rgbToUint(colorPicker.color.rgba);
         //alert (grid[mouseToGrid]);
+        drawGridFromRequest(mouseToGrid);
         refreshGridOutput();
     }
 }

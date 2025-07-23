@@ -2,7 +2,8 @@ function drawAll() {
     // Each if-statement will check to see if this is the initial drawing of WebApp or if the Window is active and
     // the Window is visible, then draw its contents.
     if (isWindowActive(0, true)) {
-        drawGrid();
+        //if (firstDraw) { drawGrid(); }
+        //drawGridFromRequest();
         drawPreviewUpdate();
     }
     if (isWindowActive(2, true)){
@@ -115,6 +116,15 @@ function drawGrid() {
 
         }
     }
+}
+
+function drawGridFromRequest(gridElement) {
+    let y = Math.floor(gridElement / gridSize) * cellSize;
+    let col = gridElement - ((y / cellSize) * gridSize);
+    let x = col * cellSize;
+    gridSizeRangeText.value = x + ", " + y;
+
+    drawSquare(x, y, cellSize, cellSize, showTheGrid, uIntToRgbaString(grid[gridElement]), 0, GRID_BORDER_COLOR, true, showAlpha)
 }
 
 function drawPreviewSquare(dimensions) {
@@ -428,4 +438,52 @@ function debugAction() {
     // So, at 133.03572082519, 20-79 is visible  (Floor(scrollTop / spriteCellSize)) * numberOfSpritesRow = starting #
     // then starting# + (numberOfSpritesRow - 1) will be the last # of the first row.
     // spriteGridViewableHeight * numberOfSpritesPerRow + starting# - 1 = ending #
+}
+
+function flipHorizontally() {
+    const flipped = new Uint32Array(grid.length);
+    const gridWidth = gridSize;
+    const gridHeight = gridSize;
+
+    for (let y = 0; y < gridHeight; y++) {
+        for (let x = 0; x < gridWidth; x++) {
+            // Get index of current pixel
+            const originalIndex = y * gridWidth + x;
+
+            // Calculate the mirrored X position
+            const flippedIndex = y * gridWidth + (gridWidth - 1 - x);
+
+            // Copy pixel into its mirrored position
+            flipped[flippedIndex] = grid[originalIndex];
+        }
+    }
+    grid = flipped;
+}
+
+function flipVertically() {
+    const flipped = new Uint32Array(grid.length);
+    const gridWidth = gridSize;
+    const gridHeight = gridSize;
+
+    for (let y = 0; y < gridHeight; y++) {
+        for (let x = 0; x < gridWidth; x++) {
+            const originalIndex = y * gridWidth + x;
+
+            // Flip the Y coordinate instead
+            const flippedIndex = (gridHeight - 1 - y) * gridWidth + x;
+
+            flipped[flippedIndex] = grid[originalIndex];
+        }
+    }
+    grid = flipped;
+}
+
+function queueRedraw() {
+    if (!redrawQueued) {
+        redrawQueued = true;
+        requestAnimationFrame(() => {
+            //drawGridFromRequest();
+            redrawQueued = false;
+        });
+    }
 }

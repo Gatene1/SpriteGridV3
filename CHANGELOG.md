@@ -450,3 +450,11 @@ PNG Export Feature
 Visual Polish
 
 🎨 Level rendering now feels more cohesive and true to NES-era layouts, showcasing tile-based design with nostalgic clarity.
+
+# 7/22/2025
+- Added a Horizontal Flip button
+- Added a Veritcal Flip button
+- Made the 2 and the Save PNG button gray
+
+# 7/23/2025
+- Made the larger canvases (24x24, 28x28, and 32x32) not lag when utilizing by revamping the whole drawGrid() method.
